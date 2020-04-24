@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN" "map.dtd">
+
+<!-- The Nebula web app uses breadcrumbs that rely on the directory structure; the app expects 
+    each child topic to appear in a directory. For now, I'm nesting child topics in directories 
+    named after the parent topic. I'm working on a fix for this issue. -->
+
+<map id="ditamap-2547" title="Project Nebula">
+    <topicref href="overview.md" format="markdown"/>
+    <topicref href="whats-new.md" format="markdown"/>
+    <topicref href="setting-up-nebula.md" format="markdown"/>
+    <topicref href="example-workflows.md" format="markdown"/>
+    <topicref href="using-workflows.md" format="markdown">
+        <topicref href="using-workflows/understanding-workflows.md" format="markdown"/>
+        <topicref href="using-workflows/create-workflow.md" format="markdown"/>
+        <topicref href="using-workflows/running-a-workflow.md" format="markdown"/>
+        <topicref href="using-workflows/adding-secrets.md" format="markdown"/>
+        <topicref href="using-workflows/passing-data-into-workflow-steps.md" format="markdown"/>
+        <topicref href="using-workflows/conditionals.md" format="markdown"/>
+    </topicref>
+    <topicref href="adding-an-approval-step.md" format="markdown"/>
+    <topicref href="automating-nebula-workflow-runs.md" format="markdown">
+        <topicref href="./automating-workflow-runs/automate-your-workflows-with-travis.md" format="markdown"/>
+        <topicref href="./automating-workflow-runs/automate-your-workflows-with-docker-hub.md" format="markdown"/>
+    </topicref>
+    <topicref href="step-specifications.md" format="markdown"/>
+    <topicref href="reference.md" format="markdown">
+        <topicref href="reference/nebula-types.md" format="markdown"/>
+        <topicref href="reference/nebula-functions.md" format="markdown"/>
+    </topicref>
+</map>
