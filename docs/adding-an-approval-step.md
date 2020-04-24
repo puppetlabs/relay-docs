@@ -1,8 +1,8 @@
 # Adding an approval step to a workflow
 
-Add manual approval steps to your Project Nebula workflow when you need more control over when something is deployed. For example, you could prevent a deployment to your production environment without an approval from your engineering lead.
+Add manual approval steps to your Relay workflow when you need more control over when something is deployed. For example, you could prevent a deployment to your production environment without an approval from your engineering lead.
 
-After you add an approval step to your Nebula workflow, an approver can accept or reject the step from the workflow run page in the Nebula web interface.
+After you add an approval step to your workflow, an approver can accept or reject the step from the workflow run page in the Relay web interface.
 
 Approval steps are similar to regular task steps, although they do not require an `image` key. Approval steps consist of the following keys:
 
@@ -47,9 +47,9 @@ An example of an approval step with a `deploy-prod` step that depends on it:
 
 ```
 
-In this workflow, an approver can only take action on the `prod-approval` step after the `provision-k8s` step has completed. After the approver accepts `prod-approval`, Nebula executes `deploy-prod`, which depends on `prod-approval`.
+In this workflow, an approver can only take action on the `prod-approval` step after the `provision-k8s` step has completed. After the approver accepts `prod-approval`, Relay executes `deploy-prod`, which depends on `prod-approval`.
 
-Only users with the approver or administrator roles can approve an approval step. You can assign roles to users from **Access control** in the Nebula web interface. If an approver rejects an approval step, or the approval's timer expires, the workflow run fails.
+Only users with the approver or administrator roles can approve an approval step. You can assign roles to users from **Access control** in the Relay web interface. If an approver rejects an approval step, or the approval's timer expires, the workflow run fails.
 
 **Note**: Approval steps currently expire after an hour.
 

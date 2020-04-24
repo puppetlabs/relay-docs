@@ -1,10 +1,10 @@
 # Running a workflow
 
-Run a workflow from Nebula's web interface, or use the CLI.
+Run a workflow from Relay's web interface, or use the CLI.
 
 To run a workflow, click on **Run Workflow**, or use the `workflow run` command:
 
 ```
-./nebula-cli/nebula-cli workflow run --name <WORKFLOW_NAME>
+relay workflow run <WORKFLOW_NAME>
 ```
 

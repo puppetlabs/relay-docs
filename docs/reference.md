@@ -1,6 +1,6 @@
 # Reference
 
-These docs contain reference information for Project Nebula types and functions.
+These docs contain reference information for Relay types and functions.
 
--   **[Project Nebula functions](reference/nebula-functions.md)**  
--   **[Project Nebula types](reference/nebula-types.md)**
+-   **[Relay functions](reference/relay-functions.md)**  
+-   **[Relay types](reference/relay-types.md)**

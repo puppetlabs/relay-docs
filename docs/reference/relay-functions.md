@@ -1,4 +1,4 @@
-# Project Nebula functions
+# Relay functions
 
 ## append
 
@@ -27,7 +27,7 @@ The `jsonUnmarshal` function converts serialized JSON into an executable data ty
 certs: !Fn.jsonUnmarshal [!Secret certs]
 ```
 
-Because Nebula secrets are always stored as strings, the `jsonUnmarshal` function is useful when you need to pass the contents of a secret into a function that requires a data type other than a string.
+Because Relay secrets are always stored as strings, the `jsonUnmarshal` function is useful when you need to pass the contents of a secret into a function that requires a data type other than a string.
 
 ## merge
 

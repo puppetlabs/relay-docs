@@ -1,4 +1,8 @@
-# What's new in Project Nebula?
+# What's new in Relay?
+
+## April 2020
+
+We've got a new name! You may still see references to the pre-launch name of Relay, "Project Nebula", around the site and source code but we're officially going to be called Relay. (The previous entries in this changelog will retain the earlier name.)
 
 ## February 2020
 

@@ -1,6 +1,6 @@
-# Project Nebula types
+# Relay types
 
-Project Nebula workflow syntax follows the [YAML version 1.2 specification](https://yaml.org/spec/1.2/spec.html). The examples below list every way you can reference Nebula types in a workflow, starting with the most straightforward method.
+The Relay workflow syntax follows the [YAML version 1.2 specification](https://yaml.org/spec/1.2/spec.html). The examples below list every way you can reference Relay types in a workflow, starting with the most straightforward method.
 
 ## Secrets
 
