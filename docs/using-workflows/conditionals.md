@@ -1,8 +1,8 @@
 # Conditional step execution
 
-You can use the `when` keyword, along with the `equals` and `notEquals` functions to control whether or not Nebula executes a step.
+You can use the `when` keyword, along with the `equals` and `notEquals` functions to control whether or not Relay executes a step.
 
-If `when` is present, Nebula executes the step once the conditional data defined under `when` is true. The `when` key is an array of expressions that must output either boolean `true` or boolean `false`. If all booleans in the array are `true`, the condition is considered successful and Nebula executes the step. If any of the values are `false`, the condition fails and the step does not continue.
+If `when` is present, Relay executes the step once the conditional data defined under `when` is true. The `when` key is an array of expressions that must output either boolean `true` or boolean `false`. If all booleans in the array are `true`, the condition is considered successful and Relay executes the step. If any of the values are `false`, the condition fails and the step does not continue.
 
 If the `when` key outputs a non-boolean data type, the step returns an error. For example, the following workflow step is valid and the step would run:
 
@@ -21,7 +21,7 @@ In practice, the `when` keyword is only effective when combined with the `equals
   - !Fn.equals [!Parameter env, development]
 ```
 
-In this example, Nebula only executes the `example` step if the `env` parameter is `development`.
+In this example, Relay only executes the `example` step if the `env` parameter is `development`.
 
 ## Using conditional functions
 
@@ -59,9 +59,9 @@ Here are all the supported expressions and types you can pass into `equals` and 
 
 ## Example of a workflow with conditional execution
 
-Consider a scenario where you have two environments, `development` and `production`. You want to deploy a monitoring system only against production. In the following workflow, the `deploy-monitoring` step uses `when` along with the `!Fn.notEquals` condition to make sure that Nebula only deploys the monitoring system when `env` is not `development`.
+Consider a scenario where you have two environments, `development` and `production`. You want to deploy a monitoring system only against production. In the following workflow, the `deploy-monitoring` step uses `when` along with the `!Fn.notEquals` condition to make sure that Relay only deploys the monitoring system when `env` is not `development`.
 
-Similarly, in this scenario, you want to send a notification to Slack when you deploy to production. The `slack-notify` step uses `when` together with `!Fn.equals` to ensure that Nebula only notifies Slack when `env` is `production`.
+Similarly, in this scenario, you want to send a notification to Slack when you deploy to production. The `slack-notify` step uses `when` together with `!Fn.equals` to ensure that Relay only notifies Slack when `env` is `production`.
 
 ```yaml
 version: v1

@@ -1,16 +1,16 @@
-# Welcome to Project Nebula
+# Welcome to Relay by Puppet 
 
-Project Nebula helps you continuously deploy your cloud-native applications and infrastructure using simple workflows.
+Relay helps you automate your applications and infrastructure using simple workflows.
 
-![Project Nebula banner](nebula-docs-hero-2x.png)
+![Relay banner](relay-logotype.png)
 
-If you're using Nebula for the first time, try running an [example workflow](example-workflows.md).
+If you're using Relay for the first time, try running an [example workflow](example-workflows.md).
 
-To start authoring your own Nebula workflows, follow these steps:
+To start authoring your own Relay workflows, follow these steps:
 
 1.  Create a source control repository for your workflows.
-2.  [Integrate the repository](setting-up-nebula.md#) using the [Nebula web interface](https://nebula.puppet.com).
-3.  (Optional) [Download and install the Nebula command line interface](setting-up-nebula.md#).
+2.  [Integrate the repository](setting-up-relay.md#) using the [Relay web interface](https://nebula.puppet.com).
+3.  (Optional) [Download and install the Relay command line interface](setting-up-relay.md#).
 4.  [Create a workflow and run it](using-workflows/create-workflow.md).
 
 Helpful Links:

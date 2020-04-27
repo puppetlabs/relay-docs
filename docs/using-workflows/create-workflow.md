@@ -1,8 +1,8 @@
 # Writing a workflow
 
-Use a Project Nebula workflow to define the steps in your deployment.
+Use a Relay workflow to define the distinct steps in the task you're automating.
 
-Nebula workflows use three top-level keys: `version`, `description`, and `steps`.
+Relay workflows use three top-level keys: `version`, `description`, and `steps`. <!-- TODO: And parameters -->
 
 Start your workflow with the `version` and `description` keys:
 
@@ -31,7 +31,7 @@ The `steps` key makes up the body of your workflow. Each step consists of a `nam
     ```
 
 -   `spec`: Use the specification section to define the task that the step is performing. The contents of `spec` depends on the task's context. For example, a step that uses the Jira resolve step container to close a Jira ticket must include a `url` and `issue` keys. For a list of step containers curated by Puppet see [step containers](../step-specifications.md).
--   `dependsOn`: \(Optional\) A list of strings. Use if the step depends on another step in the workflow. This key is useful if you need to set an explicit sequential order for your steps. If you leave out `dependsOn`, Nebula executes all of the steps in your workflow simultaneously.
+-   `dependsOn`: \(Optional\) A list of strings. Use if the step depends on another step in the workflow. This key is useful if you need to set an explicit sequential order for your steps. If you leave out `dependsOn`, Relay executes all of the steps in your workflow simultaneously.
 
     ```
     dependsOn:
@@ -39,7 +39,7 @@ The `steps` key makes up the body of your workflow. Each step consists of a `nam
     ```
 
 
-This example workflow deploys three steps. All three steps deploy Alpine containers. The first step prints a "Hello world" message to the workflow's logs. The second and third steps run `ls` and `ps` commands.
+This example workflow deploys three steps. All three steps deploy Alpine containers. The first step prints a "Hello world" message to the workflow's logs. The second and third steps run `ls` and `ps` commands. <!-- TODO Does the /nebula/ directory still exist? -->
 
 ```
 version: v1
@@ -50,7 +50,7 @@ steps:
   image: alpine:latest
   input:
   - echo "Hello world. I am $(whoami)"
-  - cat /nebula/spec.json
+  - cat /relay/spec.json
   spec:
     hello: world
 - name: ls
@@ -72,5 +72,5 @@ steps:
 
 **Note:** The `input` and `command` keys still function, but are deprecated. We're working on updating this page with a better example.
 
-Once you've created your workflow, add it to your Nebula account using the web interface or the CLI.
+Once you've created your workflow, add it to your Relay account using the web interface or the CLI.
 

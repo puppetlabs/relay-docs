@@ -12,7 +12,7 @@ To pass external data into a workflow step, use the parameter type in your step 
 parameters:
   channel:
     description: Slack channel (include preceding hashtag) 
-    default: #nebula-workflows
+    default: #relay-workflows
 ```
 
 Use the following syntax to declare the parameter in your step specification:
@@ -22,7 +22,7 @@ channel:
   !Parameter channel
 ```
 
-This Slack notification example uses parameters to pass a Slack channel name and a custom message into the workflow step. When you run the workflow, Nebula asks you to enter values for `channel` and `message`.
+This Slack notification example uses parameters to pass a Slack channel name and a custom message into the workflow step. When you run the workflow, Relay asks you to enter values for `channel` and `message`.
 
 ```
 version: v1
@@ -31,7 +31,7 @@ description: Notify team members with Slack
 parameters:
   channel:
     description: Slack channel (include preceding hashtag)
-    default: #nebula-workflows
+    default: #relay-workflows
   message:
     description: Slack message
 
@@ -80,7 +80,7 @@ steps:
   spec:
     apitoken: 
       !Secret slack-token
-    channel: "#nebula-workflows"
+    channel: "#relay-workflows"
     message: 
       !Output [make-message, message]
 ```
