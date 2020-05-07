@@ -13,7 +13,7 @@ Use one of the following to reference a secret, where `password` is the name of 
 {$type: Secret, name: password}
 ```
 
-For more information on secrets, see [Adding secrets](../using-workflows/adding-secrets.md).
+For more information on secrets, see [Adding secrets](../using-workflows/adding-secrets).
 
 ## Parameters
 
@@ -26,7 +26,7 @@ Use one of the following to reference a parameter, where `message` is the name o
 {$type: Parameter, name: message}
 ```
 
-For more information on parameters, see [Passing data into workflow steps](../using-workflows/passing-data-into-workflow-steps.md).
+For more information on parameters, see [Passing data into workflow steps](../using-workflows/passing-data-into-workflow-steps).
 
 ## Outputs
 
@@ -38,5 +38,5 @@ Use one of the following to reference an output. Outputs must include the step n
 {$type: Output, from: stepName, name: outputName}
 ```
 
-For more information on outputs, see [Passing data into workflow steps](../using-workflows/passing-data-into-workflow-steps.md).
+For more information on outputs, see [Passing data into workflow steps](../using-workflows/passing-data-into-workflow-steps).
 

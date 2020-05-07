@@ -16,7 +16,7 @@ Before you add your workflow to Travis, add the following environment variables 
     **Tip:** If you'd prefer to use a shared automation account for your team, set up a user with the **Operator** role using **Access Control** in the Relay web interface.
 
 
-[Find the correct Relay binary link](../setting-up-relay.md#) for the build environment you're using. For more information on Travis build environments, see [Build Environment Overview](https://docs.travis-ci.com/user/reference/overview/).
+[Find the correct Relay binary link](../setting-up-relay#) for the build environment you're using. For more information on Travis build environments, see [Build Environment Overview](https://docs.travis-ci.com/user/reference/overview/).
 
 To automate your workflow:
 
@@ -45,7 +45,7 @@ To automate your workflow:
         mkdir -p .deploy
         ```
 
-    -   Downloads the Relay CLI binary into the directory. If you're using a different build environment, [replace the URL on this line with a link to the correct binary](../setting-up-relay.md#).
+    -   Downloads the Relay CLI binary into the directory. If you're using a different build environment, [replace the URL on this line with a link to the correct binary](../setting-up-relay#).
 
         ```
         curl -LJ -o .deploy/relay-cli \
