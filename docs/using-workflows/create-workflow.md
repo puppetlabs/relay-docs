@@ -30,7 +30,7 @@ The `steps` key makes up the body of your workflow. Each step consists of a `nam
     image: alpine:latest
     ```
 
--   `spec`: Use the specification section to define the task that the step is performing. The contents of `spec` depends on the task's context. For example, a step that uses the Jira resolve step container to close a Jira ticket must include a `url` and `issue` keys. For a list of step containers curated by Puppet see [step containers](../step-specifications).
+-   `spec`: Use the specification section to define the task that the step is performing. The contents of `spec` depends on the task's context. For example, a step that uses the Jira resolve step container to close a Jira ticket must include a `url` and `issue` keys. For a list of step containers curated by Puppet see [step containers](../step-specifications.md).
 -   `dependsOn`: \(Optional\) A list of strings. Use if the step depends on another step in the workflow. This key is useful if you need to set an explicit sequential order for your steps. If you leave out `dependsOn`, Relay executes all of the steps in your workflow simultaneously.
 
     ```

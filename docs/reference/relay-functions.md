@@ -71,7 +71,7 @@ Accepts the following expressions and types:
 -   an array: `["apple", "banana", "orange", "peach"]`
 -   a map: `{"vegetable": "carrot", "fruit": "apple"}`
 
-For more information, see [Conditional step execution](../using-workflows/conditionals).
+For more information, see [Conditional step execution](../using-workflows/conditionals.md).
 
 notEquals
 
@@ -93,5 +93,5 @@ Accepts the following expressions and types:
 -   an array: `["apple", "banana", "orange", "peach"]`
 -   a map: `{"vegetable": "carrot", "fruit": "apple"}`
 
-For more information, see [Conditional step execution](../using-workflows/conditionals).
+For more information, see [Conditional step execution](../using-workflows/conditionals.md).
 
