@@ -12,7 +12,7 @@
     -   [Passing data into workflow steps](using-workflows/passing-data-into-workflow-steps.md)
     -   [Conditional step execution](using-workflows/conditionals.md)
 -   [Adding an approval step to a workflow](adding-an-approval-step.md)
--   [Automating Relay workflow runs](automating-relay-workflow-runs.md)
+-   [Automating Relay workflow runs](automating-workflow-runs.md)
     -   [Automate your workflows with Travis CI](automating-workflow-runs/automate-your-workflows-with-travis.md)
     -   [Automate your workflows with Docker Hub](automating-workflow-runs/automate-your-workflows-with-docker-hub.md)
 -   [Curated step containers](step-specifications.md)
