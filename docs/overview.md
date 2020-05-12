@@ -1,8 +1,8 @@
-# Welcome to Relay by Puppet 
+# Welcome to Relay by Puppet
 
 Relay helps you automate your applications and infrastructure using simple workflows.
 
-![Relay banner](relay-logotype.png)
+![Relay banner](relay_logotype.png)
 
 If you're using Relay for the first time, follow our guided [Getting Started](getting_started.md) tour to familiarize yourself with the concepts and learn your way around the tool.
 
