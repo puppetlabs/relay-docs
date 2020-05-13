@@ -2,9 +2,26 @@
 
 Relay's workflow dialect uses YAML "tag" notation, indicated by a `!`, to identify custom data types that the Relay service associates with code that it should run the workflow is executing. This allows workflows to have dynamic values, instead of hard coding everything directly in the YAML.  There are several top-level types described here, plus a set of data-manipulation functions accessed as `!Fn.<function>` which are [documented in the function reference](relay-functions.md).
 
+## !Connection
+
+Most actions require some form of authentication. `!Connection` provides a way to add service credentials to the workflow that are required by a Relay action. Actions that require a `!Connection` in order to run can be configured as follows: 
+
+```yaml
+- name: describe-instances
+  image: projectnebula/ec2-describe-instances
+  spec:
+    aws: 
+      connection: !Connection { type: aws, name: my-aws-account  } 
+      region: !Parameter region
+```
+
+Then, add the required credentials for the Connection (in the example: `my-aws-account`) in the `Setup` sidebar. 
+
+Connections can be reused across Workflows. Referencing the same `!Connection` by name in another workflow will automatically use the defined connection.  
+
 ## !Secret
 
-Use this to indicate the value is a named secret that's stored on the service. The value needs to exactly match the secret name. If the secret doesn't exist, the workflow will not run.
+Use this to indicate the value is a named secret that's stored on the service. The value needs to exactly match the secret name. If the secret doesn't exist, the workflow will not run. Secrets are scoped to a single workflow.
 
 The most common usage for `!Secret` is in the `spec` for a given step, to indicate the value needs to be looked up from the secret store:
 
@@ -17,6 +34,7 @@ steps:
 ```
 
 See the section on [adding and managing secrets](../using-workflows/adding-secrets.md) for more detail on secrets in Relay. 
+
 
 ## !Parameter
 
