@@ -6,6 +6,7 @@
 -   [Running example workflows](example-workflows.md)
 -   [Using workflows](using-workflows.md)
     -   [Running a workflow](using-workflows/running-a-workflow.md)
+    -   [Adding connections](using-workflows/adding-connections.md)
     -   [Adding secrets](using-workflows/adding-secrets.md)
     -   [Passing data into workflow steps](using-workflows/passing-data-into-workflow-steps.md)
     -   [Conditional step execution](using-workflows/conditionals.md)
