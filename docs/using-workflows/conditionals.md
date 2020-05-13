@@ -4,15 +4,7 @@ You can use the `when` keyword, along with the `equals` and `notEquals` function
 
 If `when` is present, Relay executes the step once the conditional data defined under `when` is true. The `when` key is an array of expressions that must output either boolean `true` or boolean `false`. If all booleans in the array are `true`, the condition is considered successful and Relay executes the step. If any of the values are `false`, the condition fails and the step does not continue.
 
-If the `when` key outputs a non-boolean data type, the step returns an error. For example, the following workflow step is valid and the step would run:
-
-```yaml
-- name: some-step
-  image: alpine:latest
-  when: [true, true, true, true]
-```
-
-In practice, the `when` keyword is only effective when combined with the `equals` and `notEquals` functions. Here is an example of a step that contains a `when` block that uses the `equals` function:
+If the `when` key outputs a non-boolean data type, the step returns an error. In practice, the `when` keyword is only effective when combined with the `equals` and `notEquals` functions. Here is an example of a step that contains a `when` block that uses the `equals` function:
 
 ```yaml
 - name: example
@@ -27,10 +19,8 @@ In this example, Relay only executes the `example` step if the `env` parameter i
 
 The `equals` and `notEquals` functions provide a way to compare data sources:
 
--   `!Fn.equals` returns `true` if the underlying values and types of the arguments are equal.
-
--   `!Fn.notEquals` returns `true` if the underlying values and types of the arguments are not equal.
-
+- `!Fn.equals` returns `true` if the underlying values and types of the arguments are equal.
+- `!Fn.notEquals` returns `true` if the underlying values and types of the arguments are not equal.
 
 > **Note:** The string `"true"` does not equal the boolean `true`.
 
@@ -38,22 +28,14 @@ Conditional functions must receive two arguments. If the number of arguments is 
 
 Here are all the supported expressions and types you can pass into `equals` and `notEquals`:
 
--   a parameter: `!Parameter example-parameter`
-
--   an output: `!Output stepName outputName`
-
--   a string: `"Just a normal string."`
-
--   a boolean: `true` or `false`
-
--   an integer: `10`, `100`, `35`
-
--   a float: `10.5`, `1.0`, `54.99999`
-
--   an array: `["apple", "banana", "orange", "peach"]`
-
--   a map: `{"vegetable": "carrot", "fruit": "apple"}`
-
+- a parameter: `!Parameter example-parameter`
+- an output: `!Output stepName outputName`
+- a string: `"Just a normal string."`
+- a boolean: `true` or `false`
+- an integer: `10`, `100`, `35`
+- a float: `10.5`, `1.0`, `54.99999`
+- an array: `["apple", "banana", "orange", "peach"]`
+- a map: `{"vegetable": "carrot", "fruit": "apple"}`
 
 > **Note:** You can't pass `!Secret` into a conditional function.
 
@@ -64,41 +46,31 @@ Consider a scenario where you have two environments, `development` and `producti
 Similarly, in this scenario, you want to send a notification to Slack when you deploy to production. The `slack-notify` step uses `when` together with `!Fn.equals` to ensure that Relay only notifies Slack when `env` is `production`.
 
 ```yaml
-version: v1
-description: Deploy a thing to environments then maybe notify slack
+description: Deploy a thing to environments then conditionally notify slack
 
 parameters:
   channel:
     description: Slack channel (include preceding hashtag)
   env:
-    description: the environment to deploy a thing to
+    description: the environment to deploy to
     default: development
 
 steps:
-- name: init-system
-  image: alpine:latest
-  input:
-  - echo "Initializing system"
-
 - name: deploy-monitoring
   image: alpine:latest
   input:
   - echo "Deploying monitoring to system"
-  dependsOn:
-  - init-system
   when:
   - !Fn.notEquals [!Parameter env, development]
 
 - name: slack-notify
-  image: projectnebula/slack-notification:bf8ecb9
+  image: projectnebula/slack-notification
   spec:
     apitoken: !Secret slack-token
     channel: !Parameter channel
     message: "production was deployed"
   dependsOn:
-  - init-system
   - deploy-monitoring
   when:
   - !Fn.equals [!Parameter env, production]
 ```
-

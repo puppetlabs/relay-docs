@@ -1,10 +1,12 @@
 # Relay functions
 
+Relay provides some utility functions that help you transform data as it passes through your workflow. They are invoked in a workflow like: `!Fn.<function> [<arguments>]`. See the [Relay Tags reference](relay-types.md) for more information on using custom types.
+
 ## append
 
 The `append` function adds one or more values to the end of an array. For example:
 
-```
+```yaml
 targets: !Fn.append 
 - [a.example.com]
 - b.example.com
@@ -14,7 +16,7 @@ targets: !Fn.append
 
 The `concat` function joins two or more strings together. For example:
 
-```
+```yaml
 domains:
 - !Fn.concat [!Parameter environment, .example.com]
 ```
@@ -23,7 +25,7 @@ domains:
 
 The `jsonUnmarshal` function converts serialized JSON into an executable data type. For example:
 
-```
+```yaml
 certs: !Fn.jsonUnmarshal [!Secret certs]
 ```
 
@@ -33,7 +35,7 @@ Because Relay secrets are always stored as strings, the `jsonUnmarshal` function
 
 The `merge` function iteratively merges together two map arrays. For example:
 
-```
+```yaml
 api: !Fn.merge
 - image:
     tag: !Secret api.image.tag
@@ -43,7 +45,7 @@ api: !Fn.merge
 
 Output:
 
-```
+```yaml
 api:
   image:
     tag: !Secret api.image.tag
@@ -51,11 +53,11 @@ api:
     address: 10.11.12.13
 ```
 
-equals
+## equals
 
 Accompanies the `when` keyword for conditional step execution. The `equals` function compares two arguments and returns the boolean `true` if the type and value of the arguments are equal.
 
-```
+```yaml
 when:
   - !Fn.equals [!Parameter env, production]
 ```
@@ -73,11 +75,11 @@ Accepts the following expressions and types:
 
 For more information, see [Conditional step execution](../using-workflows/conditionals.md).
 
-notEquals
+## notEquals
 
 Accompanies the `when` keyword for conditional step execution. The `notEquals` function compares two arguments and returns the boolean `true` if the type and value of the arguments are not equal.
 
-```
+```yaml
 when:
   - !Fn.notEquals [!Parameter env, development]
 ```

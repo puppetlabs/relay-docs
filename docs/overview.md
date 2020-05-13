@@ -2,7 +2,7 @@
 
 Relay helps you automate your applications and infrastructure using simple workflows.
 
-![Relay banner](relay_logotype.png)
+![Relay banner](images/relay_logotype.png)
 
 If you're using Relay for the first time, follow our guided [Getting Started](getting_started.md) tour to familiarize yourself with the concepts and learn your way around the tool.
 
