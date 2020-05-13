@@ -85,8 +85,6 @@ parameters:
 steps:
 - name: generated-output
   image: projectnebula/core
-  spec:
-    dynamic: "A default value, overridden dynamically"
   input:
   - ni output set --key dynamic --value "$(/bin/date)"
 - name: hello-world
@@ -98,7 +96,7 @@ steps:
   - echo "Hello world. Your message was $(ni get -p {.message}), and the generated output was $(ni get -p {.dynamic})"
 ```
 
-We've added a `generated-output` step which uses the `ni` utility to override the default value with the output of the `/bin/date` program. The spec for the `hello-world` step looks up that value with the `!Output` function and makes it available inside the step for `ni` to read. 
+We've added a `generated-output` step which uses the `ni` utility to set the value of a key named `dynamic` with the output of the `/bin/date` program. The spec for the `hello-world` step looks up that value with the `!Output` function and makes it available inside the step for `ni` to read. 
 
 ## Update and run it via the CLI
 

@@ -6,82 +6,47 @@ Use a parameter to pass external data into a workflow step, and an output to pas
 
 ## Passing external data into a step
 
-To pass external data into a workflow step, use the parameter type in your step specification. Before you declare a parameter in your step specification, you must declare it at the top of your workflow. You can add an optional `default` value for the parameter in this section:
+To pass external data into a workflow step, first declare it in the top-level `parameters:` map, then use the `!Parameter` type in your step specification. 
 
-```
+This Slack notification example uses parameters to pass a Slack channel name and a custom message into the workflow step, which uses [a curated container image](https://hub.docker.com/r/projectnebula/slack-notification). When you run the workflow, Relay asks you to enter values for `channel` and `message`.
+
+```yaml
 parameters:
   channel:
     description: Slack channel (include preceding hashtag) 
-    default: #relay-workflows
-```
-
-Use the following syntax to declare the parameter in your step specification:
-
-```
-channel:
-  !Parameter channel
-```
-
-This Slack notification example uses parameters to pass a Slack channel name and a custom message into the workflow step. When you run the workflow, Relay asks you to enter values for `channel` and `message`.
-
-```
-version: v1
-description: Notify team members with Slack
-
-parameters:
-  channel:
-    description: Slack channel (include preceding hashtag)
-    default: #relay-workflows
+    default: "#relay-workflows"
   message:
-    description: Slack message
-
+    description: Message to send to the channel
 steps:
-- name: slack-notify
-  image: projectnebula/slack-notification:latest
-  spec:
-    apitoken:
-       !Secret slack-token
-    channel:
-       !Parameter channel
-    message:
-       !Parameter message
+  - name: notify-channel
+    image: projectnebula/slack-notification
+    spec:
+      channel: !Parameter channel
+      apitoken: !Secret slack-token
 ```
 
-For more information on using a Slack notification step, see 
-[Notify your team with Slack](https://github.com/puppetlabs/nebula-workflow-examples/tree/master/example-workflows/notify-slack).
+For details about the parameters map, see the [Worfklow reference](../reference/relay-workflows.md)
 
 ## Passing internal workflow data into a step
 
-If you need to pass data from one step in your workflow to another step, use an output type. Declare the output in the step specification for the step where you are passing in the data. The step in which you declare an output must depend on the step from which you're collecting the output. Some steps do not produce outputs. Check the step documentation to find out if it produces outputs.
-
-Your output declaration must include the `stepName` for the step from which you're collecting the output:
+If you need to pass data from one step in your workflow to another step, use the `!Output` type in the `spec` section of the step which consumes the data. The step which produces the data should use the `ni output set` command to do so, as in this example:
 
 ```
-message: 
-  !Output [make-message, message]
-```
-
-The example below uses an output to pass a Slack notification message from the `make-message` step to the `notify` step.
-
-```
-apiVersion: v1
-description: Passes information from a simple message-maker step to a Slack notification step.
-
+parameters:
+  message:
+    description: "The message to output from the final step"
 steps:
-- name: make-message
-  image: projectnebula/message-maker:latest
+- name: generated-output
+  image: projectnebula/core
+  input:
+  - ni output set --key dynamic --value "$(/bin/date)"
+- name: hello-world
+  image: projectnebula/core
   spec:
-    message: 
-      !Secret secret-message
-- name: notify
-  image: projectnebula/slack-notification:latest
-  dependsOn:
-  - make-message
-  spec:
-    apitoken: 
-      !Secret slack-token
-    channel: "#relay-workflows"
-    message: 
-      !Output [make-message, message]
+    message: !Parameter message
+    dynamic: !Output [generated-output,dynamic]
+  input:
+  - echo "Hello world. Your message was $(ni get -p {.message}), and the generated output was $(ni get -p {.dynamic})"
 ```
 
+Advanced users can use the [Python SDK](https://github.com/puppetlabs/nebula-sdk/tree/master/support/python) in scripts to create and modify keys instead of running `ni`.

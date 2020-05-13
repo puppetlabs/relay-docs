@@ -5,8 +5,6 @@
 -   [Setting up Relay](setting-up-relay.md)
 -   [Running example workflows](example-workflows.md)
 -   [Using workflows](using-workflows.md)
-    -   [Understanding workflows](using-workflows/understanding-workflows.md)
-    -   [Writing a workflow](using-workflows/create-workflow.md)
     -   [Running a workflow](using-workflows/running-a-workflow.md)
     -   [Adding secrets](using-workflows/adding-secrets.md)
     -   [Passing data into workflow steps](using-workflows/passing-data-into-workflow-steps.md)
@@ -19,3 +17,4 @@
 -   [Reference](reference.md)
     -   [Relay types](reference/relay-types.md)
     -   [Relay functions](reference/relay-functions.md)
+    -   [Relay workflows](reference/relay-workflows.md)
