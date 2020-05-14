@@ -2,8 +2,7 @@
 
 -   [Welcome to Relay](overview.md)
 -   [What's new in Relay?](whats-new.md)
--   [Setting up Relay](setting-up-relay.md)
--   [Running example workflows](example-workflows.md)
+-   [Step-by-step Getting Started guide](getting-started.md)
 -   [Using workflows](using-workflows.md)
     -   [Running a workflow](using-workflows/running-a-workflow.md)
     -   [Adding connections](using-workflows/adding-connections.md)
@@ -15,6 +14,7 @@
     -   [Automate your workflows with Travis CI](automating-workflow-runs/automate-your-workflows-with-travis.md)
     -   [Automate your workflows with Docker Hub](automating-workflow-runs/automate-your-workflows-with-docker-hub.md)
 -   [Curated step containers](step-specifications.md)
+-   [Setting up your Editor for Relay](setting-up-editor.md)
 -   [Reference](reference.md)
     -   [Relay types](reference/relay-types.md)
     -   [Relay functions](reference/relay-functions.md)

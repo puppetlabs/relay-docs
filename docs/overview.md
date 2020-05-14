@@ -2,9 +2,9 @@
 
 Relay helps you automate your applications and infrastructure using simple workflows.
 
-![Relay banner](images/relay_logotype.png)
+![Relay banner](images/relay-logo.svg)
 
-If you're using Relay for the first time, follow our guided [Getting Started](getting_started.md) tour to familiarize yourself with the concepts and learn your way around the tool.
+If you're using Relay for the first time, follow our guided [Getting Started](getting-started.md) tour to familiarize yourself with the concepts and learn your way around the tool.
 
 To start authoring your own Relay workflows, follow these steps:
 
@@ -19,6 +19,7 @@ If you're looking for reference material on workflows and steps, we've got you c
 * [Curated step containers](step-specifications.md)
 * [Relay types](reference/relay-types.md)
 * [Relay functions](reference/relay-functions.md)
+* [Relay workflows](reference/relay-workflows.md)
 
 If you get stuck or need help, we're here for you. You can:
 
