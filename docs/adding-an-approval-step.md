@@ -1,5 +1,7 @@
 # Adding an approval step to a workflow
 
+- To approve steps, user must be Approver or Administrator.
+
 Add manual approval steps to your Relay workflow when you need more control over when something is deployed. For example, you could prevent a deployment to your production environment without an approval from your engineering lead.
 
 After you add an approval step to your workflow, an approver can accept or reject the step from the workflow run page in the Relay web interface.
