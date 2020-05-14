@@ -14,7 +14,11 @@
     -   [Automate your workflows with Travis CI](automating-workflow-runs/automate-your-workflows-with-travis.md)
     -   [Automate your workflows with Docker Hub](automating-workflow-runs/automate-your-workflows-with-docker-hub.md)
 -   [Curated step containers](step-specifications.md)
+<<<<<<< HEAD
 -   [Setting up your Editor for Relay](setting-up-editor.md)
+=======
+-   [Managing users](managing-users.md)
+>>>>>>> 2432e36... Updating index
 -   [Reference](reference.md)
     -   [Relay types](reference/relay-types.md)
     -   [Relay functions](reference/relay-functions.md)
