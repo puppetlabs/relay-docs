@@ -36,5 +36,3 @@ Follow these steps to add a Docker Hub trigger to a workflow:
 3.  Push an image to your Docker Hub repository.
 
     Pushing an image up to the Docker Hub repository you've linked to your workflow triggers a Relay workflow run.
-
-

@@ -4,7 +4,7 @@ This is a guided tour to walk you through getting started with Relay. It takes a
 
 ## Create an account
 
-First things first. You'll need an account on the service to get started, so browse to the [Relay website](https://nebula.puppet.com/) and create an account. 
+First things first. You'll need an account on the service to get started, so browse to the [Relay website](https://nebula.puppet.com/) and create an account.
 
 ## Create a simple workflow
 
@@ -25,21 +25,21 @@ steps:
   - echo "Hello world. Your message was $(ni get -p {.message})"
 ```
 
-This workflow starts by defining a parameter named `message`, whose value you'll need to supply before the workflow starts. Then it defines a step named `hello-world`, using a container image stored on Docker hub at [`projectnebula/core`](https://hub.docker.com/r/projectnebula/core), which is a general-purpose Alpine Linux based image curated by Puppet. 
+This workflow starts by defining a parameter named `message`, whose value you'll need to supply before the workflow starts. Then it defines a step named `hello-world`, using a container image stored on Docker hub at [`projectnebula/core`](https://hub.docker.com/r/projectnebula/core), which is a general-purpose Alpine Linux based image curated by Puppet.
 
-The `spec` map defines keys and their values that will be available inside the step. In this case, we're looking up the value of the global `message` parameter and making it available to the container. Other options besides the `!Parameter` include `!Secret` for accessing encrypted values and a number of utility functions like `!Merge` and `!Concat`. 
+The `spec` map defines keys and their values that will be available inside the step. In this case, we're looking up the value of the global `message` parameter and making it available to the container. Other options besides the `!Parameter` include `!Secret` for accessing encrypted values and a number of utility functions like `!Merge` and `!Concat`.
 
-The container is executed with the value of the `input` step as its entrypoint. The "Hello world" message uses a command-line tool built for Relay called `ni` to inject the value of the message parameter into its output. 
+The container is executed with the value of the `input` step as its entrypoint. The "Hello world" message uses a command-line tool built for Relay called `ni` to inject the value of the message parameter into its output.
 
 > Further reading: [Function reference](reference/relay-function.md), [container images](https://github.com/puppetlabs/nebula-steps)
 
 ## Run it via the GUI
 
-Once you save the workflow, use the "Run" button in the top right to execute it. You'll get a dialog box prompting you to fill in the value of the "message" parameter, so enter something witty (if you need a suggestion, try "relay.sh r00lz"), then click "Run workflow". 
+Once you save the workflow, use the "Run" button in the top right to execute it. You'll get a dialog box prompting you to fill in the value of the "message" parameter, so enter something witty (if you need a suggestion, try "relay.sh r00lz"), then click "Run workflow".
 
-Your workflow run will be queued on the service and then executed. You'll see some statistics and a graph visualization of the step sequence. With only one step, this workflow's graph just has one node represented as a box; click it to see the step's details in the sidebar. 
+Your workflow run will be queued on the service and then executed. You'll see some statistics and a graph visualization of the step sequence. With only one step, this workflow's graph just has one node represented as a box; click it to see the step's details in the sidebar.
 
-Once the step completes, you can select the "Code and data" tab to show the workflow code we just wrote and expand the collapsed right sidebar to show the input for the "message" parameter. 
+Once the step completes, you can select the "Code and data" tab to show the workflow code we just wrote and expand the collapsed right sidebar to show the input for the "message" parameter.
 
 Select the "Logs" tab to see the earth-shattering results of your workflow run.
 
@@ -47,7 +47,7 @@ Select the "Logs" tab to see the earth-shattering results of your workflow run.
 
 ## Install the CLI
 
-The web app is great for visualization, log history, and troubleshooting. For workflow editing and authoring, however, you'll almost certainly want to use the command-line interface, `relay`. 
+The web app is great for visualization, log history, and troubleshooting. For workflow editing and authoring, however, you'll almost certainly want to use the command-line interface, `relay`.
 
 You can grab the latest release from the [puppetlabs/relay github site](https://github.com/puppetlabs/relay/releases); it's a single binary download so download the latest release for your operating system, install it into your $PATH, and make it executable.
 
@@ -96,7 +96,7 @@ steps:
   - echo "Hello world. Your message was $(ni get -p {.message}), and the generated output was $(ni get -p {.dynamic})"
 ```
 
-We've added a `generated-output` step which uses the `ni` utility to set the value of a key named `dynamic` with the output of the `/bin/date` program. The spec for the `hello-world` step looks up that value with the `!Output` function and makes it available inside the step for `ni` to read. 
+We've added a `generated-output` step which uses the `ni` utility to set the value of a key named `dynamic` with the output of the `/bin/date` program. The spec for the `hello-world` step looks up that value with the `!Output` function and makes it available inside the step for `ni` to read.
 
 ## Update and run it via the CLI
 
@@ -118,7 +118,7 @@ The output of this command will include a URL that you can open in your web brow
 
 ## Modify Workflow to add a secret
 
-Relay's secret management is one of the most significant advantages of the service over running scripts from your laptop. It keeps sensitive data like passwords and credentials securely stored in Hashicorp Vault and decrypts them for the duration of a workflow run. Eliminating password sprawl and hardcoded API keys reduces risk and increases the reusability of workflows. 
+Relay's secret management is one of the most significant advantages of the service over running scripts from your laptop. It keeps sensitive data like passwords and credentials securely stored in Hashicorp Vault and decrypts them for the duration of a workflow run. Eliminating password sprawl and hardcoded API keys reduces risk and increases the reusability of workflows.
 
 Let's modify our `hello-world` workflow one last time to add a placeholder secret and supply that value. In the web app, edit your `hello-world` step to look like the following:
 
@@ -133,7 +133,7 @@ Let's modify our `hello-world` workflow one last time to add a placeholder secre
   - echo "Hello world. Your message was $(ni get -p {.message}), and the generated output was $(ni get -p {.dynamic})."
   - echo "Normally I would never say this, but your secret was $(ni get -p {.supersecret})"
 ```
-The `ni` utility can access secrets just like regular parameters, but you wouldn't generally want to echo them to the logs as in this example! 
+The `ni` utility can access secrets just like regular parameters, but you wouldn't generally want to echo them to the logs as in this example!
 When you click "Save changes", you'll see a warning dialog that you're missing a required secret, and a prompt to fill it in. Follow the link in the prompt to open the Workflow Setup sidebar and enter a secret value. Keep in mind that secrets can be deleted and re-added, but never viewed.
 
 ## Next steps...

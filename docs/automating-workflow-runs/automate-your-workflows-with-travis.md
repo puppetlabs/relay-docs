@@ -24,16 +24,16 @@ To automate your workflow:
 
     ```
     #!/bin/bash
-    
+
     mkdir -p .deploy
     curl -LJ -o .deploy/relay-cli \
         -H 'Accept: application/octet-stream' \
         "https://storage.googleapis.com/relay-releases/relay-v4.0.0-linux-amd64"
-    
+
     chmod +x .deploy/relay-cli
-    
+
     echo -n "${RELAY_PASSWORD}" | .deploy/relay-cli login -e "${RELAY_EMAIL}" -p\
-    
+
     .deploy/relay-cli workflow run -n "my-workflow" -p DeployFromBranch=$TRAVIS_BRANCH
     ```
 
@@ -86,5 +86,3 @@ To automate your workflow:
 3.  Commit and push your changes.
 
     Travis clones your repo and executes the script, kicking off a Relay workflow run. You can follow the run's progress from the Relay web interface.
-
-

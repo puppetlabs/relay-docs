@@ -1,4 +1,4 @@
-# Relay by Puppet 
+# Relay by Puppet
 
 -   [Welcome to Relay](overview.md)
 -   [What's new in Relay?](whats-new.md)

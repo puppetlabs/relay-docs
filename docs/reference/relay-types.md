@@ -4,20 +4,20 @@ Relay's workflow dialect uses YAML "tag" notation, indicated by a `!`, to identi
 
 ## !Connection
 
-Most actions require some form of authentication. `!Connection` provides a way to add service credentials to the workflow that are required by a Relay action. Actions that require a `!Connection` in order to run can be configured as follows: 
+Most actions require some form of authentication. `!Connection` provides a way to add service credentials to the workflow that are required by a Relay action. Actions that require a `!Connection` in order to run can be configured as follows:
 
 ```yaml
 - name: describe-instances
   image: projectnebula/ec2-describe-instances
   spec:
-    aws: 
-      connection: !Connection { type: aws, name: my-aws-account  } 
+    aws:
+      connection: !Connection { type: aws, name: my-aws-account  }
       region: !Parameter region
 ```
 
-Then, add the required credentials for the Connection (in the example: `my-aws-account`) in the `Setup` sidebar. 
+Then, add the required credentials for the Connection (in the example: `my-aws-account`) in the `Setup` sidebar.
 
-Connections can be reused across Workflows. Referencing the same `!Connection` by name in another workflow will automatically use the defined connection.  
+Connections can be reused across Workflows. Referencing the same `!Connection` by name in another workflow will automatically use the defined connection.
 
 ## !Secret
 
@@ -33,7 +33,7 @@ steps:
       secretpass: !Secret password
 ```
 
-See the section on [adding and managing secrets](../using-workflows/adding-secrets.md) for more detail on secrets in Relay. 
+See the section on [adding and managing secrets](../using-workflows/adding-secrets.md) for more detail on secrets in Relay.
 
 
 ## !Parameter
@@ -56,7 +56,7 @@ For more information on parameters, see [Passing data into workflow steps](../us
 
 ## !Output
 
-Use the `!Output` type to indicate the value is provided by a previous step. Outputs must include the step name for the step from which you're collecting the output, and the name of the output. To _produce_ the output, use the `ni` tool in the originating step. 
+Use the `!Output` type to indicate the value is provided by a previous step. Outputs must include the step name for the step from which you're collecting the output, and the name of the output. To _produce_ the output, use the `ni` tool in the originating step.
 
 Using the `!Output` type in a step creates an ordering dependency; Relay will realize it needs to run the step that produces the value before the one that consumes it.
 
@@ -73,7 +73,7 @@ steps:
       mydate: !Output[make-output, dynamicdate]
 ```
 
-For more information on outputs, see [Passing data into workflow steps](../using-workflows/passing-data-into-workflow-steps.md). 
+For more information on outputs, see [Passing data into workflow steps](../using-workflows/passing-data-into-workflow-steps.md).
 
 ## !Fn
 
@@ -84,7 +84,7 @@ steps:
   - name: use-a-function
     image: projectnebula/core
     spec:
-      concatenation: !Fn.concat["a value", "a second value"] 
+      concatenation: !Fn.concat["a value", "a second value"]
 ```
 
 See the [Relay function reference](relay-functions.md) for the full list of functions and their usage.
@@ -95,4 +95,4 @@ See the [Relay function reference](relay-functions.md) for the full list of func
 
 ## !Data
 
-`!Data` is an internal type that Relay uses to implement Triggers.
+`!Data` is a type that's only valid in the context of a [Trigger section of a workflow](relay-workflows.md#Triggers). It allows you to extract the contents of a field from an incoming event payload for use in your workflow.

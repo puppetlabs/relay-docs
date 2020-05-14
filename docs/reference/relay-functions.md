@@ -7,7 +7,7 @@ Relay provides some utility functions that help you transform data as it passes 
 The `append` function adds one or more values to the end of an array. For example:
 
 ```yaml
-targets: !Fn.append 
+targets: !Fn.append
 - [a.example.com]
 - b.example.com
 ```
@@ -96,4 +96,3 @@ Accepts the following expressions and types:
 -   a map: `{"vegetable": "carrot", "fruit": "apple"}`
 
 For more information, see [Conditional step execution](../using-workflows/conditionals.md).
-

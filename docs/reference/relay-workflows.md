@@ -29,7 +29,7 @@ parameters:
 
 The `steps` key makes up the body of your workflow. It contains an array of steps, where each step consists of a `name`, `image`, and `spec` key, and an optional `dependsOn` key.
 
-### name 
+### name
 
 (string) The name of the step. Must be unique across the workflow.
 
@@ -104,7 +104,7 @@ A push trigger matches events that come into Relay through its API. It requires 
 
 The `binding` key of a trigger definition maps incoming data from the event to parameters in the workflow. This allows you, for example, extract a field from the json payload of a webhook. A `binding` has one field, `parameters`, which is a map whose keys must match the names of parameters inside the workflow. The values can use [Functions](relay-functions.md) or [Data types](relay-types.md) in order to extract and manipulate data into the form the workflow parameter expects.
 
-The `!Data` custom type is particularly helpful here, because it will be populated with the keys from an incoming `webhook` or `push` event. 
+The `!Data` custom type is particularly helpful here, because it will be populated with the keys from an incoming `webhook` or `push` event.
 
 ```yaml
 triggers:
@@ -126,7 +126,7 @@ parameters:
 
  The same syntax that Relay uses to provide conditional execution of steps is also available for triggers. This uses the `when` key, whose value is an expression that must evaluate to "true" in order for the workflow to run. See the [Conditional execution](../conditionals.md) docs for more details on the syntax and usage.
 
-Similar to the `binding` map, it's handy to make decisions about execution based on the contents of the incoming event. The `!Data` custom type allows you to extract fields from webhooks and push events as a basis for comparison. 
+Similar to the `binding` map, it's handy to make decisions about execution based on the contents of the incoming event. The `!Data` custom type allows you to extract fields from webhooks and push events as a basis for comparison.
 
 ```yaml
 triggers:

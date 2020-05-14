@@ -25,10 +25,10 @@ An example of an approval step with a `deploy-prod` step that depends on it:
 …
 
 - name: prod-approval
-  description: Deploying to production requires approval 
+  description: Deploying to production requires approval
   type: approval
   dependsOn: provision-k8s
-- name: deploy-prod 
+- name: deploy-prod
   image: projectnebula/terraform:latest
   spec:
     vars:
@@ -52,4 +52,3 @@ In this workflow, an approver can only take action on the `prod-approval` step a
 Only users with the approver or administrator roles can approve an approval step. You can assign roles to users from **Access control** in the Relay web interface. If an approver rejects an approval step, or the approval's timer expires, the workflow run fails.
 
 **Note**: Approval steps currently expire after an hour.
-

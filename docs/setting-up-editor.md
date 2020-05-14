@@ -6,7 +6,7 @@ Relay workflows are written in YAML that conforms to a particular specification.
 
 VS Code is the primary authoring environment Relay supports. In order to get syntax validation for Relay workflows, you'll need to follow these steps:
 
-* Install and enable the [Red Hat maintained YAML plugin](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml) 
+* Install and enable the [Red Hat maintained YAML plugin](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml)
 * Configure the plugin to associate particular YAML files with the Relay schema, and add our custom tag support. The following snippet, which goes in your `settings.json`, matches every YAML that's in a subdirectory named 'relay' with the schema (you may have to modify this for your own environment, see the [plugin's docs for details](https://github.com/redhat-developer/vscode-yaml#associating-a-schema-to-a-glob-pattern-via-yamlschemas))
 
 ```json
@@ -18,11 +18,11 @@ VS Code is the primary authoring environment Relay supports. In order to get syn
             "!Secret scalar",
             "!Parameter scalar",
             "!Output sequence",
-            "!Answer sequence",            
+            "!Answer sequence",
             "!Data scalar",
             "!Fn.append sequence",
             "!Fn.concat sequence",
-            "!Fn.equals sequence",            
+            "!Fn.equals sequence",
             "!Fn.jsonUnmarshal sequence",
             "!Fn.notEquals sequence",
             "!Fn.merge sequence",

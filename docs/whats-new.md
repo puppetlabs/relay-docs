@@ -45,5 +45,3 @@ Project Nebula workflows now support simplified YAML syntax for secrets, paramet
 -   Reduced workflow run pending times
 
 -   Sort and filter your workflows
-
-

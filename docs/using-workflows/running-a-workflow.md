@@ -12,7 +12,6 @@ To run a workflow from the web app, navigate to the workflow's page and click th
 Log in from the command line, then run a workflow by specifying its name and any required parameters:
 
 ```
-relay auth login me@relay.sh 
+relay auth login me@relay.sh
 relay workflow run hello-world -p message="Hello"
 ```
-

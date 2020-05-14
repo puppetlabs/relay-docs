@@ -6,14 +6,14 @@ Use a parameter to pass external data into a workflow step, and an output to pas
 
 ## Passing external data into a step
 
-To pass external data into a workflow step, first declare it in the top-level `parameters:` map, then use the `!Parameter` type in your step specification. 
+To pass external data into a workflow step, first declare it in the top-level `parameters:` map, then use the `!Parameter` type in your step specification.
 
 This Slack notification example uses parameters to pass a Slack channel name and a custom message into the workflow step, which uses [a curated container image](https://hub.docker.com/r/projectnebula/slack-notification). When you run the workflow, Relay asks you to enter values for `channel` and `message`.
 
 ```yaml
 parameters:
   channel:
-    description: Slack channel (include preceding hashtag) 
+    description: Slack channel (include preceding hashtag)
     default: "#relay-workflows"
   message:
     description: Message to send to the channel
