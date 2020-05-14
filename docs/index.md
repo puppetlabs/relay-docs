@@ -15,6 +15,7 @@
     -   [Automate your workflows with Travis CI](automating-workflow-runs/automate-your-workflows-with-travis.md)
     -   [Automate your workflows with Docker Hub](automating-workflow-runs/automate-your-workflows-with-docker-hub.md)
 -   [Curated step containers](step-specifications.md)
+-   [Managing users](managing-users.md)
 -   [Reference](reference.md)
     -   [Relay types](reference/relay-types.md)
     -   [Relay functions](reference/relay-functions.md)
