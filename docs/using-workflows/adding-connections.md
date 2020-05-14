@@ -1,12 +1,18 @@
-# Adding connections
+# Managing Connections
 
-Connections allow you to link Relay to other services you use, so that incoming events and outgoing actions can be automated across your whole toolchain. To add connections, you must have the Administrator role on your account. See [Managing Users](../managing-users.md) for more.
+Connections allow you to link Relay to other services you use, so that incoming events and outgoing actions can be automated across your whole toolchain.
 
-Add a connection to your workflow and then use Relay's web interface to store the values of the connection securely on the service.
+## Adding connections
 
-To use a connection, first add `!Connection` custom type to your workflow, then use Relay's web interface to store the values for the connection securely on the service.
+To add connections, you must have the Administrator role on your account. Connections are global to the Relay account and are available to any workflows and authorized users on the account. See [Managing Users](../managing-users.md) for more on access control.
 
-In your workflow, set a field's value to `!Connection` and provide a map containing the connection's name and type. For example:
+Use the "Connections" link in the left navigation bar to show currently configured connections and add new ones. Currently, Relay supports connection types of AWS, Azure, Slack, and SSH keys. If there are additional tools and services you want to provide credentials to, you can use [Secret values](adding-secrets.md) instead of a provider-specific Connection. These work almost the same but Secrets are specific to a workflow instead of being global. (If you run into this, please [let us know via Github issues](https://github.com/puppetlabs/relay/issues/new/choose) what you'd like to see added!)
+
+![Expand the Setup menu then choose the connection to configure](../images/adding-connections.gif)
+
+## Using Connections
+
+To use a connection in a workflow, set a field's value to `!Connection` and provide a map containing the connection's name and type. For example:
 
 ```yaml
 steps:
@@ -17,21 +23,13 @@ steps:
         connection: !Connection { type: aws, name: my-aws-account }
 ```
 
-To set the required values for the connection, on the workflow's page, expand the "Setup" menu on the header bar, then find the connection you specified (in the above example, `my-aws-account`). Click the ( + ) to add the connection values. Once you create a connection, you cannot view its values again. You can only overwrite or delete it.
+If you reference a Connection in a workflow you're viewing or editing on the web app, Relay will check that the connection actually exists and prompt you to create it if not. To set the required values for the connection, on the workflow's page, expand the "Setup" menu on the header bar, then find the connection you specified. Click the ( + ) to add the connection values. Once you create a connection, you cannot view its values again; you can only overwrite or delete them.
 
-![Expand the Setup menu then choose the connection to configure](../images/adding-connections.gif)
+When you run a workflow, actions that need a connection request it from Relay's secret store. You can use secrets inside an action with one of the Relay SDKs. This example snippet uses the Python SDK to make use of the connection in the workflow above:
 
-Connections are global to the Relay account. If a connection is defined, any workflows that are created can use the connection by referencing it.
+```python
+from nebula_sdk import Interface, Dynamic as D
 
-## Managing connections
-Connections can be managed from the Connections menu option on the left navigational bar. You can add new connections, override the values for existing connections, or delete existing connections.
-
-## About Connections
-Connections are encrypted when entered and remain encrypted until they are used by a workflow.
-
-When workflows are run, workflow actions that require a connection request the connection value from the Relay Interace. Secrets can be accessed from within an action using one of the Relay SDKs:
-
-```
 relay = Interface()
 sess = boto3.Session(
   aws_access_key_id=relay.get(D.aws.connection.accessKeyID),
@@ -39,11 +37,8 @@ sess = boto3.Session(
   region_name=relay.get(D.aws.region),
 )
 ```
-[Example AWS action](https://github.com/relay-integrations/aws-ec2/blob/master/actions/steps/ec2-describe-instances/step.py)
+This is a partial snippet; [see the full step code here](https://github.com/relay-integrations/aws-ec2/blob/master/actions/steps/ec2-describe-instances/step.py).
 
-Connections are global to an account and can be referenced by other workflows. 
+## Implementation details
 
-As any action or workflow can request a connection, some best practices should be followed: 
-- When creating credentials, grant the minimum possible credentials for the workflow to run. Workflow connection requirements should be documented. 
-- Use service accounts over personal credentials where possible.
-- Understand the code for every action running in the workflow. Relay action source code can be found within the [Relay Integrations organization](https://github.com/relay-integrations).
+Secrets and Connections are very similar; see the [implementation section of the Secrets docs](about-secrets.md#Implementation) for more information on how they work andguidance on how to use them.

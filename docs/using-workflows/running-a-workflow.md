@@ -1,6 +1,6 @@
 # Running a workflow
 
-- To run workflows, user must be Operator, Approver, or Administrator.
+To run workflows, a user must have at least [Operator level permissions](../managing-users.md).
 
 ## Running from the web
 Run a workflow from Relay's web interface, or use the CLI.

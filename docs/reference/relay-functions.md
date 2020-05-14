@@ -1,6 +1,6 @@
 # Relay functions
 
-Relay provides utility functions that help you manipulate data as it passes through your workflow. They are invoked in a workflow in the value a key: `!Fn.<function> [<arguments>]`. 
+Relay provides utility functions that help you manipulate data as it passes through your workflow. They are invoked in a workflow in the value a key: `!Fn.<function> [<arguments>]`.
 
 ## append
 
