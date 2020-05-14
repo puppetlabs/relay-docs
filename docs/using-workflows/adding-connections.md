@@ -1,8 +1,10 @@
 # Adding connections
 
-Add a connection to your workflow and then use Relay's web interface to store the values of the connection securely on the service.
+Connections allow you to link Relay to other services you use, so that incoming events and outgoing actions can be automated across your whole toolchain. 
 
-To add a connection to your workflow, set a field's value to the `!Connection` type and provide the connection's name and type. For example:
+To use a connection, first add `!Connection` custom type to your workflow, then use Relay's web interface to store the values for the connection securely on the service.
+
+In your workflow, set a field's value to `!Connection` and provide a map containing the connection's name and type. For example:
 
 ```yaml
 steps:
@@ -17,8 +19,8 @@ To set the required values for the connection, on the workflow's page, expand th
 
 ![Expand the Setup menu then choose the connection to configure](../images/adding-connections.gif)
 
-**NOTE:** Connections are global to the Relay account. If a connection is defined, any workflows that are created can use the connection by referencing it.
+Connections are global to the Relay account. If a connection is defined, any workflows that are created can use the connection by referencing it.
 
 ## Managing connections
-Connections can be managed from the Connections menu option on the left nav. You can add new connections, override the values for existing connections, or delete existing connections.
+Connections can be managed from the Connections menu option on the left navigational bar. You can add new connections, override the values for existing connections, or delete existing connections.
 

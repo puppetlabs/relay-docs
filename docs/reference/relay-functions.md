@@ -1,6 +1,6 @@
 # Relay functions
 
-Relay provides some utility functions that help you transform data as it passes through your workflow. They are invoked in a workflow like: `!Fn.<function> [<arguments>]`. See the [Relay Tags reference](relay-types.md) for more information on using custom types.
+Relay provides utility functions that help you manipulate data as it passes through your workflow. They are invoked in a workflow in the value a key: `!Fn.<function> [<arguments>]`. 
 
 ## append
 
@@ -8,7 +8,7 @@ The `append` function adds one or more values to the end of an array. For exampl
 
 ```yaml
 targets: !Fn.append
-- [a.example.com]
+- a.example.com
 - b.example.com
 ```
 
