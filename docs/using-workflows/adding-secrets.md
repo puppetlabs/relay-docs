@@ -40,7 +40,7 @@ There are some important differences between secrets and connections.
 * Secrets consist of a single string key/value pair which can be named anything that makes sense for the workflow which uses them. Connections can have a user-specified name, but the structure of them is always consistent, to enable reuse. For example, an `aws` connection will always have an `accessKeyID` field, whereas an `azure` connection will always have a `subscriptionID`.
 
 As any action can request secrets, it pays to be cautious:
-- Be cautious when printing output in steps which use secrets. Steps have plaintext access to secrets and credentials, so "echo" or "printf" debugging steps can accidentally leak their values.
+- Be extra careful when printing output in steps which use secrets. Steps have plaintext access to secrets and credentials, so "echo" or "printf" debugging steps can accidentally leak their values.
 - When creating credentials to access an external service, grant the minimum necessary credentials for the workflow to run.
 - Because the contents will be encrypted, it helps to make meaningful names for connections which indicate which account/role they are associated with.
 - Use service accounts over personal credentials where possible.
