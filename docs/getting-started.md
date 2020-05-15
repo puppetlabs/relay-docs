@@ -43,7 +43,7 @@ Once the step completes, you can select the "Code and data" tab to show the work
 
 Select the "Logs" tab to see the earth-shattering results of your workflow run.
 
-> Further reading: [Example workflows](https://github.com/puppetlabs/nebula-workflow-examples), [Passing data into workflows](using-workflows/passing-data-into-workflow-steps.md)
+> Further reading: [Example workflows](https://github.com/puppetlabs/relay-workflow-examples), [Passing data into workflows](using-workflows/passing-data-into-workflow-steps.md)
 
 ## Install the CLI
 
@@ -114,7 +114,7 @@ relay workflow run hello-world -p message="Run from CLI"
 
 The output of this command will include a URL that you can open in your web browser to watch the progress of the run. Under the hood, Relay figured out that, because of the `!Output` tag, the `hello-world` step now has a _dependency_ on the `generated-output` step. So the graph now represents that ordering. You can also use an explicit `dependsOn: step-name` key in a step's definition to force ordering. Without ordering information, Relay will run the steps in parallel to speed up the workflow execution.
 
-> Further reading: [Types reference](reference/relay-types.md), [Complex "Sock Shop" workflow](https://github.com/puppetlabs/nebula-workflow-examples/tree/master/example-workflows/aks-sock-shop).
+> Further reading: [Types reference](reference/relay-types.md), [Complex "Sock Shop" workflow](https://github.com/puppetlabs/relay-workflow-examples/tree/master/example-workflows/aks-sock-shop).
 
 ## Modify Workflow to add a secret
 
