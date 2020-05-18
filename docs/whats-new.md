@@ -12,7 +12,7 @@ We've added the ability to execute steps based on conditional logic. You can now
 
 **Example workflows**
 
-**EC2 Reaper**: At Puppet, we need to ensure that the company’s usage of the public cloud is monitored and tracked appropriately. In order to provide this governance over AWS specifically, we created the "AWS Reaper" application in-house. To control cost, Reaper scans the company's AWS resource tags and destroys any resources with expired or inaccurate tags. This workflow automates this process in Nebula, identifying EC2 resources that have not been tagged properly and de-provisioning them. For more information, see [EC2 Reaper](https://github.com/puppetlabs/nebula-workflow-examples/blob/master/example-workflows/ec2-reaper/README.md).
+**EC2 Reaper**: At Puppet, we need to ensure that the company’s usage of the public cloud is monitored and tracked appropriately. In order to provide this governance over AWS specifically, we created the "AWS Reaper" application in-house. To control cost, Reaper scans the company's AWS resource tags and destroys any resources with expired or inaccurate tags. This workflow automates this process in Nebula, identifying EC2 resources that have not been tagged properly and de-provisioning them. For more information, see [EC2 Reaper](https://github.com/puppetlabs/relay-workflow-examples/blob/master/example-workflows/ec2-reaper/README.md).
 
 ## January 2020
 
@@ -26,9 +26,9 @@ Connect your GitLab source control repos to store and access your Nebula workflo
 
 **Example workflows**
 
-**Deploy Sock Shop demo to Azure Kubernetes Service (AKS):** This sample workflow deploys the Weavework’s Sock Shop demo to an Azure Kubernetes Service (AKS) cluster. For more information, see [the workflow README](https://github.com/puppetlabs/nebula-workflow-examples/tree/master/example-workflows/aks-sock-shop).
+**Deploy Sock Shop demo to Azure Kubernetes Service (AKS):** This sample workflow deploys the Weavework’s Sock Shop demo to an Azure Kubernetes Service (AKS) cluster. For more information, see [the workflow README](https://github.com/puppetlabs/relay-workflow-examples/tree/master/example-workflows/aks-sock-shop).
 
-**Deploy a simple application to Amazon EKS:** This sample workflow uses CloudFormation to provision IAM roles, a VPC, an EKS cluster, and worker nodes. You then deploy a container to this newly created infrastructure and alert your team of a successful deployment. For more information, see [the workflow README](https://github.com/puppetlabs/nebula-workflow-examples/tree/master/example-workflows/eks-provision-and-deploy-workflow).
+**Deploy a simple application to Amazon EKS:** This sample workflow uses CloudFormation to provision IAM roles, a VPC, an EKS cluster, and worker nodes. You then deploy a container to this newly created infrastructure and alert your team of a successful deployment. For more information, see [the workflow README](https://github.com/puppetlabs/relay-workflow-examples/tree/master/example-workflows/eks-provision-and-deploy-workflow).
 
 ## December 2019
 
