@@ -79,7 +79,7 @@ triggers:
  - name: my-schedule-trigger
    source:
      type: schedule
-     schedule: '*/5 * * *'   # runs every 5 minuteds
+     schedule: '*/5 * * * *'   # runs every 5 minutes
 ```
 
 #### webhook
