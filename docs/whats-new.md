@@ -8,7 +8,7 @@ We've got a new name! You may still see references to the pre-launch name of Rel
 
 **Conditional step execution**
 
-We've added the ability to execute steps based on conditional logic. You can now use the `when` keyword, together with the `equals` and `notEquals` functions inside a step to control whether Nebula should execute the step. For more information, see [Conditional step execution](using-workflows/conditionals.md).
+We've added the ability to execute steps based on conditional logic. You can now use the `when` keyword, together with the `equals` and `notEquals` functions inside a step to control whether Nebula should execute the step. For more information, see [Conditional step execution](./using-workflows/conditionals.md).
 
 **Example workflows**
 

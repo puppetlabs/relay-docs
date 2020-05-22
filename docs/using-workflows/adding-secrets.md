@@ -33,7 +33,7 @@ PASSWORD="${PASSWORD:-$(ni get -p '{.credentials}')}"
 
 ## Implementation details
 
-Relay implements Secrets and [Connections](adding-connections.md) similarly. Relay encrypts secrets when you create them and stores them encrypted in a secure service backed by [Hashicorp Vault](https://vaultproject.io). The permissions between Relay's services are set up so the user-facing APIs and the web app can create, overwrite, or delete, but never display them. The service which provides metadata to workflow runs can view but not change secrets, so they're visible to the action containers as workflows execute.
+Relay implements Secrets and [Connections](./adding-connections.md) similarly. Relay encrypts secrets when you create them and stores them encrypted in a secure service backed by [Hashicorp Vault](https://www.vaultproject.io). The permissions between Relay's services are set up so the user-facing APIs and the web app can create, overwrite, or delete, but never display them. The service which provides metadata to workflow runs can view but not change secrets, so they're visible to the action containers as workflows execute.
 
 There are some important differences between secrets and connections.
 * Secrets are scoped to a workflow and no other workflow can access another workflow's secrets, whereas connections are reusable across workflows.

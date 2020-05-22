@@ -51,7 +51,7 @@ image: alpine:latest
 
 ### dependsOn
 
-(string or array of strings) As the name suggests, `dependsOn` indicates that this step depends on another step in the workflow. Each value must be a valid `name` attribute for another step. This key is useful if you need to set an explicit sequential order for your steps. Without `dependsOn` or implicit ordering requirements (see the [!Output type](reference/relay-types.md)), Relay will run your steps in parallel to speed up execution.
+(string or array of strings) As the name suggests, `dependsOn` indicates that this step depends on another step in the workflow. Each value must be a valid `name` attribute for another step. This key is useful if you need to set an explicit sequential order for your steps. Without `dependsOn` or implicit ordering requirements (see the [!Output type](../reference/relay-types.md)), Relay will run your steps in parallel to speed up execution.
 
 ```yaml
 dependsOn:
@@ -102,7 +102,7 @@ A push trigger matches events that come into Relay through its API. It requires 
 
 ### binding
 
-The `binding` key of a trigger definition maps incoming data from the event to parameters in the workflow. This allows you, for example, extract a field from the json payload of a webhook. A `binding` has one field, `parameters`, which is a map whose keys must match the names of parameters inside the workflow. The values can use [Functions](relay-functions.md) or [Data types](relay-types.md) in order to extract and manipulate data into the form the workflow parameter expects.
+The `binding` key of a trigger definition maps incoming data from the event to parameters in the workflow. This allows you, for example, extract a field from the json payload of a webhook. A `binding` has one field, `parameters`, which is a map whose keys must match the names of parameters inside the workflow. The values can use [Functions](./relay-functions.md) or [Data types](./relay-types.md) in order to extract and manipulate data into the form the workflow parameter expects.
 
 The `!Data` custom type is particularly helpful here, because it will be populated with the keys from an incoming `webhook` or `push` event.
 
@@ -137,4 +137,4 @@ triggers:
     when: !Fn.equals[!Data environment, 'production']
 ```
 
-The [Relay functions](relay-functions.md) reference has more examples of the `!Fn.*` syntax.
+The [Relay functions](./relay-functions.md) reference has more examples of the `!Fn.*` syntax.

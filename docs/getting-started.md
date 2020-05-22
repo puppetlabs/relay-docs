@@ -31,7 +31,7 @@ The `spec` map defines keys and their values that will be available inside the s
 
 The container is executed with the value of the `input` step as its entrypoint. The "Hello world" message uses a command-line tool built for Relay called `ni` to inject the value of the message parameter into its output.
 
-> Further reading: [Function reference](reference/relay-function.md), [container images](https://github.com/puppetlabs/nebula-steps)
+> Further reading: [Function reference](./reference/relay-functions.md), [container images](https://github.com/puppetlabs/nebula-steps)
 
 ## Run it via the GUI
 

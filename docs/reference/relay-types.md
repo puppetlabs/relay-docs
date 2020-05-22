@@ -1,6 +1,6 @@
 # Relay types
 
-Relay's workflow dialect uses YAML "tag" notation, indicated by a `!`, to identify custom data types that the Relay service associates with code that it should run the workflow is executing. This allows workflows to have dynamic values, instead of hard coding everything directly in the YAML.  There are several top-level types described here, plus a set of data-manipulation functions accessed as `!Fn.<function>` which are [documented in the function reference](relay-functions.md).
+Relay's workflow dialect uses YAML "tag" notation, indicated by a `!`, to identify custom data types that the Relay service associates with code that it should run the workflow is executing. This allows workflows to have dynamic values, instead of hard coding everything directly in the YAML.  There are several top-level types described here, plus a set of data-manipulation functions accessed as `!Fn.<function>` which are [documented in the function reference](./relay-functions.md).
 
 ## !Connection
 
