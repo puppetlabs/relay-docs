@@ -41,4 +41,4 @@ This is a partial snippet; [see the full step code here](https://github.com/rela
 
 ## Implementation details
 
-Secrets and Connections are very similar; see the [implementation section of the Secrets docs](about-secrets.md#implementation-details) for more information on how they work and guidance on how to use them.
+Secrets and Connections are very similar; see the [implementation section of the Secrets docs](about-secrets.md) for more information on how they work and guidance on how to use them.

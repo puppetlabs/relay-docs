@@ -95,4 +95,4 @@ See the [Relay function reference](relay-functions.md) for the full list of func
 
 ## !Data
 
-`!Data` is a type that's only valid in the context of a [Trigger section of a workflow](relay-workflows.md#Triggers). It allows you to extract the contents of a field from an incoming event payload for use in your workflow.
+`!Data` is a type that's only valid in the context of a [Trigger section of a workflow](relay-workflows.md). It allows you to extract the contents of a field from an incoming event payload for use in your workflow.
