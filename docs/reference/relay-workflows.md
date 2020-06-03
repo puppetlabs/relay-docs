@@ -94,7 +94,7 @@ triggers:
       image: projectnebula/dockerhub-push-trigger
 ```
 
-This example runs the `dockerhub-push-trigger` container in response to receiving a webhook. The hook itself is configured in the Connections section of the app.
+This example runs the `dockerhub-push-trigger` container in response to receiving a webhook. Once you add a webhook trigger to a workflow, the Relay app will prompt you to complete the webhook configuration in the sidebar. For information on building your own webhook containers, see the [Integrating with Relay](../integrating-with-relay.md) documentation.
 
 #### push
 
