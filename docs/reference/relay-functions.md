@@ -21,6 +21,20 @@ domains:
 - !Fn.concat [!Parameter environment, .example.com]
 ```
 
+## convertMarkdown
+
+The `convertMarkdown` function converts [Markdown](https://daringfireball.net/projects/markdown/) into comparable syntax for similar specifications. For example:
+
+```yaml
+description: !Fn.convertMarkdown [jira, !Parameter markdown]
+```
+
+Currently supported specifications:
+
+* [jira](https://jira.atlassian.com/secure/WikiRendererHelpAction.jspa?section=all)
+* [slack](https://api.slack.com/reference/surfaces/formatting)
+* html
+
 ## jsonUnmarshal
 
 The `jsonUnmarshal` function converts serialized JSON into an executable data type. For example:
