@@ -1,31 +1,32 @@
 # Integrating with Relay
 
-While there's a growing [ecosystem of integrations](https://relay.sh/integrations/) that connect Relay with other tools and services, it's a big world out there and there are certainly useful integrations that don't yet exist, but should. This guide will help you build an integration between Relay and an external service, so you can automate away your pain.
+There's a growing [ecosystem of integrations](https://relay.sh/integrations/) that connect Relay with other tools and services, but it's a big world out there. There are always useful integrations that don't yet exist, but should. This guide will help you build an integration between Relay and an external service, so you can automate away your pain.
 
 ## Decide on a goal
 
-This may seem self-evident but it's important to determine what your goal is _before_ you begin coding. Relay has several useful points of extensibility, and understanding the purpose of each will help you find a starting point. Integrations consist of containers that are used in different parts of Relay; the umbrella term is **Actions**, and they're further specialized into **triggers**, **steps**, or **queries**.
+This may seem self-evident, but it's important to determine what your goal is _before_ you begin coding. Relay has several useful points of extensibility, and understanding the purpose of each will help you find a starting point. Integrations consist of containers that are used in different parts of Relay; the umbrella term is **Actions**, and they're further specialized into **steps** and **triggers**.
 
 * **Steps** - Relay runs steps, passing in parameters and secrets, as part of an automation workflow. Most of the work in Relay is done by Steps, which use an SDK to retrieve and modify a workflow's state as it executes.
-* **Triggers** - External systems send events to Relay, which handles them by executing a Trigger. The code inside the Trigger determines how to respond to the event. Consider creating a Trigger if you have an event-generating system that either uses webhooks or can craft and send messages with a JSON payload into Relay's API.
-* **Queries** - Sometimes you'll need to break out of automated workflow to wait for external input. Queries are a special kind of step which enable Relay to pause a workflow's execution until something outside the system happens, for example when an authorized user responds to an approval request.
+* **Triggers** - Relay supports several [types of triggers](./reference/relay-workflows.md#Triggers), which are event handlers that initiate workflow runs. The Relay service handles `push` triggers natively, but `webhook` triggers work by executing a user-defined container to handle the payload of the webhook's incoming HTTP request. Therefore, integrations that connect to Relay using webhooks need to provide a Trigger container.
 
-All of these actions come together in Workflows which use them to accomplish the task you're trying to do. Workflow authoring is covered in the [Using workflows](./using-workflows.md) documentation, so here we'll focus on creating and using Actions. To further narrow our scope, Queries are currently limited to [manual approvals](./adding-an-approval-step.md) but we're actively working to make them more user-friendly. Please [file a GitHub issue](https://github.com/puppetlabs/relay/issues/new) if you need this feature today!
+Actions come together in Workflows, YAML code written to accomplish the task you're faced with. Workflow authoring is covered in the [Using workflows](./using-workflows.md) documentation, so here we'll focus on creating and using Step and Trigger Actions. 
 
 ## Creating Actions
 
 In its simplest form, a Relay action is a container image which runs, does some work, and then exits. It's possible to use any OCI-compliant container, as long as its entrypoint terminates with a `0` exit code upon success and a non-zero code upon failure. However, beyond "hello world" examples you'll likely want an image with more capabilities than just using `alpine:latest`. There are two possible paths here, depending on your use case.
 
-1. If the work you're trying to do can be written in a shell or Python script, use the `relaysh/core` image. This is an Ubuntu-based image that the Relay team maintains, which comes pre-loaded with the Relay SDK. There are `relaysh/core:latest` and `relaysh/core:latest-python` flavors available. You can use these either as a base image in your own Dockerfile or in workflows directly, by specifying an `inputFile` tag whose value is a URL to your script.
-2. If there's an image that's maintained by the target of your integration, you can use that as your base image and add the Relay tools in at build time. This will allow you to use the metadata service via either the command-line interface or code SDK.
+1. If the work you're trying to do can be written in a shell or Python script, use the `relaysh/core` image. This is an Alpine-based image that the Relay team maintains, which comes pre-loaded with the Relay SDK. There are `relaysh/core:latest` and `relaysh/core:latest-python` flavors available. You can use these either as a base image in your own Dockerfile or in workflows directly, by specifying an `inputFile` tag whose value is a URL to your script.
+2. If there's an existing image that's made for your integration target, you can use it as the starting point for a custom container. Adding the Relay tools in at build time will allow you to use the metadata service via either the command-line interface or code SDK.
 
 ### Using relaysh/core
 
-Using the `relaysh/core` image is the easiest option because it avoids having to build and push a custom container image, but it restricts you to providing your script in a single file. To use it, make your script accessible via https (github repositories or gists both work fine) and provide the URL to it in the `inputFile` attribute on a `step` or `trigger` definition. There are two variants of the container to specify in the `image` attribute: `relaysh/core:latest`, which accepts a Bash shell as input and `relaysh/core:latest-python` which (predictably) expects a Python script. 
+Using the `relaysh/core` image is the easiest option because it avoids having to build and push a custom container image, but it restricts you to providing your script in a single file. To use it, make your script accessible via https — github repositories or gists both work fine — and provide the URL to it in the `inputFile` attribute on a `step` or `trigger` definition.
+
+There are two variants of `relaysh/core`, indicated by their tag: `relaysh/core:latest` accepts a Bash shell as input and `relaysh/core:latest-python` (as you might expect) expects a Python script. Specify which you want to use in the `image` attribute of your definition.
 
 #### relaysh/core Shell Example
 
-The core image isn't suitable for trigger actions, only steps.   (TODO - is that true?)
+Because webhook Trigger containers need to handle a web request, the shell image isn't suitable for trigger actions, only steps. 
 
 ```yaml
 steps:
@@ -47,7 +48,7 @@ triggers:
     source:
       type: webhook
       image: relaysh/core:latest
-      inputFile: https://git.io/JfiwD
+      inputFile: https://git.io/JfiwD  # TODO this won't work because it imports Quart
     binding:
       parameters:
         dockerTagName: !Data tag
@@ -61,7 +62,7 @@ steps:
 
 ### Using an upstream image
 
-While it's possible to use an upstream image without modification, customizing it can greatly increase its usefulness. Adding the Relay SDK or `ni` command-line utility to the container enables access to the Relay service APIs, which allow you to retrieve and set parameters, access secrets, and use Relay's persistent logging framework. Additionally, writing a custom entrypoint allows you to control the container's behavior to ensure it runs correctly in Relay. 
+While it's possible to use an upstream image without modification, customizing it can greatly increase its usefulness. Adding the Relay SDK or `ni` command-line utility to the container enables access to the Relay service APIs, which allow you to retrieve and set parameters, access secrets, and use Relay's persistent logging framework. Additionally, writing a custom entrypoint allows you to control the container's behavior to ensure it runs correctly in Relay.
 
 This section assumes you're familiar with the Dockerfiles and the container build/push process.
 
@@ -93,8 +94,6 @@ parameters:
 steps:
 - name: generated-output
   image: relaysh/core
-  spec:
-    dynamic: "A default value, overridden dynamically"
   input:
   - ni output set --key dynamic --value "$(/bin/date)"
 - name: hello-world
@@ -119,5 +118,4 @@ RUN pip --no-cache-dir install "https://packages.nebula.puppet.net/sdk/support/p
 ```
 
 The SDK itself does not yet have friendly documentation; the source code is at [puppetlabs/nebula-sdk](https://github.com/puppetlabs/nebula-sdk/tree/master/support/python/src/nebula_sdk) for the brave of heart.
-
 
