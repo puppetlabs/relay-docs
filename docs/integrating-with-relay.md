@@ -9,7 +9,7 @@ This may seem self-evident, but it's important to determine what your goal is _b
 * **Steps** - Relay runs steps, passing in parameters and secrets, as part of an automation workflow. Most of the work in Relay is done by Steps, which use an SDK to retrieve and modify a workflow's state as it executes.
 * **Triggers** - Relay supports several [types of triggers](./reference/relay-workflows.md#Triggers), which are event handlers that initiate workflow runs. The Relay service handles `push` triggers natively, but `webhook` triggers work by executing a user-defined container to handle the payload of the webhook's incoming HTTP request. Therefore, integrations that connect to Relay using webhooks need to provide a Trigger container.
 
-Actions come together in Workflows, YAML code written to accomplish the task you're faced with. Workflow authoring is covered in the [Using workflows](./using-workflows.md) documentation, so here we'll focus on creating and using Step and Trigger Actions. 
+Actions come together in Workflows, YAML code written to accomplish the task you're faced with. Workflow authoring is covered in the [Using workflows](./using-workflows.md) documentation, so here we'll focus on creating and using Step and Trigger Actions.
 
 ## Creating Actions
 
@@ -26,7 +26,7 @@ There are two variants of `relaysh/core`, indicated by their tag: `relaysh/core:
 
 #### relaysh/core Shell Example
 
-Because webhook Trigger containers need to handle a web request, the shell image isn't suitable for trigger actions, only steps. 
+Because webhook Trigger containers need to handle a web request, the shell image isn't suitable for trigger actions, only steps.
 
 ```yaml
 steps:
@@ -63,6 +63,8 @@ steps:
 ### Using an upstream image
 
 While it's possible to use an upstream image without modification, customizing it can greatly increase its usefulness. Adding the Relay SDK or `ni` command-line utility to the container enables access to the Relay service APIs, which allow you to retrieve and set parameters, access secrets, and use Relay's persistent logging framework. Additionally, writing a custom entrypoint allows you to control the container's behavior to ensure it runs correctly in Relay.
+
+For trigger containers, we recommend using the relaysh/core:latest-python image as your base image and adding your own code as the entrypoint. See the [Writing entrypoint code](#writing-entrypoint-code) section for details.
 
 This section assumes you're familiar with the Dockerfiles and the container build/push process.
 
@@ -119,3 +121,59 @@ RUN pip --no-cache-dir install "https://packages.nebula.puppet.net/sdk/support/p
 
 The SDK itself does not yet have friendly documentation; the source code is at [puppetlabs/nebula-sdk](https://github.com/puppetlabs/nebula-sdk/tree/master/support/python/src/nebula_sdk) for the brave of heart.
 
+### Writing entrypoint code
+
+Whichever route you've chosen, at this point you've got the setup for a Relay-friendly container. The last part is probably the most interesting, because it's where you need to write enough code to make the container do your bidding. We'll handle the examples for Steps and Triggers slightly differently, since there are different APIs you'll be working with.
+
+#### Trigger entrypoints and webhook API
+
+Under the hood, when a workflow references a webhook trigger, the Relay app will prompt the user to register the webhook on the remote service. Once it's set up, Relay associates all incoming requests to their associated trigger containers. When a request comes in, Knative launches the appropriate container and connects the incoming payload to the entrypoint, a http handler. The container's job is to:
+
+* Start a webserver on port 8080
+* Handle a POST request and decode the incoming payload
+* Decide whether to run the rest of the workflow
+* If so, map values from the request payload onto workflow parameters
+* Finally, send this mapping back into the Relay service as an event
+
+The Relay Python SDK is by far the easiest way to do this. The [Integration template repository](https://github.com/relay-integrations/template/) has a simple starting point, and there are full-featured examples for [Dockerhub push events](https://github.com/relay-integrations/relay-dockerhub/blob/master/actions/triggers/image-pushed/handler.py) and [new Pagerduty incidents](https://github.com/relay-integrations/relay-pagerduty/blob/master/actions/triggers/incident-triggered/handler.py). Check out the [Relay integrations on Github](https://github.com/relay-integrations/) for more ideas.
+
+#### Step entrypoints
+
+Steps have a relatively easy lot in life. They run, do some work to advance the state of the workflow, and exit. In many cases, a step can use existing scripts which you modify only enough to take advantage of the Relay service API. The [Getting started](./getting-started.md) shows an example workflow that uses the `input` map to access this API for retrieving and setting keys and values to pass data through the workflow. For more advanced uses, you'll probably need a script that uses the [ni utility](./cli/ni.md) or its [python SDK equivalent](https://github.com/puppetlabs/nebula-sdk/blob/master/support/python/src/nebula_sdk/interface.py) to get and set data. Formally, a step container running in Relay can expect:
+
+* It will be executed without persistent storage
+* Only keys declared in the step's `spec` map in the workflow will be available in the metadata service
+* It can set output values through the metadata service which will be available to later steps
+* Exiting with a zero exit code will cause the workflow run to continue
+* Exiting with a non-zero exit code will cause the workflow run to be terminated and no dependent steps will run
+
+For examples of using the `ni` utility in shell commands, see the [kustomize integration](https://github.com/relay-integrations/relay-kustomize/blob/master/actions/steps/kustomize/step.sh); for examples of using the Python SDK, the [AWS EC2 integration](https://github.com/relay-integrations/relay-aws-ec2/tree/master/actions/steps) has several steps of varying complexity.
+
+### Building and publishing actions
+
+Once you've got your base image and custom code together, you can proceed with building and publishing the action containers. Relay has conventions for container and integration metadata which aren't _required_ but will increase consistency and help with future compatibility. These conventions are encoded in the [template integration repo](https://github.com/relay-integrations/template), specifically:
+
+* Integration repos should have an `integration.yaml` at their root, whose structure is defined in the [Integration RFC](TODO:link).
+* Relay containers should be built with LABEL directives that indicate their title and description. 
+
+The following Dockerfile shows this in action:
+
+```shell
+FROM relaysh:core-python
+COPY "./handler.py" "/step-github-trigger-pull-request-merged.py"
+ENTRYPOINT []
+CMD ["python3", "/step-github-trigger-pull-request-merged.py"]
+
+LABEL "org.opencontainers.image.title"="GitHub pull request merged"
+LABEL "org.opencontainers.image.description"="This trigger fires when a GitHub pull request is merged."
+```
+
+You can publish images to any publicly-accessible container registry. The service defaults to Docker Hub for workflow `image` attributes that are not fully-qualified with a hostname, so these are equivalent:
+
+```yaml
+steps:
+  - name: default-registry
+    image: relaysh/core
+  - name: explicit-registry
+    image: hub.docker.com/relaysh/core
+```
