@@ -13,6 +13,7 @@
 -   [Curated step containers](step-specifications.md)
 -   [Setting up your Editor for Relay](setting-up-editor.md)
 -   [Managing users](managing-users.md)
+-   [Integrating with relay](integrating-with-relay.md)
 -   [Reference](reference.md)
     -   [Relay types](reference/relay-types.md)
     -   [Relay functions](reference/relay-functions.md)
