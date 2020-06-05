@@ -1,27 +1,24 @@
-# Adding an approval step to a workflow
+# Adding an approval to a workflow
 
-- To approve steps, user must be Approver or Administrator.
+Add manual approvals to your Relay workflow when you need more control over when something is deployed. For example, you could prevent a deployment to your production environment without an approval from your engineering lead.
 
-Add manual approval steps to your Relay workflow when you need more control over when something is deployed. For example, you could prevent a deployment to your production environment without an approval from your engineering lead.
+After you add an approval to your workflow, an approver can accept or reject it from the workflow run page in the Relay web interface. To approve actions, the user must have Approver or Administrator level of access.
 
-After you add an approval step to your workflow, an approver can accept or reject the step from the workflow run page in the Relay web interface. To approve steps, user must be Approver or Administrator.
+Approvals are similar to regular steps, although they do not require an `image` key. Approvals consist of the following keys:
 
-Approval steps are similar to regular task steps, although they do not require an `image` key. Approval steps consist of the following keys:
+-   `name`: A string. The name of your approval.
 
--   `name`: A string. The name of your approval step.
+-   `description`: A string. A description of your approval.
 
--   `description`: A string. A description of your approval step.
+-   `type`: A string. Use `approval` to define the step as an approval action.
 
--   `type`: A string. Use `approval` to define the step as an approval step.
+-   `dependsOn`: A string, or an array of strings. (Optional) The steps that need to complete successfully before Relay requests the approval.
 
--   `dependsOn`: A string, or an array of strings. (Optional) The step or steps that need to complete successfully before you can take action on the approval step.
+An approval that does not list a dependency under `dependsOn` can be approved or rejected at any time. An approval that does list dependencies can only be approved once those dependencies have successfully completed.
 
+A step that immediately follows your approval should list the approval step as a dependency using `dependsOn.` Multiple actions can depend on a single approval.
 
-An approval step that does not list a dependency under `dependsOn` can be approved or rejected at any time. An approval step that does list dependencies can only be approved once those dependencies have successfully completed.
-
-A step that immediately follows your approval step, and relies on it for approval, should list the approval step as a dependency using `dependsOn.` Multiple steps can depend on an approval step.
-
-An example of an approval step with a `deploy-prod` step that depends on it:
+An example of an approval action with a `deploy-prod` step that depends on it:
 
 ```yaml
 steps:
@@ -48,6 +45,4 @@ steps:
 
 In this workflow, an approver can only take action on the `prod-approval` step after the `provision-k8s` step has completed. After the approver accepts `prod-approval`, Relay executes `deploy-prod`, which depends on `prod-approval`.
 
-Only users with the Approver or Administrator roles can approve an approval step. You can assign roles to users from **Access control** in the Relay web interface. If an approver rejects an approval step, or the approval's timer expires, the workflow run fails.
-
-Approval steps currently expire after an hour.
+Only users with the Approver or Administrator roles can approve an approval step. You can assign roles to users from **Access control** in the Relay web interface. If an approver rejects an approval step, or the approval's timer expires, the workflow run fails. Approval steps currently expire after an hour.

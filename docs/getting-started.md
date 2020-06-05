@@ -31,7 +31,7 @@ The `spec` map defines keys and their values that will be available inside the s
 
 The container is executed with the value of the `input` step as its entrypoint. The "Hello world" message uses a command-line tool built for Relay called `ni` to inject the value of the message parameter into its output.
 
-> Further reading: [Function reference](./reference/relay-functions.md), [container images](https://github.com/puppetlabs/nebula-steps)
+> Further reading: [Function reference](./reference/relay-functions.md), [container images](https://github.com/puppetlabs/nebula-steps), [ni documentation](./cli/ni.md)
 
 ## Run it via the GUI
 
@@ -114,7 +114,7 @@ relay workflow run hello-world -p message="Run from CLI"
 
 The output of this command will include a URL that you can open in your web browser to watch the progress of the run. Under the hood, Relay figured out that, because of the `!Output` tag, the `hello-world` step now has a _dependency_ on the `generated-output` step. So the graph now represents that ordering. You can also use an explicit `dependsOn: step-name` key in a step's definition to force ordering. Without ordering information, Relay will run the steps in parallel to speed up the workflow execution.
 
-> Further reading: [Types reference](reference/relay-types.md), [Complex "Sock Shop" workflow](https://github.com/puppetlabs/relay-workflow-examples/tree/master/aks-sock-shop).
+> Further reading: [Types reference](reference/relay-types.md), [relay CLI reference](./cli/relay.md), [Complex "Sock Shop" workflow](https://github.com/puppetlabs/relay-workflow-examples/tree/master/aks-sock-shop).
 
 ## Modify Workflow to add a secret
 
@@ -144,4 +144,4 @@ Now you've got a running example that exercises many useful features of the syst
 * the `relay` cli can be used to develop workflows locally, add / delete / replace them on the service, and trigger parameterized runs
 * the `!Secret` key and secret management sidebar let you keep sensitive data like API keys and passwords on the service securely.
 
-For next steps, check out the Workflow Library for more real-world examples that you can easily add to your account and modify to suit your needs. Happy automating! 🤖
+For next steps, check out the [Workflow Library](https://relay.sh/workflows/) for more real-world examples that you can easily add to your account and modify to suit your needs. Happy automating! 🤖
