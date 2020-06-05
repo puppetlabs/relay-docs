@@ -20,7 +20,7 @@ In its simplest form, a Relay action is a container image which runs, does some 
 
 ### Using relaysh/core
 
-Using the `relaysh/core` image is the easiest option because it avoids having to build and push a custom container image, but it restricts you to providing your script in a single file. To use it, make your script accessible via https — github repositories or gists both work fine — and provide the URL to it in the `inputFile` attribute on a `step` or `trigger` definition.
+Using the `relaysh/core` image is the easiest option because it avoids having to build and push a custom container image, but it restricts you to providing your script in a single file. To use it, make your script accessible via https — github repositories or gists both work fine — and provide the URL to it in the `inputFile` attribute on a `step` or `trigger` definition. For very simple scripts, you can use the [`input` attribute](./reference/relay-workflows.md#input) and provide your commands as an array of shell commands.
 
 There are two variants of `relaysh/core`, indicated by their tag: `relaysh/core:latest` accepts a Bash shell as input and `relaysh/core:latest-python` (as you might expect) expects a Python script. Specify which you want to use in the `image` attribute of your definition.
 
@@ -47,15 +47,15 @@ triggers:
   - name: my-python-trigger
     source:
       type: webhook
-      image: relaysh/core:latest
-      inputFile: https://git.io/JfiwD  # TODO this won't work because it imports Quart
+      image: relaysh/core:latest-python
+      inputFile: https://git.io/JfiwD
     binding:
       parameters:
         dockerTagName: !Data tag
 steps:
   - name: my-python-notification
     image: relaysh/core:latest-python
-    inputFile: TODO
+    inputFile: https://TODO/
     spec:
       tag: !Parameter dockerTagName
 ```
@@ -115,7 +115,6 @@ steps:
 If you're using Python in your container, the latest version of the Relay SDK can be installed via pip in your Dockerfile:
 
 ```shell
-RUN apk --no-cache add bash ca-certificates curl git jq openssh && update-ca-certificates
 RUN pip --no-cache-dir install "https://packages.nebula.puppet.net/sdk/support/python/v1/nebula_sdk-1-py3-none-any.whl"
 ```
 
@@ -129,10 +128,10 @@ Whichever route you've chosen, at this point you've got the setup for a Relay-fr
 
 Under the hood, when a workflow references a webhook trigger, the Relay app will prompt the user to register the webhook on the remote service. Once it's set up, Relay associates all incoming requests to their associated trigger containers. When a request comes in, Knative launches the appropriate container and connects the incoming payload to the entrypoint, a http handler. The container's job is to:
 
-* Start a webserver on port 8080
+* Start a webserver on the port specified by the environment variable `$PORT` (defaults to 8080)
 * Handle a POST request and decode the incoming payload
 * Decide whether to run the rest of the workflow
-* If so, map values from the request payload onto workflow parameters
+* If so, map values from the request payload onto event data
 * Finally, send this mapping back into the Relay service as an event
 
 The Relay Python SDK is by far the easiest way to do this. The [Integration template repository](https://github.com/relay-integrations/template/) has a simple starting point, and there are full-featured examples for [Dockerhub push events](https://github.com/relay-integrations/relay-dockerhub/blob/master/actions/triggers/image-pushed/handler.py) and [new Pagerduty incidents](https://github.com/relay-integrations/relay-pagerduty/blob/master/actions/triggers/incident-triggered/handler.py). Check out the [Relay integrations on Github](https://github.com/relay-integrations/) for more ideas.
@@ -153,8 +152,8 @@ For examples of using the `ni` utility in shell commands, see the [kustomize int
 
 Once you've got your base image and custom code together, you can proceed with building and publishing the action containers. Relay has conventions for container and integration metadata which aren't _required_ but will increase consistency and help with future compatibility. These conventions are encoded in the [template integration repo](https://github.com/relay-integrations/template), specifically:
 
-* Integration repos should have an `integration.yaml` at their root, whose structure is defined in the [Integration RFC](TODO:link).
-* Relay containers should be built with LABEL directives that indicate their title and description. 
+<!-- * Integration repos should have an `integration.yaml` at their root, whose structure is defined in the [Integration RFC](TODO:link). -->
+* Relay containers should be built with LABEL directives that indicate their title and description.
 
 The following Dockerfile shows this in action:
 
@@ -175,5 +174,5 @@ steps:
   - name: default-registry
     image: relaysh/core
   - name: explicit-registry
-    image: hub.docker.com/relaysh/core
+    image: index.docker.io/relaysh/core
 ```
