@@ -106,7 +106,43 @@ This example runs the `dockerhub-push-trigger` container in response to receivin
 
 #### push
 
-A push trigger matches events that come into Relay through its API. It requires a `schema` field, whose value is not yet documented. Sorry.
+A push trigger uses events that come into Relay through its API to trigger workflows. Unlike webhook triggers, push triggers do not require a container image because they are handled by the Relay service itself. If you have an external system which can generate a JSON payload but doesn't support webhooks, push triggers are a good option.
+
+To use them, add a push trigger definition to your workflow and view it on the Relay web app to generate a trigger-specific token. This token is scoped only to the workflow which uses the trigger, which makes it more secure than providing your login token. The external system should make a POST request to `https://api.nebula.puppet.com/api/events` with a JSON payload in a map called `data`. The workflow then uses the `!Data` function to extract keys from the map and bind them to workflow parameters. 
+
+For example, a workflow containing a push trigger would look like this:
+
+```yaml
+triggers:
+  - name: my-push-trigger
+    source:
+      type: push
+    binding:
+      parameters:
+        message: !Data eventmessage
+parameters:
+  message:
+    description: A string to display
+    default: Default message, override me
+steps:
+  - name: display-message
+    image: relaysh/core
+    spec:
+      message: !Parameter message
+    input:
+      - echo "My message was $(ni get {.message})"
+```
+
+This workflow will be triggered by an HTTP request such as this curl command:
+
+```shell
+export TOKEN=... # set this from the web app
+curl -X POST -H "Authorization: Bearer $TOKEN" \
+   -d '{"data": {"eventmessage": "This is a push event"}}' \
+   https://api.nebula.puppet.com/api/events
+```
+
+
 
 ### binding
 
