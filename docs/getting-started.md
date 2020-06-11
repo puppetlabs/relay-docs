@@ -4,7 +4,7 @@ This is a guided tour to walk you through getting started with Relay. It takes a
 
 ## Create an account
 
-First things first. You'll need an account on the service to get started, so browse to the [Relay website](https://nebula.puppet.com/) and create an account.
+First things first. You'll need an account on the service to get started, so browse to the [Relay website](https://app.relay.sh/) and create an account.
 
 ## Create a simple workflow
 
