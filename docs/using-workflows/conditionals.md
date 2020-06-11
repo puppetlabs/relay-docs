@@ -64,7 +64,7 @@ steps:
   - !Fn.notEquals [!Parameter env, development]
 
 - name: slack-notify
-  image: projectnebula/slack-notification
+  image: relaysh/slack-step-message-send
   spec:
     apitoken: !Secret slack-token
     channel: !Parameter channel

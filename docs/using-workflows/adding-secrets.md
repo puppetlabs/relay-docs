@@ -19,7 +19,7 @@ To add a secret to your workflow, set a field's value to the `!Secret` type and 
 ```yaml
 steps:
   - name: use-a-secret
-    image: projectnebula/core
+    image: relaysh/core
     spec:
       credentials: !Secret credentials
 ```

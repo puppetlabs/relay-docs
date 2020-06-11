@@ -26,7 +26,7 @@ steps:
     description: Deploying to production requires approval
     type: approval
   - name: deploy-prod
-    image: projectnebula/terraform:latest
+    image: relaysh/terraform-step-terraform:latest
     spec:
       vars:
         gcp_region: us-east1

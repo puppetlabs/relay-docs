@@ -8,7 +8,7 @@ Use a parameter to pass external data into a workflow step, and an output to pas
 
 To pass external data into a workflow step, first declare it in the top-level `parameters:` map, then use the `!Parameter` type in your step specification.
 
-This Slack notification example uses parameters to pass a Slack channel name and a custom message into the workflow step, which uses [a curated container image](https://hub.docker.com/r/projectnebula/slack-notification). When you run the workflow, Relay asks you to enter values for `channel` and `message`.
+This Slack notification example uses parameters to pass a Slack channel name and a custom message into the workflow step, which uses [a curated container image](https://hub.docker.com/r/relaysh/slack-step-message-send). When you run the workflow, Relay asks you to enter values for `channel` and `message`.
 
 ```yaml
 parameters:
@@ -19,7 +19,7 @@ parameters:
     description: Message to send to the channel
 steps:
   - name: notify-channel
-    image: projectnebula/slack-notification
+    image: relaysh/slack-step-message-send
     spec:
       channel: !Parameter channel
       apitoken: !Secret slack-token
@@ -37,11 +37,11 @@ parameters:
     description: "The message to output from the final step"
 steps:
 - name: generated-output
-  image: projectnebula/core
+  image: relaysh/core
   input:
   - ni output set --key dynamic --value "$(/bin/date)"
 - name: hello-world
-  image: projectnebula/core
+  image: relaysh/core
   spec:
     message: !Parameter message
     dynamic: !Output [generated-output,dynamic]

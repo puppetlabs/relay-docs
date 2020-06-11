@@ -17,7 +17,7 @@ To use a connection in a workflow, set a field's value to `!Connection` and prov
 ```yaml
 steps:
   - name: describe-instances
-    image: projectnebula/ec2-describe-instances
+    image: relaysh/ec2-step-describe-instances
     spec:
       aws:
         connection: !Connection { type: aws, name: my-aws-account }
