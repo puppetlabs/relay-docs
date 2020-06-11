@@ -18,20 +18,20 @@ parameters:
     description: "The message to output from the step"
 steps:
 - name: hello-world
-  image: projectnebula/core
+  image: relaysh/core
   spec:
     message: !Parameter message
   input:
   - echo "Hello world. Your message was $(ni get -p {.message})"
 ```
 
-This workflow starts by defining a parameter named `message`, whose value you'll need to supply before the workflow starts. Then it defines a step named `hello-world`, using a container image stored on Docker hub at [`projectnebula/core`](https://hub.docker.com/r/projectnebula/core), which is a general-purpose Alpine Linux based image curated by Puppet.
+This workflow starts by defining a parameter named `message`, whose value you'll need to supply before the workflow starts. Then it defines a step named `hello-world`, using a container image stored on Docker hub at [`relaysh/core`](https://hub.docker.com/r/relaysh/core), which is a general-purpose Alpine Linux based image curated by Puppet.
 
 The `spec` map defines keys and their values that will be available inside the step. In this case, we're looking up the value of the global `message` parameter and making it available to the container. Other options besides the `!Parameter` include `!Secret` for accessing encrypted values and a number of utility functions like `!Merge` and `!Concat`.
 
 The container is executed with the value of the `input` step as its entrypoint. The "Hello world" message uses a command-line tool built for Relay called `ni` to inject the value of the message parameter into its output.
 
-> Further reading: [Function reference](./reference/relay-functions.md), [container images](https://github.com/puppetlabs/nebula-steps), [ni documentation](./cli/ni.md)
+> Further reading: [Function reference](./reference/relay-functions.md), [Relay integrations](https://github.com/relay-integrations), [ni documentation](./cli/ni.md)
 
 ## Run it via the GUI
 
@@ -84,11 +84,11 @@ parameters:
     description: "The message to output from the final step"
 steps:
 - name: generated-output
-  image: projectnebula/core
+  image: relaysh/core
   input:
   - ni output set --key dynamic --value "$(/bin/date)"
 - name: hello-world
-  image: projectnebula/core
+  image: relaysh/core
   spec:
     message: !Parameter message
     dynamic: !Output [generated-output,dynamic]
@@ -124,7 +124,7 @@ Let's modify our `hello-world` workflow one last time to add a placeholder secre
 
 ```yaml
 - name: hello-world
-  image: projectnebula/core
+  image: relaysh/core
   spec:
     message: !Parameter message
     dynamic: !Output [generated-output,dynamic]

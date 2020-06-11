@@ -8,7 +8,7 @@ Most actions require some form of authentication. `!Connection` provides a way t
 
 ```yaml
 - name: describe-instances
-  image: projectnebula/ec2-describe-instances
+  image: relaysh/ec2-step-describe-instances
   spec:
     aws:
       connection: !Connection { type: aws, name: my-aws-account  }
@@ -28,7 +28,7 @@ The most common usage for `!Secret` is in the `spec` for a given step, to indica
 ```yaml
 steps:
   - name: use-a-secret
-    image: projectnebula/core
+    image: relaysh/core
     spec:
       secretpass: !Secret password
 ```
@@ -47,7 +47,7 @@ parameters:
     default: "A silly default value"
 steps:
   - name: use-a-parameter
-    image: projectnebula/core
+    image: relaysh/core
     spec:
       userparam: !Parameter myparameter
 ```
@@ -65,10 +65,10 @@ Here's a simple example that runs the `date` program to get the current date and
 ```yaml
 steps:
   - name: make-output
-    image: projectnebula/core
+    image: relaysh/core
     input: ni output set --key dynamicdate --value "$(/bin/date)"
   - name: use-output
-    image: projectnebula/core
+    image: relaysh/core
     spec:
       mydate: !Output[make-output, dynamicdate]
 ```
@@ -82,7 +82,7 @@ For more information on outputs, see [Passing data into workflow steps](../using
 ```yaml
 steps:
   - name: use-a-function
-    image: projectnebula/core
+    image: relaysh/core
     spec:
       concatenation: !Fn.concat["a value", "a second value"]
 ```

@@ -47,7 +47,7 @@ image: alpine:latest
 
 ### spec
 
-(array) Short for 'specification'; this section provides context that's specific to the step. The contents of `spec` will depend on the implementation of the task container; programmers may find it useful to think of it as providing values to a function. For example, a step which uses the [projectnebula/jira-resolve](https://hub.docker.com/r/projectnebula/jira-resolve) container to close a Jira ticket requires `url` and `issue` keys in its `spec`. For a list of step containers curated by Puppet see [step containers](../step-specifications.md).
+(array) Short for 'specification'; this section provides context that's specific to the step. The contents of `spec` will depend on the implementation of the task container; programmers may find it useful to think of it as providing values to a function. For example, a step which uses the [relaysh/jira-server-step-issue-transition](https://hub.docker.com/r/relaysh/jira-server-step-issue-transition) container to close a Jira ticket requires `url` and `issue` keys in its `spec`. For a list of step containers curated by Puppet see [step containers](../step-specifications.md).
 
 ### dependsOn
 
@@ -99,16 +99,16 @@ triggers:
   - name: my-webhook-trigger
     source:
       type: webhook
-      image: projectnebula/dockerhub-push-trigger
+      image: relaysh/dockerhub-trigger-image-pushed
 ```
 
-This example runs the `dockerhub-push-trigger` container in response to receiving a webhook. Once you add a webhook trigger to a workflow, the Relay app will prompt you to complete the webhook configuration in the sidebar. For information on building your own webhook containers, see the [Integrating with Relay](../integrating-with-relay.md) documentation.
+This example runs the `dockerhub-trigger-image-pushed` container in response to receiving a webhook. Once you add a webhook trigger to a workflow, the Relay app will prompt you to complete the webhook configuration in the sidebar. For information on building your own webhook containers, see the [Integrating with Relay](../integrating-with-relay.md) documentation.
 
 #### push
 
 A push trigger uses events that come into Relay through its API to trigger workflows. Unlike webhook triggers, push triggers do not require a container image because they are handled by the Relay service itself. If you have an external system which can generate a JSON payload but doesn't support webhooks, push triggers are a good option.
 
-To use them, add a push trigger definition to your workflow and view it on the Relay web app to generate a trigger-specific token. This token is scoped only to the workflow which uses the trigger, which makes it more secure than providing your login token. The external system should make a POST request to `https://api.nebula.puppet.com/api/events` with a JSON payload in a map called `data`. The workflow then uses the `!Data` function to extract keys from the map and bind them to workflow parameters. 
+To use them, add a push trigger definition to your workflow and view it on the Relay web app to generate a trigger-specific token. This token is scoped only to the workflow which uses the trigger, which makes it more secure than providing your login token. The external system should make a POST request to `https://api.relay.sh/api/events` with a JSON payload in a map called `data`. The workflow then uses the `!Data` function to extract keys from the map and bind them to workflow parameters. 
 
 For example, a workflow containing a push trigger would look like this:
 
@@ -139,10 +139,8 @@ This workflow will be triggered by an HTTP request such as this curl command:
 export TOKEN=... # set this from the web app
 curl -X POST -H "Authorization: Bearer $TOKEN" \
    -d '{"data": {"eventmessage": "This is a push event"}}' \
-   https://api.nebula.puppet.com/api/events
+   https://api.relay.sh/api/events
 ```
-
-
 
 ### binding
 
@@ -155,7 +153,7 @@ triggers:
   - name: my-webhook-trigger
     source:
       type: webhook
-      image: projectnebula/dockerhub-push-trigger
+      image: relaysh/dockerhub-trigger-image-pushed
     binding:
       parameters:
         dockerTagName: !Data tag
@@ -177,7 +175,7 @@ triggers:
   - name: conditional-trigger
     source:
       type: webhook
-      image: projectnebula/core
+      image: relaysh/core
     when: !Fn.equals[!Data environment, 'production']
 ```
 
