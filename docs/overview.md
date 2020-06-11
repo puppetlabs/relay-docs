@@ -8,7 +8,7 @@ If you're using Relay for the first time, follow our guided [Getting Started](ge
 
 To start authoring your own Relay workflows, follow these steps:
 
-1. Make sure you've got an activated account and can [log in to the Relay service](https://nebula.puppet.com)
+1. Make sure you've got an activated account and can [log in to the Relay service](https://app.relay.sh)
 2. Install the [Relay command line interface](https://github.com/puppetlabs/relay#installation)
 3. [Set up your editor](setting-up-editor.md) for Relay authoring. This is optional but makes editing workflows lots easier!
 4. [Pick a reference workflow](reference-workflows.md) to use a starting point.
