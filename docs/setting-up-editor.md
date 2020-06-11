@@ -12,7 +12,7 @@ VS Code is the primary authoring environment Relay supports. In order to get syn
 ```json
 {
    "yaml.schemas": {
-        "https://raw.githubusercontent.com/puppetlabs/nebula-sdk/master/pkg/workflow/asset/data/schemas/v1/Workflow.json": ["relay/*.yaml"]
+        "https://raw.githubusercontent.com/puppetlabs/nebula-sdk/master/pkg/workflow/asset/data/schemas/v1/Workflow.json": ["relay*/*.yaml"]
     },
         "yaml.customTags": [
             "!Secret scalar",
@@ -20,6 +20,7 @@ VS Code is the primary authoring environment Relay supports. In order to get syn
             "!Output sequence",
             "!Answer sequence",
             "!Data scalar",
+            "!Connection map",
             "!Fn.append sequence",
             "!Fn.concat sequence",
             "!Fn.equals sequence",
