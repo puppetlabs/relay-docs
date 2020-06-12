@@ -24,7 +24,7 @@ steps:
       credentials: !Secret credentials
 ```
 
-When workflows run, actions that require a secret request the secret value from the Relay secrets service. Inside a step, the `ni` command-line tool or SDKs can access secret values like regular values:
+When workflows run, steps that require a secret request the secret value from the Relay secrets service. Inside a step, the `ni` command-line tool or SDKs can access secret values like regular values:
 
 ```
 USERNAME="${USERNAME:-$(ni get -p '{.username}')}"
@@ -33,15 +33,15 @@ PASSWORD="${PASSWORD:-$(ni get -p '{.credentials}')}"
 
 ## Implementation details
 
-Relay implements Secrets and [Connections](./adding-connections.md) similarly. Relay encrypts secrets when you create them and stores them encrypted in a secure service backed by [Hashicorp Vault](https://www.vaultproject.io). The permissions between Relay's services are set up so the user-facing APIs and the web app can create, overwrite, or delete, but never display them. The service which provides metadata to workflow runs can view but not change secrets, so they're visible to the action containers as workflows execute.
+Relay implements Secrets and [Connections](./adding-connections.md) similarly. Relay encrypts secrets when you create them and stores them encrypted in a secure service backed by [Hashicorp Vault](https://www.vaultproject.io). The permissions between Relay's services are set up so the user-facing APIs and the web app can create, overwrite, or delete, but never display them. The service which provides metadata to workflow runs can view but not change secrets, so they're visible to the containers as workflows execute.
 
 There are some important differences between secrets and connections.
 * Secrets are scoped to a workflow and no other workflow can access another workflow's secrets, whereas connections are reusable across workflows.
 * Secrets consist of a single string key/value pair which can be named anything that makes sense for the workflow which uses them. Connections can have a user-specified name, but the structure of them is always consistent, to enable reuse. For example, an `aws` connection will always have an `accessKeyID` field, whereas an `azure` connection will always have a `subscriptionID`.
 
-As any action can request secrets, it pays to be cautious:
+As any step can request secrets, it pays to be cautious:
 - Be extra careful when printing output in steps which use secrets. Steps have plaintext access to secrets and credentials, so "echo" or "printf" debugging steps can accidentally leak their values.
 - When creating credentials to access an external service, grant the minimum necessary credentials for the workflow to run.
 - Because the contents will be encrypted, it helps to make meaningful names for connections which indicate which account/role they are associated with.
 - Use service accounts over personal credentials where possible.
-- Understand the code for every action running in the workflow. Relay action source code can be found within the [Relay Integrations organization](https://github.com/relay-integrations)
+- Understand the code for every step running in the workflow. Source code for Puppet-curated containers lives in the [Relay Integrations organization](https://github.com/relay-integrations)

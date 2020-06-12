@@ -4,16 +4,16 @@ There's a growing [ecosystem of integrations](https://relay.sh/integrations/) th
 
 ## Decide on a goal
 
-This may seem self-evident, but it's important to determine what your goal is _before_ you begin coding. Relay has several useful points of extensibility, and understanding the purpose of each will help you find a starting point. Integrations consist of containers that are used in different parts of Relay; the umbrella term is **Actions**, and they're further specialized into **steps** and **triggers**.
+This may seem self-evident, but it's important to determine what your goal is _before_ you begin coding. Relay has several useful points of extensibility, and understanding the purpose of each will help you find a starting point. Integrations consist of containers that are used in different parts of Relay, which have two flavors: **steps** and **triggers**.
 
 * **Steps** - Relay runs steps, passing in parameters and secrets, as part of an automation workflow. Most of the work in Relay is done by Steps, which use an SDK to retrieve and modify a workflow's state as it executes.
 * **Triggers** - Relay supports several [types of triggers](./reference/relay-workflows.md#Triggers), which are event handlers that initiate workflow runs. The Relay service handles `push` triggers natively, but `webhook` triggers work by executing a user-defined container to handle the payload of the webhook's incoming HTTP request. Therefore, integrations that connect to Relay using webhooks need to provide a Trigger container.
 
-Actions come together in Workflows, YAML code written to accomplish the task you're faced with. Workflow authoring is covered in the [Using workflows](./using-workflows.md) documentation, so here we'll focus on creating and using Step and Trigger Actions.
+Steps and Triggers come together in Workflows, YAML code written to accomplish the task you're faced with. Workflow authoring is covered in the [Using workflows](./using-workflows.md) documentation, so here we'll focus on creating and using Steps and Triggers.
 
-## Creating Actions
+## Creating Containers for Relay
 
-In its simplest form, a Relay action is a container image which runs, does some work, and then exits. It's possible to use any OCI-compliant container, as long as its entrypoint terminates with a `0` exit code upon success and a non-zero code upon failure. However, beyond "hello world" examples you'll likely want an image with more capabilities than just using `alpine:latest`. There are two possible paths here, depending on your use case.
+In its simplest form, a Relay container image runs, does some work, and then exits. It's possible to use any OCI-compliant container, as long as its entrypoint terminates with a `0` exit code upon success and a non-zero code upon failure. However, beyond "hello world" examples you'll likely want an image with more capabilities than just using `alpine:latest`. There are two possible paths here, depending on your use case.
 
 1. If the work you're trying to do can be written in a shell or Python script, use the `relaysh/core` image. This is an Alpine-based image that the Relay team maintains, which comes pre-loaded with the Relay SDK. There are `relaysh/core:latest` and `relaysh/core:latest-python` flavors available. You can use these either as a base image in your own Dockerfile or in workflows directly, by specifying an `inputFile` tag whose value is a URL to your script.
 2. If there's an existing image that's made for your integration target, you can use it as the starting point for a custom container. Adding the Relay tools in at build time will allow you to use the metadata service via either the command-line interface or code SDK.
@@ -26,7 +26,7 @@ There are two variants of `relaysh/core`, indicated by their tag: `relaysh/core:
 
 #### relaysh/core Shell Example
 
-Because webhook Trigger containers need to handle a web request, the shell image isn't suitable for trigger actions, only steps.
+Because webhook Trigger containers need to handle a web request, the shell image isn't suitable for triggers, only steps.
 
 ```yaml
 steps:
@@ -134,7 +134,7 @@ Under the hood, when a workflow references a webhook trigger, the Relay app will
 * If so, map values from the request payload onto event data
 * Finally, send this mapping back into the Relay service as an event
 
-The Relay Python SDK is by far the easiest way to do this. The [Integration template repository](https://github.com/relay-integrations/template/) has a simple starting point, and there are full-featured examples for [Dockerhub push events](https://github.com/relay-integrations/relay-dockerhub/blob/master/actions/triggers/image-pushed/handler.py) and [new Pagerduty incidents](https://github.com/relay-integrations/relay-pagerduty/blob/master/actions/triggers/incident-triggered/handler.py). Check out the [Relay integrations on Github](https://github.com/relay-integrations/) for more ideas.
+The Relay Python SDK is by far the easiest way to do this. The [Integration template repository](https://github.com/relay-integrations/template/) has a simple starting point, and there are full-featured examples for [Dockerhub push events](https://github.com/relay-integrations/relay-dockerhub/blob/master/triggers/image-pushed/handler.py) and [new Pagerduty incidents](https://github.com/relay-integrations/relay-pagerduty/blob/master/triggers/incident-triggered/handler.py). Check out the [Relay integrations on Github](https://github.com/relay-integrations/) for more ideas.
 
 #### Step entrypoints
 
@@ -146,11 +146,11 @@ Steps have a relatively easy lot in life. They run, do some work to advance the 
 * Exiting with a zero exit code will cause the workflow run to continue
 * Exiting with a non-zero exit code will cause the workflow run to be terminated and no dependent steps will run
 
-For examples of using the `ni` utility in shell commands, see the [kustomize integration](https://github.com/relay-integrations/relay-kustomize/blob/master/actions/steps/kustomize/step.sh); for examples of using the Python SDK, the [AWS EC2 integration](https://github.com/relay-integrations/relay-aws-ec2/tree/master/actions/steps) has several steps of varying complexity.
+For examples of using the `ni` utility in shell commands, see the [kustomize integration](https://github.com/relay-integrations/relay-kustomize/blob/master/steps/kustomize/step.sh); for examples of using the Python SDK, the [AWS EC2 integration](https://github.com/relay-integrations/relay-aws-ec2/tree/master/steps) has several steps of varying complexity.
 
-### Building and publishing actions
+### Building and publishing containers
 
-Once you've got your base image and custom code together, you can proceed with building and publishing the action containers. Relay has conventions for container and integration metadata which aren't _required_ but will increase consistency and help with future compatibility. These conventions are encoded in the [template integration repo](https://github.com/relay-integrations/template), specifically:
+Once you've got your base image and custom code together, you can proceed with building and publishing the containers. Relay has conventions for container and integration metadata which aren't _required_ but will increase consistency and help with future compatibility. These conventions are encoded in the [template integration repo](https://github.com/relay-integrations/template), specifically:
 
 <!-- * Integration repos should have an `integration.yaml` at their root, whose structure is defined in the [Integration RFC](TODO:link). -->
 * Relay containers should be built with LABEL directives that indicate their title and description.

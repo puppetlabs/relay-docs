@@ -25,7 +25,7 @@ steps:
 
 If you reference a Connection in a workflow you're viewing or editing on the web app, Relay will check that the connection actually exists and prompt you to create it if not. To set the required values for the connection, on the workflow's page, expand the "Setup" menu on the header bar, then find the connection you specified. Click the ( + ) to add the connection values. Once you create a connection, you cannot view its values again; you can only overwrite or delete them.
 
-When you run a workflow, actions that need a connection request it from Relay's secret store. You can use secrets inside an action with one of the Relay SDKs. This example snippet uses the Python SDK to make use of the connection in the workflow above:
+When you run a workflow, steps that need a connection request it from Relay's secret store. You can use secrets inside a step with one of the Relay SDKs. This example snippet uses the Python SDK to make use of the connection in the workflow above:
 
 ```python
 from nebula_sdk import Interface, Dynamic as D
@@ -37,7 +37,7 @@ sess = boto3.Session(
   region_name=relay.get(D.aws.region),
 )
 ```
-This is a partial snippet; [see the full step code here](https://github.com/relay-integrations/relay-aws-ec2/blob/master/actions/steps/ec2-describe-instances/step.py).
+This is a partial snippet; [see the full step code here](https://github.com/relay-integrations/relay-aws-ec2/blob/master/steps/ec2-describe-instances/step.py).
 
 ## Implementation details
 

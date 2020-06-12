@@ -4,7 +4,7 @@ Relay's workflow dialect uses YAML "tag" notation, indicated by a `!`, to identi
 
 ## !Connection
 
-Most actions require some form of authentication. `!Connection` provides a way to add service credentials to the workflow that are required by a Relay action. Actions that require a `!Connection` in order to run can be configured as follows:
+Most workflows require some form of authentication. `!Connection` provides a way to add service credentials to your account, which all workflows in your account can access. Workflows that require a `!Connection` in order to run can access it like this:
 
 ```yaml
 - name: describe-instances
@@ -19,9 +19,11 @@ Then, add the required credentials for the Connection (in the example: `my-aws-a
 
 Connections can be reused across Workflows. Referencing the same `!Connection` by name in another workflow will automatically use the defined connection.
 
+See also the documentation on [Adding Connections to your Workflow](../using-workflows/adding-connections.md).
+
 ## !Secret
 
-Use this to indicate the value is a named secret that's stored on the service. The value needs to exactly match the secret name. If the secret doesn't exist, the workflow will not run. Secrets are scoped to a single workflow.
+Use this to indicate the value is a named secret that's stored on the service. The value needs to exactly match the secret name. If the secret doesn't exist, the workflow will not run. Unlike Connections, Secrets are scoped to a single workflow.
 
 The most common usage for `!Secret` is in the `spec` for a given step, to indicate the value needs to be looked up from the secret store:
 
@@ -34,7 +36,6 @@ steps:
 ```
 
 See the section on [adding and managing secrets](../using-workflows/adding-secrets.md) for more detail on secrets in Relay.
-
 
 ## !Parameter
 
