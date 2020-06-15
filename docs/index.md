@@ -9,7 +9,7 @@
     -   [Adding secrets](using-workflows/adding-secrets.md)
     -   [Passing data into workflow steps](using-workflows/passing-data-into-workflow-steps.md)
     -   [Conditional step execution](using-workflows/conditionals.md)
--   [Adding an approval step to a workflow](adding-an-approval-step.md)
+    -   [Adding an approval step to a workflow](using-workflows/adding-an-approval-step.md)
 -   [Curated step containers](step-specifications.md)
 -   [Setting up your Editor for Relay](setting-up-editor.md)
 -   [Managing users](managing-users.md)

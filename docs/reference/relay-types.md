@@ -92,7 +92,7 @@ See the [Relay function reference](relay-functions.md) for the full list of func
 
 ## !Answer
 
-`!Answer` is an internal type that Relay uses to implement [Approval steps](../adding-an-approval-step.md).
+`!Answer` is an internal type that Relay uses to implement [Approval steps](../using-workflows/adding-an-approval-step.md).
 
 ## !Data
 

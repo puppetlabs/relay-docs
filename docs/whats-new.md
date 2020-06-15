@@ -45,7 +45,7 @@ We've added the ability to execute steps based on conditional logic. You can now
 
 **Approval steps**
 
-Workflow runs now support your organization's manual review process with approval steps. This allows teams to follow development best practices, adhere to security policies, and support cross-team communication on every deployment. For more information, see [Adding an approval step to a workflow](adding-an-approval-step.md).
+Workflow runs now support your organization's manual review process with approval steps. This allows teams to follow development best practices, adhere to security policies, and support cross-team communication on every deployment. For more information, see [Adding an approval step to a workflow](using-workflows/adding-an-approval-step.md).
 
 **Workflow YAML improvements**
 
