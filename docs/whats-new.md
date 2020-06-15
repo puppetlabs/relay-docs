@@ -1,5 +1,32 @@
 # What's new in Relay?
 
+## June 2020
+
+**New Workflows**
+We've added a bunch of new [example workflows](https://relay.sh/workflows) that you can run with one click. They span across categories such as cost optimization, security, incident response and more. Here are a couple examples:
+
+- [When a Datadog alert is triggered, create a Jira ticket](https://relay.sh/workflows/datadog-to-jira/)
+- [Run Terraform when Pull Request merged in GitHub](https://relay.sh/workflows/terraform-continuous-deployment/)
+- [Restrict public S3 buckets with WRITE permissions](https://relay.sh/workflows/s3-restrict-public-write-buckets/)
+
+If there's a workflow you'd like to see, [let us know](mailto:relay@puppet.com).
+
+**New Integrations**
+We're also weekly adding more and more [integrations](https://relay.sh/integrations) for different tools and services. We now support (the beginnings) of AWS, Azure, and GCP cloud providers, incident response integrations such as PagerDuty and VictorOps, Datadog, Jira, Github and more. [Check it out!](https://relay.sh/integrations)
+
+## May 2020
+
+**Integration Webhook Triggers** 
+
+Integrations now support webhook triggers. Relay will create a webserver listening for incoming webhooks from other services and execute integration code in response. [Here's an example](https://github.com/relay-integrations/relay-github/tree/master/triggers/pull-request-merged/handler.py) of the code that Relay will run after receiving a `merge` event from a GitHub PR webook. You can contribute to an [existing integration](https://github.com/relay-integrations/relay-github) or use your own container to handle the incoming webhook! 
+
+You'll start to see a lot more integrations featuring webhook triggers for a wide variety of services that support outgoing webhooks. 
+
+
+**Connections**
+
+Connections are a new feature within Relay that allow you to link Relay to other services you use. One cool thing about connections is that they can be re-used across workflows – so configuring a second workflow that uses that connection is automatic. Find out more about [connections here](./using-workflows/adding-connections.md).
+
 ## April 2020
 
 We've got a new name! You may still see references to the pre-launch name of Relay, "Project Nebula", around the site and source code but we're officially going to be called Relay. (The previous entries in this changelog will retain the earlier name.)
@@ -13,22 +40,6 @@ We've added the ability to execute steps based on conditional logic. You can now
 **Example workflows**
 
 **EC2 Reaper**: At Puppet, we need to ensure that the company’s usage of the public cloud is monitored and tracked appropriately. In order to provide this governance over AWS specifically, we created the "AWS Reaper" application in-house. To control cost, Reaper scans the company's AWS resource tags and destroys any resources with expired or inaccurate tags. This workflow automates this process in Nebula, identifying EC2 resources that have not been tagged properly and de-provisioning them. For more information, see [EC2 Reaper](https://github.com/puppetlabs/relay-workflow-examples/blob/master/ec2-reaper/README.md).
-
-## January 2020
-
-**Workflow Automation with Docker Hub**
-
-You can now automatically trigger a workflow run each time you push an image to Docker Hub. For more information, see [Automate your workflow runs with Docker Hub](automating-workflow-runs/automate-your-workflows-with-docker-hub.md).
-
-**GitLab Integration**
-
-Connect your GitLab source control repos to store and access your Nebula workflows from GitLab.
-
-**Example workflows**
-
-**Deploy Sock Shop demo to Azure Kubernetes Service (AKS):** This sample workflow deploys the Weavework’s Sock Shop demo to an Azure Kubernetes Service (AKS) cluster. For more information, see [the workflow README](https://github.com/puppetlabs/relay-workflow-examples/tree/master/aks-sock-shop).
-
-**Deploy a simple application to Amazon EKS:** This sample workflow uses CloudFormation to provision IAM roles, a VPC, an EKS cluster, and worker nodes. You then deploy a container to this newly created infrastructure and alert your team of a successful deployment. For more information, see [the workflow README](https://github.com/puppetlabs/relay-workflow-examples/tree/master/eks-provision-and-deploy-workflow).
 
 ## December 2019
 
