@@ -39,7 +39,7 @@ We've added the ability to execute steps based on conditional logic. You can now
 
 **Example workflows**
 
-**EC2 Reaper**: At Puppet, we need to ensure that the company’s usage of the public cloud is monitored and tracked appropriately. In order to provide this governance over AWS specifically, we created the "AWS Reaper" application in-house. To control cost, Reaper scans the company's AWS resource tags and destroys any resources with expired or inaccurate tags. This workflow automates this process in Nebula, identifying EC2 resources that have not been tagged properly and de-provisioning them. For more information, see [EC2 Reaper](https://github.com/puppetlabs/relay-workflow-examples/blob/master/ec2-reaper/README.md).
+**EC2 Reaper**: At Puppet, we need to ensure that the company’s usage of the public cloud is monitored and tracked appropriately. In order to provide this governance over AWS specifically, we created the "AWS Reaper" application in-house. To control cost, Reaper scans the company's AWS resource tags and destroys any resources with expired or inaccurate tags. This workflow automates this process in Nebula, identifying EC2 resources that have not been tagged properly and de-provisioning them. For more information, see [EC2 Reaper](https://relay.sh/workflows/ec2-reaper).
 
 ## December 2019
 
