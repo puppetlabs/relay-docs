@@ -41,6 +41,37 @@ As each step runs, it modifies the outside world by communicating with downstrea
 
 Steps also emit log output back to the service, including errors and failures. The failure of any step (indicated by a non-zero exit code from its entrypoint) will cause the workflow run to stop, with any later steps which depended on the failed step to get skipped. Parallel steps and non-dependent branches of the workflow, if it uses [conditional logic](using-workflows/conditionals.md), will continue to run to completion. The log output is stored in the service for historical auditing and troubleshooting.
 
+## Security
+
+### Where and how is my data stored?
+
+Relay uses Google Cloud Platform for its backend service and stores unencrypted data in GCP database products: Redis, Cloud SQL, and Google Cloud Storage. Encrypted data is stored in Hashicorp Vault, which is configured to have a write-only trust relationship with the user-facing APIs; once encrypted, data can only be deleted or replaced and not read.
+
+### How do you keep Relay secure?
+
+Your security and privacy is a top priority for us. We:
+
+* conform to regulatory requirements for personally-identifable information (PII)
+* manage an escalation policy for outages and incidents, including security incidents
+* force HTTPS on all connections
+* enforce access control on our microservice infrastructure
+* store user passwords, secrets, and credentials encrypted at rest
+* regularly update our code dependencies and runtime environment to keep up with security patches
+* audit logs for suspicious activity
+
+### What data does Relay store?
+
+Relay stores:
+
+* user account information
+* web activity usage via Fullstory
+* user-provided credentials and secrets
+* audit history and step execution output
+
+### Can I host Relay on-prem?
+
+No, at the moment Relay is SaaS-only. We are actively exploring feasibility of adding an on-prem connector but will not be likely to provide a self-hosted version of the product. Please [contact us](mailto:relay@puppet.com) if you're interested in working with us on defining requirements for this capability.
+
 ## Further reading
 
 In addition to the inline links above, if you're interested in deeper internals of the system, please read the [Integrating with Relay](integrationg-with-relay.md) doc, the [reference section](reference.md), and check out the [technical blog](https://relay.sh/).
