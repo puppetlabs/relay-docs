@@ -3,6 +3,7 @@
 -   [Welcome to Relay](overview.md)
 -   [What's new in Relay?](whats-new.md)
 -   [Step-by-step Getting Started guide](getting-started.md)
+-   [How it works](how-it-works.md)
 -   [Using workflows](using-workflows.md)
     -   [Running a workflow](using-workflows/running-a-workflow.md)
     -   [Adding connections](using-workflows/adding-connections.md)
