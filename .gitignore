@@ -1,0 +1,9 @@
+*.sw[onp]
+*.code-workspace
+/relay
+/.depend/
+/artifacts/
+/bin/
+/node_modules/
+*.DS_Store
+*~
