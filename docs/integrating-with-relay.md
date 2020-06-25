@@ -41,7 +41,7 @@ The Python image is usable for both steps and triggers. The following workflow r
 
 ```yaml
 parameters:
-  - name: dockerTagName
+  dockerTagName:
     description: The tag of the container which was pushed
 triggers:
   - name: my-python-trigger
@@ -134,7 +134,7 @@ Under the hood, when a workflow references a webhook trigger, the Relay app will
 * If so, map values from the request payload onto event data
 * Finally, send this mapping back into the Relay service as an event
 
-The Relay Python SDK is by far the easiest way to do this. The [Integration template repository](https://github.com/relay-integrations/template/) has a simple starting point, and there are full-featured examples for [Dockerhub push events](https://github.com/relay-integrations/relay-dockerhub/blob/master/triggers/image-pushed/handler.py) and [new Pagerduty incidents](https://github.com/relay-integrations/relay-pagerduty/blob/master/triggers/incident-triggered/handler.py). Check out the [Relay integrations on Github](https://github.com/relay-integrations/) for more ideas.
+The Relay Python SDK is by far the easiest way to do this. The [Integration template repository](https://github.com/relay-integrations/template/) has a simple starting point, and there are full-featured examples for [Dockerhub push events](https://github.com/relay-integrations/relay-dockerhub/blob/master/triggers/dockerhub-trigger-image-pushed/handler.py) and [new Pagerduty incidents](https://github.com/relay-integrations/relay-pagerduty/blob/master/triggers/pagerduty-trigger-incident-triggered/handler.py). Check out the [Relay integrations on Github](https://github.com/relay-integrations/) for more ideas.
 
 #### Step entrypoints
 
@@ -152,7 +152,6 @@ For examples of using the `ni` utility in shell commands, see the [kustomize int
 
 Once you've got your base image and custom code together, you can proceed with building and publishing the containers. Relay has conventions for container and integration metadata which aren't _required_ but will increase consistency and help with future compatibility. These conventions are encoded in the [template integration repo](https://github.com/relay-integrations/template), specifically:
 
-<!-- * Integration repos should have an `integration.yaml` at their root, whose structure is defined in the [Integration RFC](TODO:link). -->
 * Relay containers should be built with LABEL directives that indicate their title and description.
 
 The following Dockerfile shows this in action:
