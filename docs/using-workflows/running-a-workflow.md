@@ -5,7 +5,7 @@ To run workflows, a user must have at least [Operator level permissions](../mana
 ## Running from the web
 Run a workflow from Relay's web interface, or use the CLI.
 
-To run a workflow from the web app, navigate to the workflow's page and click the "Run" button in the top right. Relay will prompt you for any required parameters and then launch the run.
+To run a workflow from the web app, navigate to the workflow's page and click the **Run** button in the top right. Relay will prompt you for any required parameters and then launch the run.
 
 ![Select Run from a workflow's page, fill out required parameters, then select Run](../images/running-workflow.gif)
 

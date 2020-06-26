@@ -2,7 +2,7 @@
 
 Add manual approvals to your Relay workflow when you need more control over when something is deployed. For example, you could prevent a deployment to your production environment without an approval from your engineering lead.
 
-After you add an approval to your workflow, an approver can accept or reject it from the workflow run page in the Relay web interface. To respond to an approval request, the user must have Approver or Administrator level of access.
+After you add an approval to your workflow, an approver can accept or reject it from the workflow run page in the Relay web interface. To respond to an approval request, you must have Approver or Administrator level of access.
 
 Approvals are similar to regular steps, although they do not require an `image` key. Approvals consist of the following keys:
 

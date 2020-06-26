@@ -1,6 +1,6 @@
 # Setting up your editor for Relay
 
-Relay workflows are written in YAML that conforms to a particular specification. It can speed up the development cycle and reduce errors if your authoring environment knows about the specification, because you can get real-time validation and data type checking as you write. Here's how to set that up:
+Relay workflows are written in YAML that conforms to a particular specification. It can speed up the development cycle and reduce errors if your authoring environment knows about the specification, because you can get real-time validation and data type checking as you write. Here's how to set that up.
 
 ## Visual Studio Code
 
