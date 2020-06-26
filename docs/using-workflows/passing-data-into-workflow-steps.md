@@ -49,4 +49,4 @@ steps:
   - echo "Hello world. Your message was $(ni get -p {.message}), and the generated output was $(ni get -p {.dynamic})"
 ```
 
-Advanced users can use the [Python SDK](https://github.com/puppetlabs/nebula-sdk/tree/master/support/python) in scripts to create and modify keys instead of running `ni`.
+Advanced users can use the [Python SDK](https://github.com/puppetlabs/relay-sdk-python) in scripts to create and modify keys instead of running `ni`.
