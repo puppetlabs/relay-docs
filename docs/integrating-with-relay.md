@@ -138,7 +138,7 @@ The Relay Python SDK is by far the easiest way to do this. The [Integration temp
 
 #### Step entrypoints
 
-Steps have a relatively easy lot in life. They run, do some work to advance the state of the workflow, and exit. In many cases, a step can use existing scripts which you modify only enough to take advantage of the Relay service API. The [Getting started](./getting-started.md) shows an example workflow that uses the `input` map to access this API for retrieving and setting keys and values to pass data through the workflow. For more advanced uses, you'll probably need a script that uses the [ni utility](./cli/ni.md) or its [python SDK equivalent](https://github.com/puppetlabs/nebula-sdk/blob/master/support/python#accessing-data-from-the-step-spec) to get and set data. Formally, a step container running in Relay can expect:
+Steps have a relatively easy lot in life. They run, do some work to advance the state of the workflow, and exit. In many cases, a step can use existing scripts which you modify only enough to take advantage of the Relay service API. The [Getting started](./getting-started.md) shows an example workflow that uses the `input` map to access this API for retrieving and setting keys and values to pass data through the workflow. For more advanced uses, you'll probably need a script that uses the [ni utility](./cli/ni.md) or its [python SDK equivalent](https://github.com/puppetlabs/relay-sdk-python#accessing-data-from-the-step-spec) to get and set data. Formally, a step container running in Relay can expect:
 
 * It will be executed without persistent storage
 * Only keys declared in the step's `spec` map in the workflow will be available in the metadata service
