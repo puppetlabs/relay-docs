@@ -80,7 +80,7 @@ Triggers map incoming events to workflows. The `triggers` key contains an array 
 
 #### schedule
 
-A Schedule trigger type works, as the name suggests, on a time-based schedule. It needs a key named `schedule` whose value is a string in  the standard Unix 'cron' syntax. There's a handy [crontab syntax generator](https://crontab.guru/) that can help you build a schedule if you're not familiar with cron.
+A Schedule trigger type works, as the name suggests, on a time-based schedule. It needs a key named `schedule` whose value is a string in  the standard Unix 'cron' syntax. There's a handy [crontab syntax generator](https://crontab.guru/) that can help you build a schedule if you're not familiar with cron. To determine whether Relay supports a particular advanced cron syntax, check the docs for the underlying implementation at [github.com/robfig/cron](https://github.com/robfig/cron/blob/master/doc.go).
 
 ```yaml
 triggers:
@@ -136,7 +136,7 @@ steps:
 This workflow will be triggered by an HTTP request such as this curl command:
 
 ```shell
-export TOKEN=... # set this from the web app
+export TOKEN=... # get this from the web app
 curl -X POST -H "Authorization: Bearer $TOKEN" \
    -d '{"data": {"eventmessage": "This is a push event"}}' \
    https://api.relay.sh/api/events
