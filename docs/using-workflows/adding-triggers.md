@@ -62,3 +62,31 @@ curl -X POST -H "Authorization: Bearer $TOKEN" \
 
 ## Webhook triggers
 
+Webhooks allow an external service to generate and send messages into Relay. Configuring a webhook has three parts: setting up a `trigger` container image on Relay, incorporating that image into your workflow, and configuring the external service.
+
+Relay will route incoming webhook requests to their associated trigger container. It's the container entrypoint's job to handles the incoming HTTP request and emit an event to the Relay service API to start the workflow itself. The ["Integrating with Relay"](../integrating-with-relay.md#writing-entrypoint-code) documentation has details for writing trigger entrypoints and the [relay-github](https://github.com/relay-integrations/relay-github) integration has a great working example of a webhook trigger container.
+
+Once you've found or created a trigger container, you'll need to reference it in your workflow's `triggers` section. The `source` map should set `type: webhook` and contain an `image` field, whose value is the registry path to the container image. As with `push` triggers, the trigger definition also needs a `binding` section to map the output from entrypoint's API event onto workflow parameters.
+
+The flow of data through the system is the trickiest part of webhooks. Walking through it end-to-end:
+
+* The container entrypoint parses and extracts data from the webhook payload.
+* If the data pass validation and the workflow ought to run, the entrypoint code creates a Relay event. An event is a data structure whose field names and values Relay's service API makes available to the workflow.
+* The workflow trigger definition's `binding` section maps the content of the event to workflow parameters. The keys inside the binding are the names of the parameters and the values use `!Data <fieldname>` to extract data from the event.
+* These parameter values are then available in the `spec` section for individual steps, the same as if the workflow were run manually.
+
+When you add a webhook trigger to a workflow, the workflow's page in the Relay web app will display the automatically-generated URL for the external system to call. Adding the webhook is different for each external system, but here's an example using [this GitOps workflow](https://github.com/ahpook/relay-local/blob/main/workflows/relay-update-on-commit.yaml) to update workflows stored on the service whenever a PR merge updates them on Github.
+
+Expanding the "Settings" sidebar on the workflow's page shows the auto-generated webhook URL:
+
+![The Settings bar contains a Webhook trigger URL with a clipboard-copy helper](../images/adding-triggers-webhook-url.png)
+
+On the GitHub repository, the webhook configuration is under Settings - Webhooks. For GitHub specifically, there's the option to filter down the kinds of repository events which will call the webhook; for this workflow, only "Pull request" events make sense, so we've enabled only those events. Other services may not be as configurable, in which case the webhook entrypoint code can encode the logic to determine whether to activate the workflow. Alternately, you can use [`when` conditions](../reference/relay-workflows.md#when) in the workflow itself; this option is helpful if you're using a community-maintained webhook image that shouldn't contain your site-specific logic.
+
+![Select only Pull Request event types on GitHub's webhook settings page](../images/adding-triggers-github-webhook.gif)
+
+After saving that configuration, pull request activity sends [a pull_request payload](https://developer.github.com/webhooks/event-payloads/#pull_request) to the [relaysh/github-trigger-pull-request-merged](https://hub.docker.com/r/relaysh/gitlab-trigger-merge-request-merged) container, which runs [the container's entrypoint handler code](https://github.com/relay-integrations/relay-github/blob/master/triggers/github-trigger-pull-request-merged/handler.py). The handler creates a Relay event if the code passes validation, extracting details about the PR from the payload and mapping them to the workflow's parameters. The workflow itself has a single step that uses the `relaysh/core` container image with a small inline shell script, to clone the repo and update the version of the workflow that's stored on Relay with the new version of the code from the PR.
+
+## Conclusion
+
+This concept of linking together parts of your toolchain with events and triggers is a big part of what makes Relay so powerful.
