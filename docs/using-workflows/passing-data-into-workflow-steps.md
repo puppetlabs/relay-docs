@@ -25,7 +25,7 @@ steps:
       apitoken: !Secret slack-token
 ```
 
-For details about the parameters map, see the [Workflow reference](../reference/relay-workflows.md)
+For details about the parameters map, see the [Workflow reference](/docs/reference/relay-workflows.md)
 
 ## Passing internal workflow data into a step
 
