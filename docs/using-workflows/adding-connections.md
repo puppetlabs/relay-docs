@@ -28,7 +28,7 @@ If you reference a Connection in a workflow you're viewing or editing on the web
 When you run a workflow, steps that need a connection request it from Relay's secret store. You can use secrets inside a step with one of the Relay SDKs. This example snippet uses the Python SDK to make use of the connection in the workflow above:
 
 ```python
-from nebula_sdk import Interface, Dynamic as D
+from relay_sdk import Interface, Dynamic as D
 
 relay = Interface()
 sess = boto3.Session(
@@ -37,7 +37,7 @@ sess = boto3.Session(
   region_name=relay.get(D.aws.region),
 )
 ```
-This is a partial snippet; [see the full step code here](https://github.com/relay-integrations/relay-aws-ec2/blob/master/steps/ec2-describe-instances/step.py).
+This is a partial snippet; [see the full step code here](https://github.com/relay-integrations/relay-aws-ec2/tree/master/steps/aws-ec2-step-instances-describe).
 
 ## Implementation details
 
