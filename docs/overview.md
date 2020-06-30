@@ -16,7 +16,6 @@ To start authoring your own Relay workflows, follow these steps:
 
 If you're looking for reference material on workflows and steps, we've got you covered:
 
-* [Curated step containers](/docs/step-specifications.md)
 * [Relay types](/docs/reference/relay-types.md)
 * [Relay functions](/docs/reference/relay-functions.md)
 * [Relay workflows](/docs/reference/relay-workflows.md)

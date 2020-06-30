@@ -1,4 +1,4 @@
-# Workflow reference
+# Relay workflows
 
 Use a Relay workflow to define the distinct steps in the task you're automating.
 
@@ -49,7 +49,7 @@ image: alpine:latest
 
 ### spec
 
-Short for "specification"; this section provides context that's specific to the step. The contents of `spec` will depend on the implementation of the task container; programmers may find it useful to think of it as providing values to a function. For example, a step which uses the [relaysh/jira-server-step-issue-transition](https://hub.docker.com/r/relaysh/jira-server-step-issue-transition) container to close a Jira ticket requires `url` and `issue` keys in its `spec`. For a list of step containers curated by Puppet see [step containers](/docs/step-specifications.md).
+Short for "specification"; this section provides context that's specific to the step. The contents of `spec` will depend on the implementation of the task container; programmers may find it useful to think of it as providing values to a function. For example, a step which uses the [relaysh/jira-server-step-issue-transition](https://hub.docker.com/r/relaysh/jira-server-step-issue-transition) container to close a Jira ticket requires `url` and `issue` keys in its `spec`. For a list of step containers curated by Puppet see the [relay-integrations org on GitHub](https://github.com/relay-integrations).
 **Type:** Array
 
 ### dependsOn
@@ -76,7 +76,7 @@ If the container is configured to accept it, you can use the `inputFile` attribu
 
 Triggers map incoming events to workflows. The `triggers` key contains an array of individual triggers, any of which can cause the workflow to run. Each trigger must have `name` and `source` keys, and may optionally have `binding` and `when` keys. 
 
-There is a separate guide to [adding triggers to your workflows](/docs/using-workflows/adding-triggers.md) with an end-to-end description of Relay's trigger system.
+There is a separate guide to [adding triggers to your workflows](/docs/using-workflows/using-triggers.md) with an end-to-end description of Relay's trigger system.
 
 ### name
 

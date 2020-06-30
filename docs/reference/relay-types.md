@@ -19,7 +19,7 @@ Then, add the required credentials for the connection (in the example: `my-aws-a
 
 Connections can be reused across workflows. Referencing the same `!Connection` by name in another workflow will automatically use the defined connection.
 
-See also the documentation on [Adding connections to your workflow](/docs/using-workflows/adding-connections.md).
+See also the documentation on [Managing connections to your workflow](/docs/using-workflows/managing-connections.md).
 
 ## !Secret
 
@@ -35,7 +35,7 @@ steps:
       secretpass: !Secret password
 ```
 
-See the section on [adding and managing secrets](/docs/using-workflows/adding-secrets.md) for more detail on secrets in Relay.
+See the section on [adding and managing secrets](/docs/using-workflows/managing-secrets.md) for more detail on secrets in Relay.
 
 ## !Parameter
 

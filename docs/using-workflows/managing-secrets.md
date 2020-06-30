@@ -1,4 +1,4 @@
-# Secret values
+# Managing secrets
 
 Encrypted secrets allow you to store sensitive information in Relay and make it available to steps during your workflow run.
 
@@ -33,7 +33,7 @@ PASSWORD="${PASSWORD:-$(ni get -p '{.credentials}')}"
 
 ## Implementation details
 
-Relay secrets and [connections](/docs/using-workflows/adding-connections.md) have similar implementations. Relay encrypts secrets when you create them and stores the encrypted secrets in a secure service backed by [Hashicorp Vault](https://www.vaultproject.io). The permissions between Relay's services are set up so the user-facing APIs and the web app can create, overwrite, or delete, but never display secrets. The service which provides metadata to workflow runs can view but not change secrets, so they're visible to the containers as workflows execute.
+Relay secrets and [connections](/docs/using-workflows/managing-connections.md) have similar implementations. Relay encrypts secrets when you create them and stores the encrypted secrets in a secure service backed by [Hashicorp Vault](https://www.vaultproject.io). The permissions between Relay's services are set up so the user-facing APIs and the web app can create, overwrite, or delete, but never display secrets. The service which provides metadata to workflow runs can view but not change secrets, so they're visible to the containers as workflows execute.
 
 There are some important differences between secrets and connections.
 * Secrets are scoped to a workflow and no other workflow can access another workflow's secrets, whereas connections are reusable across workflows.

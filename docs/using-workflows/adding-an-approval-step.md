@@ -1,4 +1,4 @@
-# Adding an approval to a workflow
+# Adding an approval step
 
 Add manual approvals to your Relay workflow when you need more control over when something is deployed. For example, you could prevent a deployment to your production environment without an approval from your engineering lead.
 

@@ -1,5 +1,9 @@
 # What's new in Relay?
 
+## July 2020
+
+Public launch! One of the great things about our new website is the [Relay blog](https://relay.sh/blog/). We're going to shift from maintaining this What's New page to adding blog posts under the "Product Updates" category on the blog, so look there for future feature announcements.
+
 ## June 2020
 
 **New workflows**
@@ -24,7 +28,7 @@ You'll start to see a lot more integrations featuring webhook triggers for a wid
 
 **Connections**
 
-Connections are a new feature within Relay that allow you to link Relay to other services you use. One cool thing about connections is that they can be re-used across workflows – so configuring a second workflow that uses that connection is automatic. [Find out more about connections here](./using-workflows/adding-connections.md).
+Connections are a new feature within Relay that allow you to link Relay to other services you use. One cool thing about connections is that they can be re-used across workflows – so configuring a second workflow that uses that connection is automatic. [Find out more about connections here](./using-workflows/managing-connections.md).
 
 ## April 2020
 

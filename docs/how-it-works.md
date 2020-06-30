@@ -31,13 +31,15 @@ The API server receives events from [push triggers](/docs/reference/relay-workfl
 
 Relay also supports scheduled triggers, which generate an event at [crontab-style time intervals](/docs/reference/relay-workflows.md#schedule). This provides a simple, useful way to run a workflow on a recurring basis, with the drawback that you can't provide dynamic data to the workflow.
 
+For more detailed information on triggers, read the [Using triggers](/docs/using-workflows/using-triggers.md) doc.
+
 ## Workflow execution
 
 Workflows are written in YAML, which Relay interprets and stores. Workflow files define both the triggers which activate them and the steps that ought to run to get the work done. Workflows are also parameterized, to make them more flexible. Workflows run on Kubernetes using [Tekton pipelines](https://tekton.dev) to manage ordering, lifecycle, and error handling.
 
 An important part of each `step` definition in a workflow is its `spec`, short for "specification". This is a map of keys and values which Relay's metadata service makes available to the step container's runtime. A spec can contain a mixture of parameter values, computed strings (for example, using the [`!Fn.concat` function](/docs/reference/relay-functions.md#concat)), and secrets. The most important thing to note is that data won't be visible to the step container without being enumerated in the spec. A step may publish a `spec` definition, in the form of a JSON Schema, that forms its API contract with a workflow.
 
-As each step runs, it modifies the outside world by communicating with downstream tools and services. This frequently requires authentication credentials and secrets, which Relay stores in Hashicorp Vault and makes available (through the `spec`) to steps which need them. For more on the internals of secret storage and retrieval, check out the [Implementation details section of the secret reference](/docs/using-workflows/adding-secrets#implementation-details).
+As each step runs, it modifies the outside world by communicating with downstream tools and services. This frequently requires authentication credentials and secrets, which Relay stores in Hashicorp Vault and makes available (through the `spec`) to steps which need them. For more on the internals of secret storage and retrieval, check out the [Implementation details section of the secret reference](/docs/using-workflows/managing-secrets#implementation-details).
 
 Steps also emit log output back to the service, including errors and failures. The failure of any step (indicated by a non-zero exit code from its entrypoint) will cause the workflow run to stop. Relay will skip any later steps which depended on the failed step. If the workflow uses [conditional logic](/docs/using-workflows/conditionals.md), parallel steps and non-dependent branches will continue to run to completion. The log output is stored in the service for historical auditing and troubleshooting.
 
