@@ -25,13 +25,13 @@ steps:
       apitoken: !Secret slack-token
 ```
 
-For details about the parameters map, see the [Workflow reference](../reference/relay-workflows.md)
+For details about the parameters map, see the [workflow reference](../reference/relay-workflows.md)
 
 ## Passing internal workflow data into a step
 
 If you need to pass data from one step in your workflow to another step, use the `!Output` type in the `spec` section of the step which consumes the data. The step which produces the data should use the `ni output set` command to do so, as in this example:
 
-```
+```yaml
 parameters:
   message:
     description: "The message to output from the final step"

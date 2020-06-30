@@ -1,6 +1,6 @@
 # Relay types
 
-Relay's workflow dialect uses YAML "tag" notation, indicated by a `!`, to identify custom data types that the Relay service associates with code that it should run the workflow is executing. This allows workflows to have dynamic values, instead of hard coding everything directly in the YAML.  There are several top-level types described here, plus a set of data-manipulation functions accessed as `!Fn.<function>` which are [documented in the function reference](./relay-functions.md).
+Relay's workflow dialect uses YAML "tag" notation, indicated by a `!`, to identify custom data types that Relay associates with code that it should run while it is executing the workflow. This allows workflows to have dynamic values, instead of hard coding everything directly in the YAML. There are several top-level types described here, plus a set of data-manipulation functions accessed as `!Fn.<function>`, which are [documented in the function reference](./relay-functions.md).
 
 ## !Connection
 
@@ -15,15 +15,15 @@ Most workflows require some form of authentication. `!Connection` provides a way
       region: !Parameter region
 ```
 
-Then, add the required credentials for the Connection (in the example: `my-aws-account`) in the `Setup` sidebar.
+Then, add the required credentials for the connection (in the example: `my-aws-account`) in the **Settings** sidebar.
 
-Connections can be reused across Workflows. Referencing the same `!Connection` by name in another workflow will automatically use the defined connection.
+Connections can be reused across workflows. Referencing the same `!Connection` by name in another workflow will automatically use the defined connection.
 
-See also the documentation on [Adding Connections to your Workflow](../using-workflows/adding-connections.md).
+See also the documentation on [Adding connections to your workflow](../using-workflows/adding-connections.md).
 
 ## !Secret
 
-Use this to indicate the value is a named secret that's stored on the service. The value needs to exactly match the secret name. If the secret doesn't exist, the workflow will not run. Unlike Connections, Secrets are scoped to a single workflow.
+Use this to indicate the value is a named secret that's stored by Relay. The value needs to exactly match the secret name. If the secret doesn't exist, the workflow will not run. Unlike connections, secrets are scoped to a single workflow.
 
 The most common usage for `!Secret` is in the `spec` for a given step, to indicate the value needs to be looked up from the secret store:
 
@@ -78,7 +78,7 @@ For more information on outputs, see [Passing data into workflow steps](../using
 
 ## !Fn
 
-`!Fn` is short for "function". It is a special data type that indicates to the Relay service that it should run custom code (the function) with in order to produce the result. Functions allow you to manipulate data between steps and are also, when used as the value for a `when` keyword, the way Relay implements conditional execution. The general form of using functions is:
+`!Fn` is short for "function". It is a special data type that indicates to the Relay service that it should run custom code (the function) in order to produce the result. Functions allow you to manipulate data between steps and are also, when used as the value for a `when` keyword, the way Relay implements conditional execution. The general form of using functions is:
 
 ```yaml
 steps:
@@ -96,4 +96,4 @@ See the [Relay function reference](relay-functions.md) for the full list of func
 
 ## !Data
 
-`!Data` is a type that's only valid in the context of a [Trigger section of a workflow](relay-workflows.md). It allows you to extract the contents of a field from an incoming event payload for use in your workflow.
+`!Data` is a type that's only valid in the context of a [trigger section of a workflow](relay-workflows.md). It allows you to extract the contents of a field from an incoming event payload for use in your workflow.

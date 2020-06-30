@@ -2,11 +2,11 @@
 
 ## June 2020
 
-**New Workflows**
+**New workflows**
 We've added a bunch of new [example workflows](https://relay.sh/workflows) that you can run with one click. They span across categories such as cost optimization, security, incident response and more. Here are a couple examples:
 
 - [When a Datadog alert is triggered, create a Jira ticket](https://relay.sh/workflows/datadog-to-jira/)
-- [Run Terraform when Pull Request merged in GitHub](https://relay.sh/workflows/terraform-continuous-deployment/)
+- [Run Terraform when a Pull Request is merged in GitHub](https://relay.sh/workflows/terraform-continuous-deployment/)
 - [Restrict public S3 buckets with WRITE permissions](https://relay.sh/workflows/s3-restrict-public-write-buckets/)
 
 If there's a workflow you'd like to see, [let us know](mailto:relay@puppet.com).
@@ -16,16 +16,15 @@ We're also weekly adding more and more [integrations](https://relay.sh/integrati
 
 ## May 2020
 
-**Integration Webhook Triggers** 
+**Integration webhook triggers** 
 
 Integrations now support webhook triggers. Relay will create a webserver listening for incoming webhooks from other services and execute integration code in response. [Here's an example](https://github.com/relay-integrations/relay-github/tree/master/triggers/pull-request-merged/handler.py) of the code that Relay will run after receiving a `merge` event from a GitHub PR webook. You can contribute to an [existing integration](https://github.com/relay-integrations/relay-github) or use your own container to handle the incoming webhook! 
 
 You'll start to see a lot more integrations featuring webhook triggers for a wide variety of services that support outgoing webhooks. 
 
-
 **Connections**
 
-Connections are a new feature within Relay that allow you to link Relay to other services you use. One cool thing about connections is that they can be re-used across workflows – so configuring a second workflow that uses that connection is automatic. Find out more about [connections here](./using-workflows/adding-connections.md).
+Connections are a new feature within Relay that allow you to link Relay to other services you use. One cool thing about connections is that they can be re-used across workflows – so configuring a second workflow that uses that connection is automatic. [Find out more about connections here](./using-workflows/adding-connections.md).
 
 ## April 2020
 

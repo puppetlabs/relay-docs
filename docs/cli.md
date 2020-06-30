@@ -1,4 +1,4 @@
-# CLI Documentation
+# CLI documentation
 
 There are two command-line programs for interacting with Relay. Their auto-generated documentation is stored here for reference.
 
