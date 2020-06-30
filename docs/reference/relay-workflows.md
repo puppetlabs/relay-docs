@@ -31,7 +31,8 @@ The `steps` key makes up the body of your workflow. It contains an array of step
 
 ### name
 
-(string) The name of the step. Must be unique across the workflow.
+The name of the step. Must be unique across the workflow.
+**Type:** String
 
 ```yaml
 name: echo
@@ -39,7 +40,8 @@ name: echo
 
 ### image
 
-(string) The container image and tag you're using for the step. Relay's default registry is [Docker hub](https://hub.docker.com), so if the image is hosted there you can use the short `imagename:tag` syntax. Otherwise, use the long form like `gcr.io/account/image:tag`
+The container image and tag you're using for the step. Relay's default registry is [Docker Hub](https://hub.docker.com), so if the image is hosted there you can use the short `imagename:tag` syntax. Otherwise, use the long form like `gcr.io/account/image:tag`
+**Type:** String
 
 ```yaml
 image: alpine:latest
@@ -47,11 +49,13 @@ image: alpine:latest
 
 ### spec
 
-(array) Short for 'specification'; this section provides context that's specific to the step. The contents of `spec` will depend on the implementation of the task container; programmers may find it useful to think of it as providing values to a function. For example, a step which uses the [relaysh/jira-server-step-issue-transition](https://hub.docker.com/r/relaysh/jira-server-step-issue-transition) container to close a Jira ticket requires `url` and `issue` keys in its `spec`. For a list of step containers curated by Puppet see [step containers](../step-specifications.md).
+Short for "specification"; this section provides context that's specific to the step. The contents of `spec` will depend on the implementation of the task container; programmers may find it useful to think of it as providing values to a function. For example, a step which uses the [relaysh/jira-server-step-issue-transition](https://hub.docker.com/r/relaysh/jira-server-step-issue-transition) container to close a Jira ticket requires `url` and `issue` keys in its `spec`. For a list of step containers curated by Puppet see [step containers](../step-specifications.md).
+**Type:** Array
 
 ### dependsOn
 
-(string or array of strings) As the name suggests, `dependsOn` indicates that this step depends on another step in the workflow. Each value must be a valid `name` attribute for another step. This key is useful if you need to set an explicit sequential order for your steps. Without `dependsOn` or implicit ordering requirements (see the [!Output type](../reference/relay-types.md)), Relay will run your steps in parallel to speed up execution.
+Indicates that this step depends on another step in the workflow. Each value must be a valid `name` attribute for another step. This key is useful if you need to set an explicit sequential order for your steps. Without `dependsOn` or implicit ordering requirements (see the [!Output type](../reference/relay-types.md)), Relay will run your steps in parallel to speed up execution.
+**Type:** String or array of strings
 
 ```yaml
 dependsOn:
@@ -60,11 +64,13 @@ dependsOn:
 
 ### input
 
-(array of strings) If the container is configured to accept it, you can use the `input` map to provide a list of commands that Relay passes to the entrypoint.
+If the container is configured to accept it, you can use the `input` map to provide a list of commands that Relay passes to the entrypoint.
+**Type:** Array of strings
 
 ### inputFile
 
-(string) If the container is configured to accept it, you can use the `inputFile` attribute to supply a URL to a file which Relay will download and provide as input to the entrypoint. The URL must be accessible to the public internet.
+If the container is configured to accept it, you can use the `inputFile` attribute to supply a URL to a file which Relay will download and provide as input to the entrypoint. The URL must be accessible to the public internet.
+**Type:** String
 
 ## Triggers
 
@@ -72,15 +78,17 @@ Triggers map incoming events to workflows. The `triggers` key contains an array 
 
 ### name
 
-(string) A name for this trigger; must be unique to the workflow.
+A name for this trigger; must be unique to the workflow.
+**Type:** String
 
 ### source
 
-(map) The source for the trigger is a description of the event which will cause the workflow to run. There are currently three kinds of sources available; `source` requires a `type` attribute to indicate which one to use, and each type has additional required fields.
+The source for the trigger is a description of the event which will cause the workflow to run. There are currently three kinds of sources available; `source` requires a `type` attribute to indicate which one to use, and each type has additional required fields.
+**Type:** Map
 
 #### schedule
 
-A Schedule trigger type works, as the name suggests, on a time-based schedule. It needs a key named `schedule` whose value is a string in  the standard Unix 'cron' syntax. There's a handy [crontab syntax generator](https://crontab.guru/) that can help you build a schedule if you're not familiar with cron. To determine whether Relay supports a particular advanced cron syntax, check the docs for the underlying implementation at [github.com/robfig/cron](https://github.com/robfig/cron/blob/master/doc.go).
+A schedule trigger works on a time-based schedule. It needs a key named `schedule` whose value is a string in  the standard Unix cron syntax. There's a handy [crontab syntax generator](https://crontab.guru/) that can help you build a schedule if you're not familiar with cron. To determine whether Relay supports a particular advanced cron syntax, check the docs for the underlying implementation at [github.com/robfig/cron](https://github.com/robfig/cron/blob/master/doc.go).
 
 ```yaml
 triggers:
@@ -92,7 +100,7 @@ triggers:
 
 #### webhook
 
-A Webhook trigger matches an incoming webhook payload from an external service to the workflow. Relay runs a container image in reponse to the webhook payload, so it requires an `image` field that is a reference to a container image hosted on a registry, same as the `image` field in a `step` definition.
+A webhook trigger matches an incoming webhook payload from an external service to the workflow. Relay runs a container image in response to the webhook payload, so it requires an `image` field that is a reference to a container image hosted on a registry, same as the `image` field in a `step` definition.
 
 ```yaml
 triggers:
@@ -144,7 +152,7 @@ curl -X POST -H "Authorization: Bearer $TOKEN" \
 
 ### binding
 
-The `binding` key of a trigger definition maps incoming data from the event to parameters in the workflow. This allows you, for example, extract a field from the json payload of a webhook. A `binding` has one field, `parameters`, which is a map whose keys must match the names of parameters inside the workflow. The values can use [Functions](./relay-functions.md) or [Data types](./relay-types.md) in order to extract and manipulate data into the form the workflow parameter expects.
+The `binding` key of a trigger definition maps incoming data from the event to parameters in the workflow. This allows you to, for example, extract a field from the json payload of a webhook. A `binding` has one field, `parameters`, which is a map whose keys must match the names of parameters inside the workflow. The values can use [Functions](./relay-functions.md) or [Data types](./relay-types.md) in order to extract and manipulate data into the form the workflow parameter expects.
 
 The `!Data` custom type is particularly helpful here, because it will be populated with the keys from an incoming `webhook` or `push` event.
 
@@ -162,7 +170,7 @@ parameters:
     default: latest
 ```
 
- Expanding on the Docker hub example, this trigger extracts the `tag` field from the incoming webhook and maps it to the parameter `dockerTagName`, which is used in the workflow to override the default value of `latest`.
+ Expanding on the Docker Hub example, this trigger extracts the `tag` field from the incoming webhook and maps it to the parameter `dockerTagName`, which is used in the workflow to override the default value of `latest`.
 
  ### when
 
@@ -179,4 +187,4 @@ triggers:
     when: !Fn.equals[!Data environment, 'production']
 ```
 
-The [Relay functions](./relay-functions.md) reference has more examples of the `!Fn.*` syntax.
+The [Relay functions](./relay-functions.md) reference has more examples of function syntax.

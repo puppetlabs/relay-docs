@@ -1,4 +1,4 @@
-# Managing Users
+# Managing users
 
 ## Role Based Access Control (RBAC)
 Role based access control provides the ability to manage access to workflows, connections, approvals, and secrets.
@@ -18,7 +18,7 @@ In addition to permissions granted in Operator role, an Approver can also approv
 In addition to permissions granted in Approver role, an Administrator can add or modify new workflows, add or modify connections, add or modify secrets, and invite and manage users.
 
 ## Inviting new users
-You can invite new users to your Relay account by clicking "Access Control" from the left navigation. Enter an email address, the user's name, and the access level you want them to have. Invited users will receive an email invitation to confirm their account and create a password.
+You can invite new users to your Relay account by clicking **Access Control** from the left navigation. Enter an email address, the user's name, and the access level you want them to have. Invited users will receive an email invitation to confirm their account and create a password.
 
 ![Invite new users to relay](images/invite-users.gif)
 

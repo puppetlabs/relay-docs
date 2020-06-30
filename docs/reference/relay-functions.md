@@ -1,6 +1,6 @@
 # Relay functions
 
-Relay provides utility functions that help you manipulate data as it passes through your workflow. They are invoked in a workflow in the value a key: `!Fn.<function> [<arguments>]`.
+Relay provides utility functions that help you manipulate data as it passes through your workflow. You can invoke a function in a workflow using the following syntax: `!Fn.<function> [<arguments>]`.
 
 ## append
 
@@ -31,9 +31,9 @@ description: !Fn.convertMarkdown [jira, !Parameter markdown]
 
 Currently supported specifications:
 
-* [jira](https://jira.atlassian.com/secure/WikiRendererHelpAction.jspa?section=all)
-* [slack](https://api.slack.com/reference/surfaces/formatting)
-* html
+* [`jira`](https://jira.atlassian.com/secure/WikiRendererHelpAction.jspa?section=all)
+* [`slack`](https://api.slack.com/reference/surfaces/formatting)
+* `html`
 
 ## jsonUnmarshal
 
