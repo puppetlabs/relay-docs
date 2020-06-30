@@ -4,4 +4,4 @@ There are a number of Relay containers available that you that can use in your w
 
 To see the source code for the containers or contribute your own, see the [Relay integrations](https://github.com/relay-integrations) organization on GitHub. 
 
-The [Integrating with Relay](/docs/integrating-with-relay.md) documentation has detailed technical information about how to develop your own step and trigger containers.
+The [Integrating with Relay](integrating-with-relay.md) documentation has detailed technical information about how to develop your own step and trigger containers.
