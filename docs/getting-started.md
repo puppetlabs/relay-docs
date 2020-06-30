@@ -33,7 +33,7 @@ The `spec` map defines keys and their values that will be available inside the s
 
 Relay executes the container with the value of the `input` step as its entrypoint. The "Hello world" message uses a command-line tool built for Relay called `ni` to inject the value of the message parameter into its output.
 
-> Further reading: [Relay types](./reference/relay-types.md) [Relay functions](./reference/relay-functions.md), [Relay integrations](https://github.com/relay-integrations), [ni documentation](./cli/ni.md)
+> Further reading: [Relay types](/docs/reference/relay-types.md) [Relay functions](/docs/reference/relay-functions.md), [Relay integrations](https://github.com/relay-integrations), [ni documentation](/docs/cli/ni.md)
 
 ## Run it via the GUI
 
@@ -45,7 +45,7 @@ Once the step completes, you can select the **Code and data** tab to show the wo
 
 Select the **Logs** tab to see the earth-shattering results of your workflow run.
 
-> Further reading: [Example workflows](https://github.com/puppetlabs/relay-workflows), [Passing data into workflows](using-workflows/passing-data-into-workflow-steps.md)
+> Further reading: [Example workflows](https://github.com/puppetlabs/relay-workflows), [Passing data into workflows](/docs/using-workflows/passing-data-into-workflow-steps.md)
 
 ## Install the CLI
 
@@ -70,7 +70,7 @@ relay workflow list
 relay workflow download hello-world > hello-world.yaml
 ```
 
-> Further reading: [Set up your code editor](setting-up-editor.md), [Relay CLI repository](https://github.com/puppetlabs/relay/)
+> Further reading: [Set up your code editor](/docs/setting-up-editor.md), [Relay CLI repository](https://github.com/puppetlabs/relay/)
 
 ## Modify the workflow to pass data between steps
 
@@ -116,7 +116,7 @@ relay workflow run hello-world -p message="Run from CLI"
 
 The output of this command will include a URL that you can open in your web browser to watch the progress of the run. Under the hood, Relay figured out that, because of the `!Output` tag, the `hello-world` step now has a _dependency_ on the `generated-output` step. So the graph now represents that ordering. You can also use an explicit `dependsOn: step-name` key in a step's definition to force ordering. Without ordering information, Relay will run the steps in parallel to speed up the workflow execution.
 
-> Further reading: [Relay types](reference/relay-types.md), [relay CLI reference](./cli/relay.md), [Complex "Sock Shop" workflow](https://github.com/puppetlabs/relay-workflow-examples/tree/master/aks-sock-shop).
+> Further reading: [Relay types](/docs/reference/relay-types.md), [relay CLI reference](/docs/cli/relay.md), [Complex "Sock Shop" workflow](https://github.com/puppetlabs/relay-workflow-examples/tree/master/aks-sock-shop).
 
 ## Modify workflow to add a secret
 

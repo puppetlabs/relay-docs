@@ -25,7 +25,7 @@ steps:
       apitoken: !Secret slack-token
 ```
 
-For details about the parameters map, see the [workflow reference](../reference/relay-workflows.md)
+For details about the parameters map, see the [workflow reference](/docs/reference/relay-workflows.md)
 
 ## Passing internal workflow data into a step
 
@@ -49,4 +49,4 @@ steps:
   - echo "Hello world. Your message was $(ni get -p {.message}), and the generated output was $(ni get -p {.dynamic})"
 ```
 
-Advanced users can use the [Python SDK](https://github.com/puppetlabs/relay-sdk-python) in scripts to create and modify keys instead of running `ni`.
+Advanced users can use the [Python SDK](https://relay-sdk-python.readthedocs.io/en/latest/) in scripts to create and modify keys instead of running `ni`.

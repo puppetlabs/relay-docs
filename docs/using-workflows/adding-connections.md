@@ -4,11 +4,11 @@ Connections allow you to link Relay to other services you use, so that incoming 
 
 ## Adding connections
 
-To add connections, you must have the administrator role on your account. Connections are global to the Relay account and are available to any workflows and authorized users on the account. See [Managing Users](../managing-users.md) for more on access control.
+To add connections, you must have the administrator role on your account. Connections are global to the Relay account and are available to any workflows and authorized users on the account. See [Managing Users](/docs/managing-users.md) for more on access control.
 
-Use the **Connections** link in the left navigation bar to show currently configured connections and add new ones. Currently, Relay supports connection types of AWS, Azure, Slack, and SSH keys. If there are additional tools and services you want to provide credentials to, you can use [secret values](./adding-secrets.md) instead of a provider-specific connection. These work almost the same, but secrets are specific to a workflow instead of being global. If you'd like us to support a specific service, please [let us know via Github issues](https://github.com/puppetlabs/relay/issues/new/choose)!
+Use the **Connections** link in the left navigation bar to show currently configured connections and add new ones. Currently, Relay supports connection types of AWS, Azure, Slack, and SSH keys. If there are additional tools and services you want to provide credentials to, you can use [secret values](/docs/using-workflows/adding-secrets.md) instead of a provider-specific connection. These work almost the same, but secrets are specific to a workflow instead of being global. If you'd like us to support a specific service, please [let us know via Github issues](https://github.com/puppetlabs/relay/issues/new/choose)!
 
-![Expand the Setup menu then choose the connection to configure](../images/adding-connections.gif)
+![Expand the Setup menu then choose the connection to configure](/docs/images/adding-connections.gif)
 
 ## Using connections
 
@@ -45,4 +45,4 @@ This is a partial snippet; [see the full step code here](https://github.com/rela
 
 ## Implementation details
 
-Secrets and connections are very similar; see the [implementation section of the secrets docs](./adding-secrets.md) for more information on how they work and guidance on how to use them.
+Secrets and connections are very similar; see the [implementation section of the secrets docs](/docs/using-workflows/adding-secrets.md) for more information on how they work and guidance on how to use them.

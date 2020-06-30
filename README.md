@@ -16,4 +16,4 @@ Before you write any nontrivial documentation, please read through these style g
 * Use short, action-oriented sentences that position Relay as the "actor". For example, "Relay stores secrets for you" is better than "Your secrets are stored in Relay" because it both uses an action verb and refers to the service as a distinct entity. (Apple's style for in-product copy on iPhone and Mac is the precedent here: "iPhone needs your password to enable TouchID after a restart")
 * Workflow examples should be valid and complete (if trivial). Rather than single-line snippets, use inline code with backticks until there's enough context to provide a running workflow.
 * Provide alt text with a meaningful textual description of each image for accessibility. "Screenshot of run UI" is bad alt text; "On the workflow page, there is a list of each completed run" is much better.
-* Avoid "NOTE" or "CAUTION" callouts; they tend to fatigue readers and are usually redundant. (In a sense, everything is a "NOTE", that's why we're documenting it!)
+* Avoid overuse of "NOTE" or "CAUTION" callouts; they tend to fatigue readers and are usually redundant.
