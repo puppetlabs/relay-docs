@@ -74,7 +74,9 @@ If the container is configured to accept it, you can use the `inputFile` attribu
 
 ## Triggers
 
-Triggers map incoming events to workflows. The `triggers` key contains an array of individual triggers, any of which can cause the workflow to run. Each trigger must have `name` and `source` keys, and may optionally have `binding` and `when` keys.
+Triggers map incoming events to workflows. The `triggers` key contains an array of individual triggers, any of which can cause the workflow to run. Each trigger must have `name` and `source` keys, and may optionally have `binding` and `when` keys. 
+
+There is a separate guide to [adding triggers to your workflows](/docs/using-workflows/adding-triggers.md) with an end-to-end description of Relay's trigger system.
 
 ### name
 
@@ -88,7 +90,7 @@ The source for the trigger is a description of the event which will cause the wo
 
 #### schedule
 
-A schedule trigger works on a time-based schedule. It needs a key named `schedule` whose value is a string in  the standard Unix cron syntax. There's a handy [crontab syntax generator](https://crontab.guru/) that can help you build a schedule if you're not familiar with cron. To determine whether Relay supports a particular advanced cron syntax, check the docs for the underlying implementation at [github.com/robfig/cron](https://github.com/robfig/cron/blob/master/doc.go).
+A schedule trigger works on a time-based schedule. It needs a key named `schedule` whose value is a string in  the standard Unix cron syntax. There's a handy [crontab syntax generator](https://crontab.guru/) that can help you build a schedule if you're not familiar with cron. To determine whether Relay supports a particular advanced cron syntax, check the docs for the underlying implementation at [github.com/robfig/cron](https://pkg.go.dev/github.com/robfig/cron/v3?tab=doc).
 
 ```yaml
 triggers:
