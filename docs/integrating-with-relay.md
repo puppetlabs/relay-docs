@@ -7,9 +7,9 @@ There's a growing [ecosystem of integrations](https://relay.sh/integrations/) th
 This may seem self-evident, but it's important to determine what your goal is _before_ you begin coding. Relay has several useful points of extensibility, and understanding the purpose of each will help you find a starting point. Integrations consist of containers that are used in different parts of Relay, which have two flavors: **steps** and **triggers**.
 
 * **Steps** - Relay runs steps, passing in parameters and secrets, as part of an automation workflow. Most of the work in Relay is done by steps, which use an SDK to retrieve and modify a workflow's state as it executes.
-* **Triggers** - Relay supports several [types of triggers](/docs/reference/relay-workflows.md#Triggers), which are event handlers that initiate workflow runs. The Relay service handles `push` triggers natively, but `webhook` triggers work by executing a user-defined container to handle the payload of the webhook's incoming HTTP request. Therefore, integrations that connect to Relay using webhooks need to provide a trigger container.
+* **Triggers** - Relay supports several [types of triggers](reference/relay-workflows.md#Triggers), which are event handlers that initiate workflow runs. The Relay service handles `push` triggers natively, but `webhook` triggers work by executing a user-defined container to handle the payload of the webhook's incoming HTTP request. Therefore, integrations that connect to Relay using webhooks need to provide a trigger container.
 
-Steps and triggers come together in workflows, YAML code written to accomplish the task you're faced with. Workflow authoring is covered in the [Using workflows](/docs/using-workflows.md) documentation, so here we'll focus on creating and using steps and triggers.
+Steps and triggers come together in workflows, YAML code written to accomplish the task you're faced with. Workflow authoring is covered in the [Using workflows](using-workflows.md) documentation, so here we'll focus on creating and using steps and triggers.
 
 ## Creating containers for Relay
 
@@ -20,7 +20,7 @@ In its simplest form, a Relay container image runs, does some work, and then exi
 
 ### Using relaysh/core
 
-Using the `relaysh/core` image is the easiest option because it avoids having to build and push a custom container image, but it restricts you to providing your script in a single file. To use it, make your script accessible via HTTPS — GitHub repositories or gists both work fine — and provide the URL to it in the `inputFile` attribute on a `step` or `trigger` definition. For very simple scripts, you can use the [`input` attribute](/docs/reference/relay-workflows.md#input) and provide your commands as an array of shell commands.
+Using the `relaysh/core` image is the easiest option because it avoids having to build and push a custom container image, but it restricts you to providing your script in a single file. To use it, make your script accessible via HTTPS — GitHub repositories or gists both work fine — and provide the URL to it in the `inputFile` attribute on a `step` or `trigger` definition. For very simple scripts, you can use the [`input` attribute](reference/relay-workflows.md#input) and provide your commands as an array of shell commands.
 
 There are two variants of `relaysh/core`, indicated by their tag: `relaysh/core:latest` accepts a Bash shell as input and `relaysh/core:latest-python` expects a Python script. Specify which you want to use in the `image` attribute of your definition.
 
@@ -70,7 +70,7 @@ This section assumes you're familiar with Dockerfiles and the container build/pu
 
 #### Adding the CLI
 
-The [`ni` CLI utility](/docs/cli/ni.md) is a small Go program meant to be run inside Relay containers. The most common use for it is to get and set variables from the Relay service API from entrypoint shell scripts. To add it to your container, use a snippet like this in your Dockerfile:
+The [`ni` CLI utility](cli/ni.md) is a small Go program meant to be run inside Relay containers. The most common use for it is to get and set variables from the Relay service API from entrypoint shell scripts. To add it to your container, use a snippet like this in your Dockerfile:
 
 ```shell
 RUN set -eux ; \
@@ -139,7 +139,7 @@ The Relay Python SDK is by far the easiest way to do this. The [Integration temp
 
 #### Step entrypoints
 
-Steps have a relatively easy lot in life. They run, do some work to advance the state of the workflow, and exit. In many cases, a step can use existing scripts which you modify only enough to take advantage of the Relay service API. The [Getting started](/docs/getting-started.md) shows an example workflow that uses the `input` map to access this API for retrieving and setting keys and values to pass data through the workflow. For more advanced use cases, you'll probably need a script that uses the [ni utility](/docs/cli/ni.md) or its [python SDK equivalent](https://relay-sdk-python.readthedocs.io/en/latest/#accessing-data-from-the-step-spec) to get and set data. 
+Steps have a relatively easy lot in life. They run, do some work to advance the state of the workflow, and exit. In many cases, a step can use existing scripts which you modify only enough to take advantage of the Relay service API. The [Getting started](getting-started.md) shows an example workflow that uses the `input` map to access this API for retrieving and setting keys and values to pass data through the workflow. For more advanced use cases, you'll probably need a script that uses the [ni utility](cli/ni.md) or its [python SDK equivalent](https://relay-sdk-python.readthedocs.io/en/latest/#accessing-data-from-the-step-spec) to get and set data. 
 
 Formally, a step container running in Relay can expect the following:
 * It will be executed without persistent storage.

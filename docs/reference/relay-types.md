@@ -1,6 +1,6 @@
 # Relay types
 
-Relay's workflow dialect uses YAML "tag" notation, indicated by a `!`, to identify custom data types that Relay associates with code that it should run while it is executing the workflow. This allows workflows to have dynamic values, instead of hard coding everything directly in the YAML. There are several top-level types described here, plus a set of data-manipulation functions accessed as `!Fn.<function>`, which are [documented in the function reference](/docs/reference/relay-functions.md).
+Relay's workflow dialect uses YAML "tag" notation, indicated by a `!`, to identify custom data types that Relay associates with code that it should run while it is executing the workflow. This allows workflows to have dynamic values, instead of hard coding everything directly in the YAML. There are several top-level types described here, plus a set of data-manipulation functions accessed as `!Fn.<function>`, which are [documented in the function reference](relay-functions.md).
 
 ## !Connection
 
@@ -19,7 +19,7 @@ Then, add the required credentials for the connection (in the example: `my-aws-a
 
 Connections can be reused across workflows. Referencing the same `!Connection` by name in another workflow will automatically use the defined connection.
 
-See also the documentation on [Managing connections to your workflow](/docs/using-workflows/managing-connections.md).
+See also the documentation on [Managing connections to your workflow](../using-workflows/managing-connections.md).
 
 ## !Secret
 
@@ -35,7 +35,7 @@ steps:
       secretpass: !Secret password
 ```
 
-See the section on [adding and managing secrets](/docs/using-workflows/managing-secrets.md) for more detail on secrets in Relay.
+See the section on [adding and managing secrets](../using-workflows/managing-secrets.md) for more detail on secrets in Relay.
 
 ## !Parameter
 
@@ -53,7 +53,7 @@ steps:
       userparam: !Parameter myparameter
 ```
 
-For more information on parameters, see [Passing data into workflow steps](/docs/using-workflows/passing-data-into-workflow-steps.md).
+For more information on parameters, see [Passing data into workflow steps](../using-workflows/passing-data-into-workflow-steps.md).
 
 ## !Output
 
@@ -74,7 +74,7 @@ steps:
       mydate: !Output[make-output, dynamicdate]
 ```
 
-For more information on outputs, see [Passing data into workflow steps](/docs/using-workflows/passing-data-into-workflow-steps.md).
+For more information on outputs, see [Passing data into workflow steps](../using-workflows/passing-data-into-workflow-steps.md).
 
 ## !Fn
 
@@ -88,12 +88,12 @@ steps:
       concatenation: !Fn.concat["a value", "a second value"]
 ```
 
-See the [Relay function reference](/docs/reference/relay-functions.md) for the full list of functions and their usage.
+See the [Relay function reference](relay-functions.md) for the full list of functions and their usage.
 
 ## !Answer
 
-`!Answer` is an internal type that Relay uses to implement [Approval steps](/docs/using-workflows/adding-an-approval-step.md).
+`!Answer` is an internal type that Relay uses to implement [Approval steps](../using-workflows/adding-an-approval-step.md).
 
 ## !Data
 
-`!Data` is a type that's only valid in the context of a [trigger section of a workflow](/docs/reference/relay-workflows.md). It allows you to extract the contents of a field from an incoming event payload for use in your workflow.
+`!Data` is a type that's only valid in the context of a [trigger section of a workflow](relay-workflows.md). It allows you to extract the contents of a field from an incoming event payload for use in your workflow.

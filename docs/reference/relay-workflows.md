@@ -54,7 +54,7 @@ Short for "specification"; this section provides context that's specific to the 
 
 ### dependsOn
 
-Indicates that this step depends on another step in the workflow. Each value must be a valid `name` attribute for another step. This key is useful if you need to set an explicit sequential order for your steps. Without `dependsOn` or implicit ordering requirements (see the [!Output type](/docs/reference/relay-types.md)), Relay will run your steps in parallel to speed up execution.
+Indicates that this step depends on another step in the workflow. Each value must be a valid `name` attribute for another step. This key is useful if you need to set an explicit sequential order for your steps. Without `dependsOn` or implicit ordering requirements (see the [!Output type](relay-types.md)), Relay will run your steps in parallel to speed up execution.
 **Type:** String or array of strings
 
 ```yaml
@@ -76,7 +76,7 @@ If the container is configured to accept it, you can use the `inputFile` attribu
 
 Triggers map incoming events to workflows. The `triggers` key contains an array of individual triggers, any of which can cause the workflow to run. Each trigger must have `name` and `source` keys, and may optionally have `binding` and `when` keys. 
 
-There is a separate guide to [adding triggers to your workflows](/docs/using-workflows/using-triggers.md) with an end-to-end description of Relay's trigger system.
+There is a separate guide to [adding triggers to your workflows](../using-workflows/using-triggers.md) with an end-to-end description of Relay's trigger system.
 
 ### name
 
@@ -112,7 +112,7 @@ triggers:
       image: relaysh/dockerhub-trigger-image-pushed
 ```
 
-This example runs the `dockerhub-trigger-image-pushed` container in response to receiving a webhook. Once you add a webhook trigger to a workflow, the Relay app will prompt you to complete the webhook configuration in the sidebar. For information on building your own webhook containers, see the [Integrating with Relay](/docs/integrating-with-relay.md) documentation.
+This example runs the `dockerhub-trigger-image-pushed` container in response to receiving a webhook. Once you add a webhook trigger to a workflow, the Relay app will prompt you to complete the webhook configuration in the sidebar. For information on building your own webhook containers, see the [Integrating with Relay](../integrating-with-relay.md) documentation.
 
 #### push
 
@@ -154,7 +154,7 @@ curl -X POST -H "Authorization: Bearer $TOKEN" \
 
 ### binding
 
-The `binding` key of a trigger definition maps incoming data from the event to parameters in the workflow. This allows you to, for example, extract a field from the json payload of a webhook. A `binding` has one field, `parameters`, which is a map whose keys must match the names of parameters inside the workflow. The values can use [Functions](/docs/reference/relay-functions.md) or [Data types](/docs/reference/relay-types.md) in order to extract and manipulate data into the form the workflow parameter expects.
+The `binding` key of a trigger definition maps incoming data from the event to parameters in the workflow. This allows you to, for example, extract a field from the json payload of a webhook. A `binding` has one field, `parameters`, which is a map whose keys must match the names of parameters inside the workflow. The values can use [Functions](relay-functions.md) or [Data types](relay-types.md) in order to extract and manipulate data into the form the workflow parameter expects.
 
 The `!Data` custom type is particularly helpful here, because it will be populated with the keys from an incoming `webhook` or `push` event.
 
@@ -176,7 +176,7 @@ parameters:
 
  ### when
 
- The same syntax that Relay uses to provide conditional execution of steps is also available for triggers. This uses the `when` key, whose value is an expression that must evaluate to "true" in order for the workflow to run. See the [Conditional execution](/docs/using-workflows/conditionals.md) docs for more details on the syntax and usage.
+ The same syntax that Relay uses to provide conditional execution of steps is also available for triggers. This uses the `when` key, whose value is an expression that must evaluate to "true" in order for the workflow to run. See the [Conditional execution](../using-workflows/conditionals.md) docs for more details on the syntax and usage.
 
 Similar to the `binding` map, it's handy to make decisions about execution based on the contents of the incoming event. The `!Data` custom type allows you to extract fields from webhooks and push events as a basis for comparison.
 
@@ -189,4 +189,4 @@ triggers:
     when: !Fn.equals[!Data environment, 'production']
 ```
 
-The [Relay functions](/docs/reference/relay-functions.md) reference has more examples of function syntax.
+The [Relay functions](relay-functions.md) reference has more examples of function syntax.
