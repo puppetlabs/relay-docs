@@ -75,7 +75,7 @@ The flow of data through the system is the trickiest part of webhooks. Walking t
 * The workflow trigger definition's `binding` section maps the content of the event to workflow parameters. The keys inside the binding are the names of the parameters and the values use `!Data <fieldname>` to extract data from the event.
 * These parameter values are then available in the `spec` section for individual steps, the same as if the workflow were run manually.
 
-When you add a webhook trigger to a workflow, the workflow's page in the Relay web app will display the automatically-generated URL for the external system to call. Adding the webhook is different for each external system, but here's an example using [this GitOps workflow](https://github.com/ahpook/relay-local/blob/main/workflows/relay-update-on-commit.yaml) to update workflows stored on the service whenever a PR merge updates them on Github.
+When you add a webhook trigger to a workflow, the workflow's page in the Relay web app will display the automatically-generated URL for the external system to call. Adding the webhook is different for each external system, but here's an example using [this GitOps workflow](https://github.com/puppetlabs/relay-workflows/tree/master/update-workflow-on-merge) to update workflows stored on the service whenever a PR merge updates them on Github.
 
 Expanding the "Settings" sidebar on the workflow's page shows the auto-generated webhook URL:
 
