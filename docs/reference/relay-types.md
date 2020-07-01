@@ -1,6 +1,6 @@
 # Relay types
 
-Relay's workflow dialect uses YAML "tag" notation, indicated by a `!`, to identify custom data types that Relay associates with code that it should run while it is executing the workflow. This allows workflows to have dynamic values, instead of hard coding everything directly in the YAML. There are several top-level types described here, plus a set of data-manipulation functions accessed as `!Fn.<function>`, which are [documented in the function reference](relay-functions.md).
+Relay's workflow dialect uses YAML "tag" notation, indicated by a `!`, to identify custom data types that Relay associates with code that it should run while it is executing the workflow. This allows workflows to have dynamic values, instead of hard coding everything directly in the YAML. There are several top-level types described here, plus a set of data-manipulation functions accessed as `!Fn.<function>`, which are [documented in the function reference](../reference/relay-functions.md).
 
 ## !Connection
 
@@ -88,7 +88,7 @@ steps:
       concatenation: !Fn.concat["a value", "a second value"]
 ```
 
-See the [Relay function reference](relay-functions.md) for the full list of functions and their usage.
+See the [Relay function reference](../reference/relay-functions.md) for the full list of functions and their usage.
 
 ## !Answer
 
@@ -96,4 +96,4 @@ See the [Relay function reference](relay-functions.md) for the full list of func
 
 ## !Data
 
-`!Data` is a type that's only valid in the context of a [trigger section of a workflow](relay-workflows.md). It allows you to extract the contents of a field from an incoming event payload for use in your workflow.
+`!Data` is a type that's only valid in the context of a [trigger section of a workflow](../reference/relay-workflows.md). It allows you to extract the contents of a field from an incoming event payload for use in your workflow.

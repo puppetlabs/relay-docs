@@ -6,7 +6,7 @@ Connections allow you to link Relay to other services you use, so that incoming 
 
 To add connections, you must have the administrator role on your account. Connections are global to the Relay account and are available to any workflows and authorized users on the account. See [Managing Users](../managing-users.md) for more on access control.
 
-Use the **Connections** link in the left navigation bar to show currently configured connections and add new ones. Currently, Relay supports connection types of AWS, Azure, Slack, and SSH keys. If there are additional tools and services you want to provide credentials to, you can use [secret values](managing-secrets.md) instead of a provider-specific connection. These work almost the same, but secrets are specific to a workflow instead of being global. If you'd like us to support a specific service, please [let us know via Github issues](https://github.com/puppetlabs/relay/issues/new/choose)!
+Use the **Connections** link in the left navigation bar to show currently configured connections and add new ones. Currently, Relay supports connection types of AWS, Azure, Slack, and SSH keys. If there are additional tools and services you want to provide credentials to, you can use [secret values](../using-workflows/managing-secrets.md) instead of a provider-specific connection. These work almost the same, but secrets are specific to a workflow instead of being global. If you'd like us to support a specific service, please [let us know via Github issues](https://github.com/puppetlabs/relay/issues/new/choose)!
 
 ![Expand the Setup menu then choose the connection to configure](../images/managing-connections-setup.gif)
 
@@ -45,4 +45,4 @@ This is a partial snippet; [see the full step code here](https://github.com/rela
 
 ## Implementation details
 
-Secrets and connections are very similar; see the [implementation section of the secrets docs](managing-secrets.md) for more information on how they work and guidance on how to use them.
+Secrets and connections are very similar; see the [implementation section of the secrets docs](../using-workflows/managing-secrets.md) for more information on how they work and guidance on how to use them.
