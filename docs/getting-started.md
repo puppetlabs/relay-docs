@@ -116,7 +116,7 @@ relay workflow run hello-world -p message="Run from CLI"
 
 The output of this command will include a URL that you can open in your web browser to watch the progress of the run. Under the hood, Relay figured out that, because of the `!Output` tag, the `hello-world` step now has a _dependency_ on the `generated-output` step. So the graph now represents that ordering. You can also use an explicit `dependsOn: step-name` key in a step's definition to force ordering. Without ordering information, Relay will run the steps in parallel to speed up the workflow execution.
 
-> Further reading: [Relay types](reference/relay-types.md), [relay CLI reference](cli/relay.md), [Complex "Sock Shop" workflow](https://github.com/puppetlabs/relay-workflow-examples/tree/master/aks-sock-shop).
+> Further reading: [Relay types](reference/relay-types.md), [relay CLI reference](cli/relay.md).
 
 ## Modify workflow to add a secret
 

@@ -13,7 +13,7 @@ We've added a bunch of new [example workflows](https://relay.sh/workflows) that 
 - [Run Terraform when a Pull Request is merged in GitHub](https://relay.sh/workflows/terraform-continuous-deployment/)
 - [Restrict public S3 buckets with WRITE permissions](https://relay.sh/workflows/s3-restrict-public-write-buckets/)
 
-If there's a workflow you'd like to see, [let us know](mailto:relay@puppet.com).
+If there's a workflow you'd like to see, [let us know via GitHub issue](https://github.com/puppetlabs/relay/issues/new?assignees=&labels=Feature%2C+feature%2C+Enhancement%2C+enhancement&template=feature-request.md&title=).
 
 **New Integrations**
 We're also weekly adding more and more [integrations](https://relay.sh/integrations) for different tools and services. We now support (the beginnings) of AWS, Azure, and GCP cloud providers, incident response integrations such as PagerDuty and VictorOps, Datadog, Jira, Github and more. [Check it out!](https://relay.sh/integrations)
@@ -22,7 +22,7 @@ We're also weekly adding more and more [integrations](https://relay.sh/integrati
 
 **Integration webhook triggers** 
 
-Integrations now support webhook triggers. Relay will create a webserver listening for incoming webhooks from other services and execute integration code in response. [Here's an example](https://github.com/relay-integrations/relay-github/tree/master/triggers/pull-request-merged/handler.py) of the code that Relay will run after receiving a `merge` event from a GitHub PR webook. You can contribute to an [existing integration](https://github.com/relay-integrations/relay-github) or use your own container to handle the incoming webhook! 
+Integrations now support webhook triggers. Relay will create a webserver listening for incoming webhooks from other services and execute integration code in response. [Here's an example](https://github.com/relay-integrations/relay-github/blob/master/triggers/github-trigger-pull-request-merged/handler.py) of the code that Relay will run after receiving a `merge` event from a GitHub PR webook. You can contribute to an [existing integration](https://github.com/relay-integrations/relay-github) or use your own container to handle the incoming webhook! 
 
 You'll start to see a lot more integrations featuring webhook triggers for a wide variety of services that support outgoing webhooks. 
 
