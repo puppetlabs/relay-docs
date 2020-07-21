@@ -57,7 +57,12 @@ For more information on parameters, see [Passing data into workflow steps](../us
 
 ## !Output
 
-Use the `!Output` type to indicate the value is provided by a previous step. Outputs must include the step name for the step from which you're collecting the output, and the name of the output. To _produce_ the output, use the `ni` tool in the originating step.
+Use the `!Output` type to indicate the value is provided by a previous step. `!Output` accepts a mapping with two keys: 
+
+* `from`, whose value is the `name` field of the step from which you're collecting the output 
+* `name`, the name of the output whose value to use. 
+
+To _produce_ the output, use the `ni` tool in the originating step.
 
 Using the `!Output` type in a step creates an ordering dependency; Relay will realize it needs to run the step that produces the value before the one that consumes it.
 
@@ -71,7 +76,7 @@ steps:
   - name: use-output
     image: relaysh/core
     spec:
-      mydate: !Output[make-output, dynamicdate]
+      mydate: !Output {from: make-output, name: dynamicdate}
 ```
 
 For more information on outputs, see [Passing data into workflow steps](../using-workflows/passing-data-into-workflow-steps.md).
