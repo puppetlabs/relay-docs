@@ -175,3 +175,104 @@ steps:
   - name: explicit-registry
     image: index.docker.io/relaysh/core
 ```
+
+## Designing a complete integration
+
+While Relay supports running any Linux container, it is most powerful when container images are accompanied by metadata that helps the service better interface the image requirements with users. We call the combination of metadata and image definitions a Relay integration.
+
+You may have already taken a look at the integrations we publish in [our GitHub organization](https://github.com/relay-integrations). Each of these is based on an initial [template](https://github.com/relay-integrations/template) that provides a starting point for the required parts of an integration:
+
+* A file called `integration.yaml` at the root of the integration that defines the integration name and version
+* For each step image, a file called `step.yaml` in the respective directory (for a step named `foo`, the path would be `steps/foo/step.yaml`)
+* For each trigger image, a file called `trigger.yaml` in the respective directory (for a trigger named `bar`, the path would be `triggers/bar/trigger.yaml`)
+
+For a deeper look at Relay integrations, take a look at the [integration layout RFC](https://github.com/puppetlabs/relay-rfcs/blob/master/content/0006-integration-layout/rfc.md).
+
+### Image metadata
+
+In addition to providing a name and version, the information in a `step.yaml` or `trigger.yaml` is consumed by Relay to give users more context about the image when they use it.
+
+Making sure to explicitly specify the following fields will help users get the best experience when they use your images:
+
+* `summary`: A human-readable title for the image, like "List EC2 instances"
+* `description`: A paragraph or two describing the purpose of the image and how to work with it in Markdown format
+* `examples`: A list of examples or templates that a user can start from
+* `schemas`: JSON Schema validation schemas for your `spec`s, outputs, and events
+
+### Working with examples
+
+Any step or trigger can provide zero or more usage examples, either in the form of a single step or trigger or an entire workflow. You must indicate whether an example is for a step, trigger, or workflow by using an API version and kind. For example,
+
+```yaml
+examples:
+- summary: Create a new GitHub issue
+  content:
+    apiVersion: v1
+    kind: Step
+    name: create-issue-on-github
+    image: relaysh/github-step-issue-create
+    spec:
+      title: My first issue
+- summary: Use a user-specified parameter to create a new GitHub issue
+  content:
+    apiVersion: v1
+    kind: Workflow
+    parameters:
+      title:
+        description: The GitHub issue title
+    steps:
+    - name: create-issue-on-github
+      image: relaysh/github-step-issue-create
+      spec:
+        title: !Parameter title
+```
+
+### Working with schemas
+
+Relay generates documentation and performs validation when you provide schemas for your steps and triggers. In step metadata, schemas look like this:
+
+```yaml
+schemas:
+  spec:
+    $schema: 'http://json-schema.org/draft-07/schema#'
+    type: object
+    properties: {}
+  outputs:
+    $schema: 'http://json-schema.org/draft-07/schema#'
+    type: object
+    properties: {}
+```
+
+In trigger metadata, the schemas are:
+
+```yaml
+schemas:
+  spec:
+    $schema: 'http://json-schema.org/draft-07/schema#'
+    type: object
+    properties: {}
+  event:
+    $schema: 'http://json-schema.org/draft-07/schema#'
+    type: object
+    properties: {}
+```
+
+For a particular schema, you can also write it in a separate file and then reference it:
+
+```yaml
+schemas:
+  spec:
+    source: file
+    file: spec.schema.json
+```
+
+Our JSON Schema documentation renderer supports one extension, `x-relay-connectionType`, that you can add to an object schema to indicate that the value must come from a [Relay connection](using-workflows/managing-connections.md). For example, to indicate that a step requires an AWS connection, you might write:
+
+```yaml
+# ...
+connection:
+  type: object
+  x-relay-connectionType: aws
+```
+
+You can also use the `writeOnly` schema property to hint to a user that a value typically comes from a secret.
