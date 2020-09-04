@@ -178,7 +178,7 @@ steps:
 
 ## Designing a complete integration
 
-While Relay supports running any Linux container, it is most powerful when container images are accompanied by metadata that helps the service better interface the image requirements with users. We call the combination of metadata and image definitions a Relay integration.
+While Relay supports running any Linux container, it is most powerful when metadata accompanies the container. The metadata helps the service describe and validate the image's requirements. We call the combination of metadata and image definitions a Relay integration.
 
 You may have already taken a look at the integrations we publish in [our GitHub organization](https://github.com/relay-integrations). Each of these is based on an initial [template](https://github.com/relay-integrations/template) that provides a starting point for the required parts of an integration:
 
@@ -190,9 +190,9 @@ For a deeper look at Relay integrations, take a look at the [integration layout 
 
 ### Image metadata
 
-In addition to providing a name and version, the information in a `step.yaml` or `trigger.yaml` is consumed by Relay to give users more context about the image when they use it.
+In addition to providing a name and version, the information in a `step.yaml` or `trigger.yaml` enables Relay to give users more context about the image when they use it.
 
-Making sure to explicitly specify the following fields will help users get the best experience when they use your images:
+Specifying the following fields will help users get the best experience when they use your images:
 
 * `summary`: A human-readable title for the image, like "List EC2 instances"
 * `description`: A paragraph or two describing the purpose of the image and how to work with it in Markdown format
