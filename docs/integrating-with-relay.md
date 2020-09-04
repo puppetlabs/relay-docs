@@ -236,11 +236,17 @@ schemas:
   spec:
     $schema: 'http://json-schema.org/draft-07/schema#'
     type: object
-    properties: {}
+    properties:
+      title:
+        type: string
+    required: [title]
   outputs:
     $schema: 'http://json-schema.org/draft-07/schema#'
     type: object
-    properties: {}
+    properties:
+      issueNumber:
+        type: integer
+    required: [issueNumber]
 ```
 
 In trigger metadata, the schemas are:
@@ -250,14 +256,14 @@ schemas:
   spec:
     $schema: 'http://json-schema.org/draft-07/schema#'
     type: object
-    properties: {}
+    properties: {} # ...
   event:
     $schema: 'http://json-schema.org/draft-07/schema#'
     type: object
-    properties: {}
+    properties: {} # ...
 ```
 
-For a particular schema, you can also write it in a separate file and then reference it:
+For a particular schema, you can also write it in a separate file and then reference it. This is useful if your editor provides [JSON Schema meta-validation](https://json-schema.org/specification.html#meta-schemas).
 
 ```yaml
 schemas:
@@ -275,4 +281,11 @@ connection:
   x-relay-connectionType: aws
 ```
 
-You can also use the `writeOnly` schema property to hint to a user that a value typically comes from a secret.
+You can also use the `writeOnly` schema property to hint to a user that a value typically comes from a secret:
+
+```yaml
+# ...
+password:
+  type: string
+  writeOnly: true
+```
