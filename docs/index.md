@@ -23,3 +23,4 @@
 -   [Setting up your Editor for Relay](setting-up-editor.md)
 -   [Running reference workflows](reference-workflows.md)
 -   [Managing users](managing-users.md)
+-   [Analytics & Data collection](analytics.md)
