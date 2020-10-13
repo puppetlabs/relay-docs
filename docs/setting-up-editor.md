@@ -15,18 +15,21 @@ VS Code is the primary authoring environment Relay supports. In order to get syn
         "https://raw.githubusercontent.com/puppetlabs/relay-core/master/pkg/workflow/asset/data/schemas/v1/Workflow.json": ["relay*/*.yaml"]
     },
         "yaml.customTags": [
-            "!Secret scalar",
-            "!Parameter scalar",
-            "!Output sequence",
-            "!Answer sequence",
-            "!Data scalar",
-            "!Connection map",
-            "!Fn.append sequence",
-            "!Fn.concat sequence",
-            "!Fn.equals sequence",
-            "!Fn.jsonUnmarshal sequence",
-            "!Fn.notEquals sequence",
-            "!Fn.merge sequence",
+        "!Secret scalar",
+        "!Parameter scalar",
+        "!Connection mapping",
+        "!Connection sequence",
+        "!Output mapping",
+        "!Output sequence",
+        "!Answer mapping",            
+        "!Answer sequence",            
+        "!Data scalar",
+        "!Fn.append sequence",
+        "!Fn.concat sequence",
+        "!Fn.equals sequence",            
+        "!Fn.jsonUnmarshal sequence",
+        "!Fn.notEquals sequence",
+        "!Fn.merge sequence"
         ],
     "yaml.validate": true
 }
