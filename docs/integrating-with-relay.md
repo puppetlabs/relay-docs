@@ -148,7 +148,7 @@ Formally, a step container running in Relay can expect the following:
 * Exiting with a zero exit code will cause the workflow run to continue.
 * Exiting with a non-zero exit code will cause the workflow run to be terminated and no dependent steps will run.
 
-For examples of using the `ni` utility in shell commands, see the [kustomize integration](https://github.com/relay-integrations/relay-kustomize/tree/master/steps/kustomize-step-apply); for examples of using the Python SDK, the [AWS EC2 integration](https://github.com/relay-integrations/relay-aws-ec2/tree/master/steps) has several steps of varying complexity.
+For examples of using the `ni` utility in shell commands, see the [kustomize integration](https://github.com/relay-integrations/relay-kustomize/tree/master/steps/apply); for examples of using the Python SDK, the [AWS EC2 integration](https://github.com/relay-integrations/relay-aws-ec2/tree/master/steps) has several steps of varying complexity.
 
 ### Building and publishing containers
 
