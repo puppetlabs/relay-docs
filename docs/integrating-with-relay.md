@@ -126,7 +126,7 @@ Whichever route you've chosen, at this point you've got the setup for a Relay-fr
 
 #### Trigger entrypoints and webhook API
 
-Under the hood, when a workflow references a webhook trigger, the Relay app will prompt the user to register the webhook on the remote service. Once it's set up, Relay associates all incoming requests to their associated trigger containers. When a request comes in, Knative launches the appropriate container and connects the incoming payload to the entrypoint, an HTTP handler. 
+Under the hood, when a workflow references a webhook trigger, the Relay app will prompt the user to register the webhook on the remote service. Once it's set up, Relay associates all incoming requests to their associated trigger containers. When a request comes in, Knative launches the appropriate container and connects the incoming payload to the entrypoint, an HTTP handler.
 
 The container does the following:
 * Starts a webserver on the port specified by the environment variable `$PORT` (defaults to `8080`).
@@ -135,11 +135,11 @@ The container does the following:
 * Maps values from the request payload onto event data.
 * Sends this mapping back into the Relay service as an event.
 
-The Relay Python SDK is by far the easiest way to do this. The [Integration template repository](https://github.com/relay-integrations/template/) has a simple starting point, and there are full-featured examples for [Dockerhub push events](https://github.com/relay-integrations/relay-dockerhub/blob/master/triggers/dockerhub-trigger-image-pushed/handler.py) and [new Pagerduty incidents](https://github.com/relay-integrations/relay-pagerduty/blob/master/triggers/pagerduty-trigger-incident-triggered/handler.py). Check out the [Relay integrations on Github](https://github.com/relay-integrations/) for more ideas.
+The Relay Python SDK is by far the easiest way to do this. The [Integration template repository](https://github.com/relay-integrations/template/) has a simple starting point, and there are full-featured examples for [Dockerhub push events](https://github.com/relay-integrations/relay-dockerhub/blob/master/triggers/dockerhub-trigger-image-pushed/handler.py) and [new Pagerduty incidents](https://github.com/relay-integrations/relay-pagerduty/blob/master/triggers/incident-triggered/handler.py). Check out the [Relay integrations on Github](https://github.com/relay-integrations/) for more ideas.
 
 #### Step entrypoints
 
-Steps have a relatively easy lot in life. They run, do some work to advance the state of the workflow, and exit. In many cases, a step can use existing scripts which you modify only enough to take advantage of the Relay service API. The [Getting started](getting-started.md) shows an example workflow that uses the `input` map to access this API for retrieving and setting keys and values to pass data through the workflow. For more advanced use cases, you'll probably need a script that uses the [ni utility](cli/ni.md) or its [python SDK equivalent](https://relay-sdk-python.readthedocs.io/en/latest/#accessing-data-from-the-step-spec) to get and set data. 
+Steps have a relatively easy lot in life. They run, do some work to advance the state of the workflow, and exit. In many cases, a step can use existing scripts which you modify only enough to take advantage of the Relay service API. The [Getting started](getting-started.md) shows an example workflow that uses the `input` map to access this API for retrieving and setting keys and values to pass data through the workflow. For more advanced use cases, you'll probably need a script that uses the [ni utility](cli/ni.md) or its [python SDK equivalent](https://relay-sdk-python.readthedocs.io/en/latest/#accessing-data-from-the-step-spec) to get and set data.
 
 Formally, a step container running in Relay can expect the following:
 * It will be executed without persistent storage.
