@@ -10,7 +10,7 @@ First things first. You'll need an account on the service to get started, so bro
 
 Relay is based around the idea of workflows, which combine useful activities together to accomplish a specific task. Workflows are written in YAML and stored on the service so they can be triggered manually or via incoming events. Let's start by creating a simple "Hello World" workflow that just executes an `echo` command with any argument you give it.
 
-Click the **New workflow** button in the top right corner. In the dialog box, give it a name of `hello-world` and a description "Welcome to Relay". You'll get dropped into an editor window, where you can copy-and-paste the following workflow, then click the **Save changes** button on the top right of the editor window.
+From your newly-created account, navigate to the **Workflows** tab. Add a new workflow from the center of the screen or use the **New workflow** button in the top right corner. In the dialog box, give it a name of `hello-world` and a description "Welcome to Relay". You'll get dropped into an editor window, where you can copy-and-paste the following workflow, then click the **Save changes** button on the top right of the editor window.
 
 ```yaml
 parameters:
@@ -25,11 +25,11 @@ steps:
   - echo "Hello world. Your message was $(ni get -p {.message})"
 ```
 
-This workflow starts by defining a parameter named `message`, whose value you'll need to supply before the workflow starts. Then it defines a step named `hello-world`, using a container image stored on Docker Hub at [`relaysh/core`](https://hub.docker.com/r/relaysh/core), which is a general-purpose Alpine Linux based image curated by Puppet.
+This workflow starts by defining a parameter named `message`, whose value you'll need to supply before the workflow starts. Then it defines a step named `hello-world`, using a container image stored on Docker Hub at [`relaysh/core`](https://hub.docker.com/r/relaysh/core), which is an Alpine Linux-based image curated by Puppet.
 
-The `spec` map defines keys and their values that will be available inside the step. In this case, we're using the Relay `!Parameter` type to look up the value of the global `message` parameter and make it available to the container. 
+The `spec` map defines keys and values that will be available inside the step. In this case, we're using the Relay `!Parameter` type to look up the value of the global `message` parameter and make it available to the container.
 
-**TIP:** In addition to `!Parameter`, Relay has several types that you can use in your workflows. For example, you can use `!Secret` to access encrypted values. You also have access to several utility functions like `!Merge` and `!Concat` that allow you to perform logic in your workflows.
+**TIP:** In addition to `!Parameter`, Relay has additional custom YAML types that you can use in your workflows. For example, you can use `!Secret` to access encrypted values. You also have access to several utility functions like `!Fn.merge` and `!Fn.concat` that allow you to manipulate data in your workflows.
 
 Relay executes the container with the value of the `input` step as its entrypoint. The "Hello world" message uses a command-line tool built for Relay called `ni` to inject the value of the message parameter into its output.
 
@@ -37,13 +37,11 @@ Relay executes the container with the value of the `input` step as its entrypoin
 
 ## Run it via the GUI
 
-Once you save the workflow, use the **Run** button in the top right to execute it. You'll get a dialog box prompting you to fill in a value for the **messag** parameter, so enter something witty (if you need a suggestion, try "relay.sh r00lz"), then click **Run workflow**.
+Once you save the workflow, use the **Run** button in the top right to execute it. You'll get a dialog box prompting you to fill in a value for the **message** parameter, so enter something witty (if you need a suggestion, try "relay.sh r00lz"), then click **Run workflow**.
 
 Relay will queue your workflow run and then execute it. You'll see some statistics and a graph visualization of the step sequence. Because it only has one step, this workflow's graph has one node represented as a box; click it to see the step's details in the sidebar.
 
-Once the step completes, you can select the **Code and data** tab to show the workflow code we just wrote and expand the collapsed right sidebar to show the input for the **message** parameter.
-
-Select the **Logs** tab to see the earth-shattering results of your workflow run.
+Once the step completes, you can select the **Code** tab to show the workflow code we just wrote. Select the **Logs** tab to see the earth-shattering results of your workflow run.
 
 > Further reading: [Example workflows](https://github.com/puppetlabs/relay-workflows), [Passing data into workflows](using-workflows/passing-data-into-workflow-steps.md)
 
