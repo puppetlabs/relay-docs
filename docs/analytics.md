@@ -1,7 +1,7 @@
 # Analytics & Data Policy
 Relay automatically collects data about how you use the service. We want you to understand why we collect data, what data we collect, and how we protect it to determine whether Relay is a product you want to use. 
 
-If you have questions or want to talk to a real person, email us at <hello@relay.sh>. 
+If you have questions or want to talk to a real person, email us at [hello@relay.sh](mailto:hello@relay.sh). 
 
 ## Why do you collect data at all?
 Our purpose is to make creating automation suck less–to make the process of creating automation not just possible for a greater number of people, but–well, enjoyable. We deeply care about building thoughtful products that fulfill this promise. To that end, we want to create the best experience possible for you as a user, both in the product itself and when you’re looking for help. 
