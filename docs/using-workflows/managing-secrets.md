@@ -6,7 +6,7 @@ Encrypted secrets allow you to store sensitive information in Relay and make it 
 
 Add a secret to your workflow and then use Relay's web interface to store the content of the secret securely. Secrets are scoped to a single workflow. To add secrets, you must be have the Operator, Approver, or Administrator role.
 
-To set a value for the secret, on the workflow's page, expand the **Settings** menu on the header bar, then click **Add secret**. Make sure the name you provide matches the name of the field in the workflow! Once you create a secret, you cannot view its value again. You can only overwrite or delete it.
+To set a value for the secret, on the workflow's page, go to the **Settings** page under **Configuration**, then click **Add secret**. Make sure the name you provide matches the name of the field in the workflow! Once you create a secret, you cannot view its value again. You can only overwrite or delete it.
 
 The value you set for a secret must be a string. If you have multiple key-value pairs to pass in to the secret, or your secret is the contents of a file, you must encode the values using base64 encoding, and use the encoded string as the secret value.
 

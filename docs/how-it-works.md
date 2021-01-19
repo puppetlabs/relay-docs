@@ -1,6 +1,6 @@
 ## How Relay works
 
-If you've read through the [website](https://relay.sh) and followed the [Getting Started guide](getting-started.md), you might be thinking: "This is pretty cool, but how does it _actually work_ under the hood?" This document is aimed at answering that question at a middle-altitude level of technical depth. You'll have a better understanding of the architecture of the Relay service and how the pieces fit together, as a prelude to diving into the [reference documentation](reference.md) or beginning to build [a custom Relay integration](integrating-with-relay.md).
+If you've read through the [website](https://relay.sh) and followed the [Getting Started guide](getting-started.md), you might be thinking: "This is pretty cool, but how does it _actually work_ under the hood?" This document is aimed at answering that question at a middle-altitude level of technical depth. You'll have a better understanding of the architecture of the Relay service and how the pieces fit together, as a prelude to diving into the [reference documentation](reference.md) or beginning to build [a custom Relay integration](developers/integrating-with-relay.md).
 
 ## Definitions
 
@@ -70,10 +70,12 @@ Relay stores:
 * user-provided credentials and secrets.
 * audit history and step execution output.
 
+For more detailed information on our data collection practices, see the [Analytics documentation](/docs/analytics.md).
+
 ### Can I host Relay on-prem?
 
 No, at the moment Relay is SaaS-only. We are actively exploring the feasibility of adding an on-prem connector, but we're not likely to provide a self-hosted version of the product. Please contact us at hello@relay.sh if you're interested in working with us on defining requirements for this capability.
 
 ## Further reading
 
-In addition to the inline links above, if you're interested in the deeper internals of the system, please read the [Integrating with Relay](integrating-with-relay.md) doc, the [reference section](reference.md), and check out the [technical blog](https://relay.sh/).
+In addition to the inline links above, if you're interested in the deeper internals of the system, please read the [Integrating with Relay](developers/integrating-with-relay.md) doc, the [reference section](reference.md), and check out the [technical blog](https://relay.sh/).

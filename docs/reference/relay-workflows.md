@@ -27,7 +27,7 @@ parameters:
 
 ## Steps
 
-The `steps` key makes up the body of your workflow. It contains an array of steps, where each step must consist of a `name`, `image`, and `spec`, plus an optional `dependsOn` key.
+The `steps` key makes up the body of your workflow. It contains an array of steps, where each step must consist of a `name`, `image`, and `spec`, plus optional `dependsOn` and `env` keys.
 
 ### name
 
@@ -49,6 +49,19 @@ The container image and tag you're using for the step. Relay's default registry 
 image: alpine:latest
 ```
 
+### env
+
+This key allows you to set environment variables which will be available in the step's execution environment. This is useful because many container images are built to look for particular environment variables to adjust their behavior or receive data at runtime.
+
+`env` contains a map of key-value pairs, whose keys are the exact (case-sensitive) variables to set. The values can be fixed strings or use [Functions](relay-functions.md) and [Custom types](relay-types.md) to access parameter, secret, or output data.
+
+**Type**: Map
+
+```yaml
+env:
+  AWS_ACCESS_KEY_ID: !Parameter awsAccessKeyID
+  AWS_SECRET_ACCESS_KEY: !Secret awsSecretAccessKey
+```
 ### spec
 
 Short for "specification"; this section provides context that's specific to the step. The contents of `spec` will depend on the implementation of the task container; programmers may find it useful to think of it as providing values to a function. For example, a step which uses the [relaysh/jira-server-step-issue-transition](https://hub.docker.com/r/relaysh/jira-server-step-issue-transition) container to close a Jira ticket requires `url` and `issue` keys in its `spec`. For a list of step containers curated by Puppet see the [relay-integrations org on GitHub](https://github.com/relay-integrations).
@@ -120,7 +133,7 @@ triggers:
       image: relaysh/dockerhub-trigger-image-pushed
 ```
 
-This example runs the `dockerhub-trigger-image-pushed` container in response to receiving a webhook. Once you add a webhook trigger to a workflow, the Relay app will prompt you to complete the webhook configuration in the sidebar. For information on building your own webhook containers, see the [Integrating with Relay](../integrating-with-relay.md) documentation.
+This example runs the `dockerhub-trigger-image-pushed` container in response to receiving a webhook. Once you add a webhook trigger to a workflow, the Relay app will prompt you to complete the webhook configuration in the sidebar. For information on building your own webhook containers, see the [Integrating with Relay](../developers/integrating-with-relay.md) documentation.
 
 Webhook triggers require a [binding](#binding) to map outputs from the trigger container to workflow parameters.
 

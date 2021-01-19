@@ -38,7 +38,11 @@ Schedule triggers will show up in the web app as the first, topmost node in the 
 
 Push triggers allow you to send events to a Relay API endpoint to start a workflow. If you have an external system which can POST simple HTTP payloads, push triggers can be a great low-friction way to start sending events into Relay. Another advantage of push triggers is that Relay generates a workflow-specific [JSON web token](https://jwt.io/), or JWT, which allows you to securely connect external systems without providing your Relay login credentials.
 
-To add a push token to your workflow, configure a `trigger` section like this:
+To add a push token to your workflow, you can use the graphical editor. This will add the correct section to your workflow, then display the authentication token that you can copy-paste into the application that will be sending the trigger.
+
+![Adding a push trigger using the GUI editor](../images/using-triggers-add-push.gif)
+
+If you want to add it manually, the code looks like this:
 
 ```yaml
 triggers:
@@ -47,9 +51,9 @@ triggers:
     type: push
 ```
 
-When you save this workflow through the web editor or visit its page in the web app if you've updated it via CLI, you'll be presented with the authentication token under the "Settings" sidebar.
+If you need to view or copy the JWT again after it's created, it's visible in the **Triggers** section of the workflow's page.
 
-![Expand the Settings sidebar to display the JWT for copying to clipboard](../images/using-triggers-push.gif)
+![Display the JWT for copying to clipboard](../images/using-triggers-push.gif)
 
 Use this token to authenticate your HTTP requests to `api.relay.sh/api/events` with an `Authorization: Bearer <TOKEN>` header. The payload of the request should be a JSON document with a single top-level key named `data`; its values are the fields you'll extract in the `binding` section of the trigger definition. For example, a curl command would look like:
 
@@ -64,7 +68,7 @@ curl -X POST -H "Authorization: Bearer $TOKEN" \
 
 Webhooks allow an external service to generate and send messages into Relay. Configuring a webhook has three parts: setting up a `trigger` container image on Relay, incorporating that image into your workflow, and configuring the external service.
 
-Relay will route incoming webhook requests to their associated trigger container. It's the container entrypoint's job to handles the incoming HTTP request and emit an event to the Relay service API to start the workflow itself. The ["Integrating with Relay"](../integrating-with-relay.md#writing-entrypoint-code) documentation has details for writing trigger entrypoints and the [relay-github](https://github.com/relay-integrations/relay-github) integration has a great working example of a webhook trigger container.
+Relay will route incoming webhook requests to their associated trigger container. It's the container entrypoint's job to handles the incoming HTTP request and emit an event to the Relay service API to start the workflow itself. The ["Integrating with Relay"](../developers/integrating-with-relay.md#writing-entrypoint-code) documentation has details for writing trigger entrypoints and the [relay-github](https://github.com/relay-integrations/relay-github) integration has a great working example of a webhook trigger container.
 
 Once you've found or created a trigger container, you'll need to reference it in your workflow's `triggers` section. The `source` map should set `type: webhook` and contain an `image` field, whose value is the registry path to the container image. As with `push` triggers, the trigger definition also needs a `binding` section to map the output from entrypoint's API event onto workflow parameters.
 
@@ -75,9 +79,9 @@ The flow of data through the system is the trickiest part of webhooks. Walking t
 * The workflow trigger definition's `binding` section maps the content of the event to workflow parameters. The keys inside the binding are the names of the parameters and the values use `!Data <fieldname>` to extract data from the event.
 * These parameter values are then available in the `spec` section for individual steps, the same as if the workflow were run manually.
 
-When you add a webhook trigger to a workflow, the workflow's page in the Relay web app will display the automatically-generated URL for the external system to call. Adding the webhook is different for each external system, but here's an example using [this GitOps workflow](https://github.com/puppetlabs/relay-workflows/tree/master/update-workflow-on-merge) to update workflows stored on the service whenever a PR merge updates them on Github.
+When you add a webhook trigger to a workflow, the workflow's page in the Relay web app will display the automatically-generated URL for the external system to call. Each external system will have its own way to configure sending the webhook, but here's an example using [this GitOps workflow](https://github.com/puppetlabs/relay-workflows/tree/master/update-workflow-on-merge) to update workflows stored on the service whenever a PR merge updates them on Github.
 
-Expanding the "Settings" sidebar on the workflow's page shows the auto-generated webhook URL:
+Go to the **Triggers** section of a workflow's page to display the URL for a webhook trigger and to view logs from incoming webhook events:
 
 ![The Settings bar contains a Webhook trigger URL with a clipboard-copy helper](../images/using-triggers-webhook-url.png)
 

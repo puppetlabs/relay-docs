@@ -19,7 +19,7 @@ If you're looking for reference material on workflows and steps, we've got you c
 * [Relay types](reference/relay-types.md)
 * [Relay functions](reference/relay-functions.md)
 * [Relay workflows](reference/relay-workflows.md)
-* [Building new integrations](integrating-with-relay.md)
+* For developers, information on building new [steps](developers/step-authoring.md) and [integrations](developers/integrating-with-relay.md)
 
 If you get stuck or need help, we're here for you. You can:
 
