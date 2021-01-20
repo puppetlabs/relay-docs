@@ -1,6 +1,6 @@
-# Developing steps with `relay dev`
+# Developing steps with the Relay CLI
 
-Relay has an internal service called the metadata service, which presents a REST endpoint to step containers for querying. It provides dynamic information from workflow steps' `spec` sections and receives outputs from steps as well as events from trigger containers.
+Relay has an internal API called the metadata service, which presents a REST endpoint to step containers. It serves up dynamic information from workflow steps' `spec` sections and receives outputs from steps as well as events from trigger containers.
 
 In order to shorten the development loop for writing, testing, and debugging step code, the `relay` CLI tool has a built-in version of the metadata service that you can run locally. This will allow your step entrypoint code to run unmodified from the shell, rather than requiring a container build, push, and execute cycle up to the Relay service.
 

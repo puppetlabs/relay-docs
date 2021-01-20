@@ -68,7 +68,8 @@ relay workflow list
 relay workflow download hello-world > hello-world.yaml
 ```
 
-> Further reading: [Set up your code editor](setting-up-editor.md), [Relay CLI repository](https://github.com/puppetlabs/relay/)
+> Further reading: [Set up your code editor](developers/setting-up-editor.md), [Relay CLI 
+> repository](https://github.com/puppetlabs/relay/)
 
 ## Modify the workflow to pass data between steps
 

@@ -22,7 +22,7 @@
 -    [Developing with Relay](developers.md)
     -   [Step authoring with the relay CLI](developers/step-authoring.md)
     -   [Integrating with relay](developers/integrating-with-relay.md)
--   [Setting up your Editor for Relay](setting-up-editor.md)
+    -   [Setting up your Editor for Relay](developers/setting-up-editor.md)
 -   [Running reference workflows](reference-workflows.md)
 -   [Managing users](managing-users.md)
 -   [Analytics & Data collection](analytics.md)
