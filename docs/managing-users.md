@@ -1,7 +1,7 @@
 # Managing users
 
 ## Role Based Access Control (RBAC)
-Role based access control provides the ability to manage access to workflows, connections, approvals, and secrets.
+Relay's paid account types include Role Based Access Control (RBAC) to manage access to workflows, connections, approvals, and secrets.
 
 A user can be one of four role types: Viewer, Operator, Approver, or Administrator. Each role provides cumulative powers, so a user should have the least-privilege role to get their job done.
 

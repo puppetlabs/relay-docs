@@ -45,6 +45,16 @@ between steps.
   -p, --path string     specification data path
 ```
 
+**`ni gcp config`** -- Create a GCP configuration suitable for using with a GCP CLI or SDK
+```
+  -d, --directory string   configuration output directory
+```
+
+**`ni gcp env`** -- Create a POSIX-compatible script that can be sourced to configure the GCP CLI
+```
+  -d, --directory string   configuration output directory
+```
+
 **`ni get`** -- Get specification data
 ```
   -p, --path string   specification data path
@@ -63,13 +73,6 @@ between steps.
 **`ni log info`** -- Logs an informational message
 
 **`ni log warn`** -- Logs a warning message
-
-**`ni output get`** -- Get a value that a previous task stored
-```
-      --json               whether to always provide the output as JSON, even if it is a string
-  -k, --key string         the output key
-  -n, --task-name string   the name of the task
-```
 
 **`ni output set`** -- Set a value to a key that can be fetched by another task
 ```
