@@ -78,4 +78,4 @@ No, at the moment Relay is SaaS-only. We are actively exploring the feasibility 
 
 ## Further reading
 
-In addition to the inline links above, if you're interested in the deeper internals of the system, please read the [Integrating with Relay](developers/integrating-with-relay.md) doc, the [reference section](reference.md), and check out the [technical blog](https://relay.sh/).
+In addition to the inline links above, if you're interested in the deeper internals of the system, please read the [Integrating with Relay](developers/integrating-with-relay.md) doc and the [reference section](reference.md).
