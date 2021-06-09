@@ -27,9 +27,9 @@ runs:
       first-step:
         # the `spec` keys match what you'd see in a real workflow
         spec:
-          aws: !Connection [aws, test]
+          aws: ${connections.aws.test}
           message: My test message
-          secret: !Secret mySecretKey
+          secret: ${secrets.mySecretKey}
         # outputs can be strings or structured data
         outputs:
           instanceIDs:
@@ -38,7 +38,7 @@ runs:
           outputMessage: "This came from the step!"
 ```
 
-Additional steps may then reference `!Output [first-step, instanceIDs]` in their `spec` section to retrieve the array of IDs.
+Additional steps may then reference `${outputs.'first-step'.instanceIDs}` in their `spec` section to retrieve the array of IDs.
 
 After constructing the YAML input, start up the metadata service with:
 
