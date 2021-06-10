@@ -14,7 +14,7 @@ All varieties of triggers are defined in a top-level `triggers:` section of your
 
 Every trigger definition needs a `name` field and a `source` map that specifies the `type` of trigger it is.  Currently `schedule`, `webhook`, and `push` are the only valid values for `type`. Which additional fields are needed depends on the `type`.
 
-Trigger definitions also need a [`binding`](../reference/relay-workflows.md#binding), a map whose keys are the names of parameters the workflow requires. The values can come from the event payload, extracted using the [`!Data` custom type](../reference/relay-types.md#data). This allows you to dynamically inject from the trigger into the workflow.
+Trigger definitions also need a [`binding`](../reference/relay-workflows.md#binding), a map whose keys are the names of parameters the workflow requires. The values can come from the event payload, extracted using the [event](../reference/relay-expressions.md#event) key in a template expression. This allows you to dynamically inject from the trigger into the workflow.
 
 ## Schedule triggers
 
@@ -76,7 +76,7 @@ The flow of data through the system is the trickiest part of webhooks. Walking t
 
 * The container entrypoint parses and extracts data from the webhook payload.
 * If the data pass validation and the workflow ought to run, the entrypoint code creates a Relay event. An event is a data structure whose field names and values Relay's service API makes available to the workflow.
-* The workflow trigger definition's `binding` section maps the content of the event to workflow parameters. The keys inside the binding are the names of the parameters and the values use `!Data <fieldname>` to extract data from the event.
+* The workflow trigger definition's `binding` section maps the content of the event to workflow parameters. The keys inside the binding are the names of the parameters and the values use `${event.<field-name>}` to extract data from the event.
 * These parameter values are then available in the `spec` section for individual steps, the same as if the workflow were run manually.
 
 When you add a webhook trigger to a workflow, the workflow's page in the Relay web app will display the automatically-generated URL for the external system to call. Each external system will have its own way to configure sending the webhook, but here's an example using [this GitOps workflow](https://github.com/puppetlabs/relay-workflows/tree/master/update-workflow-on-merge) to update workflows stored on the service whenever a PR merge updates them on Github.

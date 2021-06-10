@@ -14,14 +14,14 @@ The value you set for a secret must be a string. If you have multiple key-value 
 
 ## Using secrets
 
-To add a secret to your workflow, set a field's value to the `!Secret` type and provide the secret's name. For example:
+To add a secret to your workflow, use the `secrets` key in a template expression with the sceret's name. For example:
 
 ```yaml
 steps:
-  - name: use-a-secret
-    image: relaysh/core
-    spec:
-      credentials: !Secret credentials
+- name: use-a-secret
+  image: alpine
+  spec:
+    credentials: ${secrets.credentials}
 ```
 
 When workflows run, steps that require a secret request the secret value from the Relay secrets service. Inside a step, the `ni` command-line tool or SDKs can access secret values like regular values:
@@ -33,7 +33,7 @@ PASSWORD="${PASSWORD:-$(ni get -p '{.credentials}')}"
 
 ## Implementation details
 
-Relay secrets and [connections](../using-workflows/managing-connections.md) have similar implementations. Relay encrypts secrets when you create them and stores the encrypted secrets in a secure service backed by [Hashicorp Vault](https://www.vaultproject.io). The permissions between Relay's services are set up so the user-facing APIs and the web app can create, overwrite, or delete, but never display secrets. The service which provides metadata to workflow runs can view but not change secrets, so they're visible to the containers as workflows execute.
+Relay secrets and [connections](../using-workflows/managing-connections.md) have similar implementations. Relay encrypts secrets when you create them and stores the encrypted secrets in a secure service backed by [HashiCorp Vault](https://www.vaultproject.io). The permissions between Relay's services are set up so the user-facing APIs and the web app can create, overwrite, or delete, but never display secrets. The service which provides metadata to workflow runs can view but not change secrets, so they're visible to the containers as workflows execute.
 
 There are some important differences between secrets and connections.
 * Secrets are scoped to a workflow and no other workflow can access another workflow's secrets, whereas connections are reusable across workflows.

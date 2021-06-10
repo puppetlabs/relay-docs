@@ -12,15 +12,15 @@ Use the **Connections** link in the left navigation bar to show currently config
 
 ## Using connections
 
-To use a connection in a workflow, set a field's value to `!Connection` and provide a map containing the connection's name and type. For example:
+To use a connection in a workflow, use the `connections` key in a template expression with the connection's type and name. For example:
 
 ```yaml
 steps:
-  - name: describe-instances
-    image: relaysh/ec2-step-describe-instances
-    spec:
-      aws:
-        connection: !Connection { type: aws, name: my-aws-account }
+- name: describe-instances
+  image: relaysh/ec2-step-describe-instances
+  spec:
+    aws:
+      connection: ${connections.aws.'my-aws-account'}
 ```
 
 If a workflow you're viewing or editing on the web app uses a connection, Relay will check that the connection actually exists and prompt you to create it if not. If you have a connection of the correct type, but your name for it doesn't match the `name` tag in the workflow, you can edit the workflow to adjust the name it's looking for.

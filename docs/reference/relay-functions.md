@@ -1,160 +1,152 @@
-# Relay functions
+# Relay template functions
 
-Relay provides functions that help you manipulate data as it passes through your workflow. You can invoke a function in a workflow using the following syntax: `!Fn.<function> [<arguments>]`. Most functions are "utility" functions, meaning they can be used anywhere a hard-coded value can appear. There are also a pair of special functions (`equals` and `notEquals`) for evaluating conditionals.
+Relay provides functions that help you manipulate your data. You can call these functions inside a [template expression](relay-expressions.md) anywhere templating is permitted in a workflow.
 
-## Utility Functions
-
-### append
-
-The `append` function adds one or more values to the end of an array. For example:
+For example, you could use the `append` and `jsonUnmarshal` functions to create an array for your step to consume like this:
 
 ```yaml
-targets: !Fn.append
-- a.example.com
-- b.example.com
+steps:
+- name: process-safe-ips
+  image: alpine
+  spec:
+    ips: ${append(jsonUnmarshal(secrets.ips), '127.0.0.1', '192.168.0.1')}
 ```
 
-### coalesce
+## append
+
+> Positional syntax: `append(array, value[, value[, ...]])`
+
+The `append` function adds one or more values to the end of an array.
+
+Example:
+
+```
+append(['foo', 'bar'], 'baz', 'quux') # => ["foo", "bar", "baz", "quux"]
+```
+
+## coalesce
+
+> Positional syntax: `coalesce([value[, value[, ...]]])`
 
 Returns the first resolvable non-null value from the arguments.
 
-Arguments:
-* 0..n: The values to consider, in order
+Examples:
 
-```yaml
-!Fn.coalesce [!Output [step, nonexistent], 42] # => 42
-!Fn.coalesce [!Output [step, nonexistent]] # => null (used to ignore non-resolvable values)
-!Fn.coalesce [!Output [step, nonexistent], !Parameter someParameterWithNullValue, 42] # => 42
+```
+coalesce(outputs.step.nonexistent, 42) # => 42
+coalesce(outputs.step.nonexistent) # => null
+coalesce(outputs.step.nonexistent, parameters.nullValue, 42) # => 42
 ```
 
-### concat
+## convertMarkdown
 
-The `concat` function joins two or more elements together. For example:
+> Positional syntax: `convertMarkdown(to, content)`
 
-```yaml
-domains:
-- !Fn.concat [foo, 3, bar, ".com"] # => "foo3bar.com"
-- !Fn.concat [!Parameter environment, .example.com]
-```
+> Keyword syntax: `convertMarkdown(to: <string>, content: <string>)`
 
-### convertMarkdown
 
-The `convertMarkdown` function converts [Markdown](https://daringfireball.net/projects/markdown/) into comparable syntax for similar specifications. For example:
+The `convertMarkdown` function converts [Markdown](https://daringfireball.net/projects/markdown/) into comparable syntax of other languages.
 
-```yaml
-description: !Fn.convertMarkdown [jira, !Parameter markdown]
-```
-
-Currently supported specifications:
+Supported languages for the `to` argument:
 
 * [`jira`](https://jira.atlassian.com/secure/WikiRendererHelpAction.jspa?section=all)
 * [`slack`](https://api.slack.com/reference/surfaces/formatting)
 * `html`
 
-### jsonUnmarshal
+Examples:
 
-The `jsonUnmarshal` function converts serialized JSON into an executable data type. For example:
-
-```yaml
-certs: !Fn.jsonUnmarshal [!Secret certs]
 ```
+convertMarkdown('jira', parameters.markdown)
+convertMarkdown(to: 'jira', content: parameters.markdown)
+```
+
+## jsonMarshal
+
+> Positional syntax: `jsonMarshal(value)`
+
+The `jsonMarshal` function encodes the given value as JSON.
+
+Example:
+
+```
+jsonMarshal({'foo': ['bar']}) # => "{\"foo\":[\"bar\"]}"
+```
+
+## jsonUnmarshal
+
+> Positional syntax: `jsonUnmarshal(string)`
+
+The `jsonUnmarshal` function decodes serialized JSON from a string into data the template engine can work with.
 
 Because Relay secrets are always stored as strings, the `jsonUnmarshal` function is useful when you need to pass the contents of a secret into a function that requires a data type other than a string.
 
-### merge
+Example:
 
-The `merge` function iteratively merges together two map arrays. For example:
-
-```yaml
-api: !Fn.merge
-- image:
-    tag: !Secret api.image.tag
-- storage:
-    address: 10.11.12.13
+```
+jsonUnmarshal(secrets.certs)
 ```
 
-Output:
+## merge
 
-```yaml
-api:
-  image:
-    tag: !Secret api.image.tag
-  storage:
-    address: 10.11.12.13
+> Positional syntax: `merge([map[, map[, ...]]])`
+
+> Keyword syntax: `merge(objects: <array of maps>, mode: 'deep'|'shallow')`
+
+The `merge` function iteratively combines maps. If the mode is deep (the default), the maps will be recursively merged such that any keys that are themselves maps are also merged. Otherwise, only the top-level values are merged, and any collisions result in the data being completely replaced.
+
+Examples:
+
+```
+merge({'a': 'b'}, {'c': 'd'}) # => {"a": "b", "c": "d"}
+merge(objects: [{'a': 'b'}, {'c': 'd'}]) # => {"a": "b", "c": "d"}
+merge({'a': 'b'}, {'a', 'd'}) # => {"a": "d"}
+merge({'a': {'b': 'c'}}, {'a': {'d': 'e'}}) # => {"a": {"b": "c", "d": "e"}}
+merge(
+  objects: [{'a': {'b': 'c'}}, {'a': {'d': 'e'}}],
+  mode: 'shallow'
+) # => {"a": {"d": "e"}}
 ```
 
-### path
+## now
 
-Looks up a path using a query in an object, optionally returning a default value if the path is unresolvable or nonexistent.
+> Positional syntax: `now()`
 
-Arguments:
-1. The object to traverse
-2. The query to use
-3. optional: The default to use instead if the object does not contain a value at the query or cannot be resolved
+The `now` function returns the current time at UTC in ISO 8601 format.
 
-```yaml
-!Fn.path [{foo: bar}, foo] # => "bar"
-!Fn.path [{foo: bar}, baz] # => (invocation error)
-!Fn.path [{foo: bar}, baz, quux] # => "quux"
-!Fn.path [{foo: {bar: [{baz: quux}]}}, "foo.bar[0].baz"] # => "quux"
-!Fn.path [{foo: !Output [step, nonexistent]}, foo] # => (unresolvable)
-!Fn.path [{foo: !Output [step, nonexistent]}, foo, 42] # => 42
+Example:
+
+```
+now() # => "2021-06-09T00:12:54Z"
 ```
 
-### toString
-Converts its argument to a string if possible, and returns an error otherwise.
+## path
 
-Argument:
-1. The scalar value to convert to a string
+> Positional syntax: `path(object, query[, default])`
 
-```yaml
-!Fn.toString [foo] # => "foo"
-!Fn.toString [42] # => "42"
-!Fn.toString [42.424242] # => "42.424242"
+> Keyword syntax: `path(object: <value>, query: <string>, default: <value>)`
+
+The `path` function queries an object using the template expression syntax and optionally returns a default value if the requested path does not exist. Note that functions are not available to use in the `path` function's query argument.
+
+Examples:
+
+```
+path({'foo': 'bar'}, 'foo') # => "bar"
+path({'foo': 'bar'}, 'baz') # Error
+path({'foo': 'bar'}, 'baz', 'quux') # => "quux"
+path({'foo': {'bar': [{'baz': 'quux'}]}}, 'foo.bar[0].baz') # => "quux"
+path(object: {'foo': 'bar'}, query: 'foo', default: 'quux') # => "bar"
 ```
 
-## Conditional Functions
+## toString
 
-These functions are only useful in the context of a `when:` statement for conditionally executing a step.
+> Positional syntax: `toString(value)`
 
-For more information, see [Conditional step execution](../using-workflows/conditionals.md).
+The `toString` function returns a string representation of its scalar argument. It is an error to pass a map or array to `toString`; consider `jsonMarshal` instead.
 
-### equals
+Examples:
 
-The `equals` function compares two arguments and returns the boolean `true` if the type and value of the arguments are equal.
-
-```yaml
-when:
-  - !Fn.equals [!Parameter env, production]
 ```
-
-Accepts the following expressions and types:
-
--   a parameter: `!Parameter example-parameter`
--   an output: `!Output stepName outputName`
--   a string: `"Just a normal string."`
--   a boolean: `true` or `false`
--   an integer: `10`, `100`, `35`
--   a float: `10.5`, `1.0`, `54.99999`
--   an array: `["apple", "banana", "orange", "peach"]`
--   a map: `{"vegetable": "carrot", "fruit": "apple"}`
-
-### notEquals
-
-The `notEquals` function compares two arguments and returns the boolean `true` if the type and value of the arguments are not equal.
-
-```yaml
-when:
-  - !Fn.notEquals [!Parameter env, development]
+toString('foo') # => "foo"
+toString(42) # => "42"
+toString(42.424242) # => "42.424242"
 ```
-
-Accepts the following expressions and types:
-
--   a parameter: `!Parameter example-parameter`
--   an output: `!Output stepName outputName`
--   a string: `"Just a normal string."`
--   a boolean: `true` or `false`
--   an integer: `10`, `100`, `35`
--   a float: `10.5`, `1.0`, `54.99999`
--   an array: `["apple", "banana", "orange", "peach"]`
--   a map: `{"vegetable": "carrot", "fruit": "apple"}`

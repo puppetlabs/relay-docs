@@ -35,7 +35,7 @@ steps:
       workspace: app
       directory: provision-gke/infra/
       credentials:
-        credentials.json: !Secret credentials
+        credentials.json: ${secrets.credentials}
       git:
         name: app
         repository: https://github.com/apptime/app

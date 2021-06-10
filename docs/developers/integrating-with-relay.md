@@ -51,13 +51,13 @@ triggers:
       inputFile: https://git.io/JfiwD
     binding:
       parameters:
-        dockerTagName: !Data tag
+        dockerTagName: ${event.tag}
 steps:
   - name: my-python-notification
     image: relaysh/core:latest-python
     inputFile: https://TODO/
     spec:
-      tag: !Parameter dockerTagName
+      tag: ${parameters.dockerTagName}
 ```
 
 ### Using an upstream image
@@ -101,9 +101,9 @@ steps:
 - name: hello-world
   image: relaysh/core
   spec:
-    message: !Parameter message
-    dynamic: !Output [generated-output,dynamic]
-    supersecret: !Secret mysecret
+    message: ${parameters.message}
+    dynamic: ${outputs.'generated-output'.dynamic}
+    supersecret: ${secrets.mysecret}
   input:
   - echo "Hello world. Your message was $(ni get -p {.message}), and the generated output was $(ni get -p {.dynamic})."
   - echo "Everything I know about your run is contained in $(ni get)"
@@ -224,7 +224,7 @@ examples:
     - name: create-issue-on-github
       image: relaysh/github-step-issue-create
       spec:
-        title: !Parameter title
+        title: ${parameters.title}
 ```
 
 ### Working with schemas

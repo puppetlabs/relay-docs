@@ -53,14 +53,14 @@ image: alpine:latest
 
 This key allows you to set environment variables which will be available in the step's execution environment. This is useful because many container images are built to look for particular environment variables to adjust their behavior or receive data at runtime.
 
-`env` contains a map of key-value pairs, whose keys are the exact (case-sensitive) variables to set. The values can be fixed strings or use [Functions](relay-functions.md) and [Custom types](relay-types.md) to access parameter, secret, or output data.
+`env` contains a map of key-value pairs, whose keys are the exact (case-sensitive) variables to set. The values can be fixed strings or use [template expressions](relay-expressions.md) to access parameter, secret, connection, or output data.
 
 **Type**: Map
 
 ```yaml
 env:
-  AWS_ACCESS_KEY_ID: !Parameter awsAccessKeyID
-  AWS_SECRET_ACCESS_KEY: !Secret awsSecretAccessKey
+  AWS_ACCESS_KEY_ID: ${parameters.awsAccessKeyID}
+  AWS_SECRET_ACCESS_KEY: ${secrets.awsSecretAccessKey}
 ```
 ### spec
 
@@ -70,7 +70,7 @@ Short for "specification"; this section provides context that's specific to the 
 
 ### dependsOn
 
-Indicates that this step depends on another step in the workflow. Each value must be a valid `name` attribute for another step. This key is useful if you need to set an explicit sequential order for your steps. Without `dependsOn` or implicit ordering requirements (see the [!Output type](../reference/relay-types.md#output)), Relay will run your steps in parallel to speed up execution.
+Indicates that this step depends on another step in the workflow. Each value must be a valid `name` attribute for another step. This key is useful if you need to set an explicit sequential order for your steps. Without `dependsOn` or implicit ordering requirements (see the [outputs data key](relay-expressions.md#outputs)), Relay will run your steps in parallel to speed up execution.
 
 **Type:** String or array of strings
 
@@ -141,7 +141,7 @@ Webhook triggers require a [binding](#binding) to map outputs from the trigger c
 
 A push trigger uses events that come into Relay through its API to trigger workflows. Unlike webhook triggers, push triggers do not require a container image because they are handled by the Relay service itself. If you have an external system which can generate a JSON payload but doesn't support webhooks, push triggers are a good option.
 
-To use push triggers, add its definition and `binding` to your workflow, then view it on the Relay web app to see your trigger-specific authentication token. The external system should make a POST request with an `Authorization` header containing the token to `https://api.relay.sh/api/events`. The body of the request must be a valid JSON payload in a top-level key called `data`. The workflow then uses the `!Data` function to extract keys from the map and bind them to workflow parameters.
+To use push triggers, add its definition and `binding` to your workflow, then view it on the Relay web app to see your trigger-specific authentication token. The external system should make a POST request with an `Authorization` header containing the token to `https://api.relay.sh/api/events`. The body of the request must be a valid JSON payload in a top-level key called `data`. The workflow then uses the `event` input data key in a [template expression](relay-expressions.md) to extract values from the payload and bind them to workflow parameters.
 
 For example, a workflow containing a push trigger would look like this:
 
@@ -152,16 +152,15 @@ triggers:
       type: push
     binding:
       parameters:
-        message: !Data eventmessage
+        message: ${event.messageFromPush}
 parameters:
   message:
-    description: A string to display
-    default: Default message, override me
+    description: A message to show
 steps:
   - name: display-message
     image: relaysh/core
     spec:
-      message: !Parameter message
+      message: ${parameters.message}
     input:
       - echo "My message was $(ni get {.message})"
 ```
@@ -171,15 +170,13 @@ This workflow will be triggered by an HTTP request such as this curl command:
 ```shell
 export TOKEN=... # get this from the web app
 curl -X POST -H "Authorization: Bearer $TOKEN" \
-   -d '{"data": {"eventmessage": "This is a push event"}}' \
+   -d '{"data": {"messageFromPush": "This is a push event"}}' \
    https://api.relay.sh/api/events
 ```
 
 ### binding
 
-The `binding` key of a trigger definition maps incoming data from an event to parameters in a workflow. This allows you to extract specific fields from the json payload of a webhook or push event. A `binding` has one field, `parameters`, which is a map whose keys must match the names of parameters inside the workflow. The values can use [Functions](../reference/relay-functions.md) or [Data types](../reference/relay-types.md) in order to extract and manipulate data into the form the workflow parameter expects.
-
-The `!Data` custom type is particularly helpful here, because it will be populated with the keys from an incoming `webhook` or `push` event. These key can be strings or complex data structures.
+The `binding` key of a trigger definition maps incoming data from an event to parameters in a workflow. This allows you to extract specific fields from the json payload of a webhook or push event. A `binding` has one field, `parameters`, which is a map whose keys must match the names of parameters inside the workflow. The values can use [template expressions](relay-expressions.md), and in particular the `event` data key, to extract and manipulate data from the event into the form the workflow parameter expects.
 
 ```yaml
 triggers:
@@ -189,19 +186,19 @@ triggers:
       image: relaysh/dockerhub-trigger-image-pushed
     binding:
       parameters:
-        dockerTagName: !Data tag
+        dockerTagName: ${event.tag}
 parameters:
   dockerTagName:
     default: latest
 ```
 
- Expanding on the Docker Hub example, this trigger extracts the `tag` field from the incoming webhook and maps it to the parameter `dockerTagName`, which is used in the workflow to override the default value of `latest`.
+Expanding on the Docker Hub example, this trigger extracts the `tag` field from the incoming webhook and maps it to the parameter `dockerTagName`, which is used in the workflow to override the default value of `latest`.
 
- ### when
+### when
 
- The same syntax that Relay uses to provide conditional execution of steps is also available for triggers. This uses the `when` key, whose value is an expression that must evaluate to "true" in order for the workflow to run. See the [Conditional execution](../using-workflows/conditionals.md) docs for more details on the syntax and usage.
+The same syntax that Relay uses to provide conditional execution of steps is also available for triggers. This uses the `when` key, whose value is an expression that must evaluate to "true" in order for the workflow to run. See the [Conditional execution](../using-workflows/conditionals.md) docs for more details on the syntax and usage.
 
-Similar to the `binding` map, it's handy to make decisions about execution based on the contents of the incoming event. The `!Data` custom type allows you to extract fields from webhooks and push events as a basis for comparison.
+Similar to the `binding` map, it's handy to make decisions about execution based on the contents of the incoming event. You can use the `event` data in the `when` key for a trigger.
 
 ```yaml
 triggers:
@@ -209,5 +206,5 @@ triggers:
     source:
       type: webhook
       image: relaysh/core
-    when: !Fn.equals[!Data environment, 'production']
+    when: ${event.environment == 'production'}
 ```
