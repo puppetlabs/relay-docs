@@ -4,7 +4,7 @@ While it's possible to write Relay workflows entirely using constant data, they'
 
 In certain parts of your workflow, you can use Relay's template language to access data dynamically. This includes:
 
-- [The `spec` key of a step](../using-workflows/passing-data-into-a-workflow-step.md)
+- [The `spec` key of a step](../using-workflows/passing-data-into-workflow-steps.md)
 - [The `env` key of a step](relay-workflows.md#env)
 - [The `when` keys of steps and triggers](../using-workflows/conditionals.md)
 - [The `binding` key of a trigger](../using-workflows/using-triggers.md)
