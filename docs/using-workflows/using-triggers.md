@@ -70,7 +70,44 @@ Webhooks allow an external service to generate and send messages into Relay. Con
 
 Relay will route incoming webhook requests to their associated trigger container. It's the container entrypoint's job to handles the incoming HTTP request and emit an event to the Relay service API to start the workflow itself. The ["Integrating with Relay"](../developers/integrating-with-relay.md#writing-entrypoint-code) documentation has details for writing trigger entrypoints and the [relay-github](https://github.com/relay-integrations/relay-github) integration has a great working example of a webhook trigger container.
 
-Once you've found or created a trigger container, you'll need to reference it in your workflow's `triggers` section. The `source` map should set `type: webhook` and contain an `image` field, whose value is the registry path to the container image. As with `push` triggers, the trigger definition also needs a `binding` section to map the output from entrypoint's API event onto workflow parameters.
+Once you've found or created a trigger container, you'll need to reference it in your workflow's `triggers` section. The `source` map should set `type: webhook` and contain an `image` field, whose value is the registry path to the container image. 
+
+## Passing data from trigger to workflow 
+
+Both `push` and `webhook` triggers enable you to map data from the HTTPS payload onto workflow parameters. This mapping is done in a section of the trigger configuration called `binding`. 
+
+Let's start with an example. The workflow is configured as follows:
+
+```
+parameters:
+  message: 
+    default: "hello"
+
+triggers:
+- name: generic-webhook
+  source:
+    type: webhook
+    image: relaysh/stdlib-trigger-json
+  binding:
+    parameters:
+      message: !Data message  # Parses the webhook payload for `message` and assigns to parameter
+
+steps:
+- name: echo
+  image: alpine
+  spec:
+    message: ${parameters.message} # Uses the parameter to configure the echo step 
+  input:
+  - echo "Your message was $(ni get -p {.message})."
+```
+
+Once this webhook has been called, Relay will parse the payload looking for an attribute called `message`. Relay will map that value to the parameter called `message` – which is then used in the `echo` step. 
+
+As with `webhook` triggers, the `push` trigger definition also needs a `binding` section to map the output from entrypoint's API event onto workflow parameters.
+
+If you don't need to pass data from the webhook to the workflow, omit the `binding` section of the trigger definition.
+
+### How does this data binding work? 
 
 The flow of data through the system is the trickiest part of webhooks. Walking through it end-to-end:
 
