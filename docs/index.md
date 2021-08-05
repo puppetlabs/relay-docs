@@ -1,7 +1,6 @@
 # Relay by Puppet
 
 - [Welcome to Relay](overview.md)
-- [What's new in Relay?](whats-new.md)
 - [Getting Started guide](getting-started.md)
 - [How Relay works](how-it-works.md)
 - [Using workflows](using-workflows.md)

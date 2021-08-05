@@ -139,6 +139,27 @@ Let's modify our `hello-world` workflow one last time to add a placeholder secre
 The `ni` utility can access secrets just like regular parameters, but you wouldn't generally want to echo them to the logs as in this example!
 When you click **Save changes**, you'll see a warning dialog that you're missing a required secret, and a prompt to fill it in. Follow the link in the prompt to open the **Setting** sidebar. Click the **+** icon and enter a secret value. Secrets can be deleted and re-added, but never viewed.
 
+## Adding a trigger
+
+Relay supports multiple ways to [trigger the workflow](using-workflows/using-triggers.md): 
+- Manual trigger (using the Run Workflow button)
+- Scheduled trigger (using cron syntax)
+- Webhook trigger (using one of the integration triggers)
+- Push trigger (over https)
+
+We're going to set up a Push trigger:
+- Navigate back to the GUI and click the "Add a trigger" button
+- Find and select the "Push trigger" and click "Add trigger"
+- Click on the Trigger and copy the bearer token.
+
+From your terminal, run the following command: 
+```
+export TOKEN=... # get this from the web app
+curl -X POST -H "Authorization: Bearer $TOKEN" \
+   -d '{"data": {"message": "This is a push event"}}' \
+   https://api.relay.sh/api/events
+```
+
 Congratulations! You now have a running example that exercises many of Relay's useful features:
 
 * The Relay web app shows all the workflows in your account and keeps detailed logs of their execution history.
