@@ -12,13 +12,13 @@ Because Relay steps don't normally exist in isolation, the YAML input is set up 
 # filename: test-metadata.yaml
 # map of connections, named '<type>/<name>'
 connections:
-  aws/my-aws-connection:
-    accessKeyID: AKIASAMPLEKEY
-   secretAccessKey: ...
+  aws/test:
+    accessKeyID: AKIAACCESSKEY
+    secretAccessKey: test
 
 # single string valued secrets
 secrets:
-  mySecretKey: s00pers33kr1t
+  test: test
 
 # now the data to be fed into pseudo-run 1 of this workflow
 runs:
@@ -28,14 +28,14 @@ runs:
         # the `spec` keys match what you'd see in a real workflow
         spec:
           aws: ${connections.aws.test}
-          message: My test message
-          secret: ${secrets.mySecretKey}
+          message: Test specification message
+          secret: ${secrets.test}
         # outputs can be strings or structured data
         outputs:
           instanceIDs:
           - 125252025
           - 252598675
-          outputMessage: "This came from the step!"
+          outputMessage: "Test output message"
 ```
 
 Additional steps may then reference `${outputs.'first-step'.instanceIDs}` in their `spec` section to retrieve the array of IDs.
