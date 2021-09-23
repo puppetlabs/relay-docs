@@ -18,14 +18,14 @@ parameters:
     description: The message to output from the step
 steps:
 - name: hello-world
-  image: alpine
+  image: relaysh/core
   spec:
     message: ${parameters.message}
   input:
   - echo "Hello world. Your message was $(ni get -p {.message})."
 ```
 
-This workflow starts by defining a parameter named `message`, whose value you'll need to supply before the workflow starts. Then it defines a step named `hello-world` that will run a Docker container using an Alpine Linux image.
+This workflow starts by defining a parameter named `message`, whose value you'll need to supply before the workflow starts. Then it defines a step named `hello-world` that will run a Docker container using the Relay core image.
 
 The `spec` map defines keys and values that will be available inside the step. In this case, we're using the Relay [`parameters` input data](reference/relay-expressions.md#parameters) to look up the value of the run's `message` parameter and make it available to the container.
 
@@ -85,12 +85,12 @@ parameters:
 
 steps:
 - name: generated-output
-  image: alpine
+  image: relaysh/core
   input:
   - ni output set --key dynamic --value "$(date)"
 
 - name: hello-world
-  image: alpine
+  image: relaysh/core
   spec:
     message: ${parameters.message}
     dynamic: ${outputs.'generated-output'.dynamic}
@@ -126,7 +126,7 @@ Let's modify our `hello-world` workflow one last time to add a placeholder secre
 
 ```yaml
 - name: hello-world
-  image: alpine
+  image: relaysh/core
   spec:
     message: ${parameters.message}
     dynamic: ${outputs.'generated-output'.dynamic}
