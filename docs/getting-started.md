@@ -105,7 +105,7 @@ We've added a `generated-output` step which uses the `ni` utility to set the val
 Don't forget to save your work! You've got it stored locally, but you'll need to update the version that lives on the Relay service. Relay keeps your workflows in cloud storage and always runs the latest version you've uploaded. It's a good idea to use git to keep your workflows under revision control, but for now, we can just replace the previous version with our updates using the CLI:
 
 ```
-relay workflow replace hello-world -f hello-world.yaml
+relay workflow save hello-world -f hello-world.yaml
 ```
 
 Now, run the workflow, supplying the `message` parameter using the `-p` flag. When you have a workflow that takes multiple parameters, you can use several `-p` (or `--parameter`, if you really like typing!) flags in a row.
