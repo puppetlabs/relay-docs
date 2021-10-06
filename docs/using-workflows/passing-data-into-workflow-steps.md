@@ -39,12 +39,12 @@ parameters:
 
 steps:
 - name: generated-output
-  image: alpine
+  image: relaysh/core
   input:
   - ni output set --key dynamic --value "$(date)"
 
 - name: hello-world
-  image: alpine
+  image: relaysh/core
   spec:
     message: ${parameters.message}
     dynamic: ${outputs.'generated-output'.dynamic}
