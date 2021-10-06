@@ -19,7 +19,7 @@ To add a secret to your workflow, use the `secrets` key in a template expression
 ```yaml
 steps:
 - name: use-a-secret
-  image: alpine
+  image: relaysh/core
   spec:
     credentials: ${secrets.credentials}
 ```

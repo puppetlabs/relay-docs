@@ -46,7 +46,7 @@ The container image and tag you're using for the step. Relay's default registry 
 **Type:** String
 
 ```yaml
-image: alpine:latest
+image: relaysh/core:latest
 ```
 
 ### env

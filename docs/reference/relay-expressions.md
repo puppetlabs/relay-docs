@@ -186,7 +186,7 @@ The current top-level input data is always available as the value `$`. In fact, 
 ```yaml
 steps:
 - name: everything
-  image: alpine
+  image: relaysh/core
   spec:
     data: ${$}
   input:
@@ -224,7 +224,7 @@ You can reference a [secret](../using-workflows/managing-secrets.md) stored in y
 ```yaml
 steps:
 - name: use-a-secret
-  image: alpine
+  image: relaysh/core
   spec:
     pass: ${secrets.password}
 ```
@@ -243,7 +243,7 @@ parameters:
 
 steps:
 - name: use-a-parameter
-  image: alpine
+  image: relaysh/core
   spec:
     userParam: ${parameters.myParameter}
 ```
@@ -257,12 +257,12 @@ You can reference [outputs](../using-workflows/passing-data-into-workflow-steps.
 ```yaml
 steps:
 - name: make-output
-  image: alpine
+  image: relaysh/core
   input:
   - ni output set --key random --value "$(dd if=/dev/urandom bs=1 | head -c30 | base64)"
 
 - name: use-output
-  image: alpine
+  image: relaysh/core
   spec:
     stuff: ${outputs.'make-output'.random}
 ```

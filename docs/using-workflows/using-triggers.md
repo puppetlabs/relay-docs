@@ -94,7 +94,7 @@ triggers:
 
 steps:
 - name: echo
-  image: alpine
+  image: relaysh/core
   spec:
     message: ${parameters.message} # Uses the parameter to configure the echo step 
   input:

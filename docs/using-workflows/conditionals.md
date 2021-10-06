@@ -9,7 +9,7 @@ Note that there is no type coercion applied to `when` values. If the content can
 ```yaml
 steps:
 - name: example
-  image: alpine
+  image: relaysh/core
   when: ${parameters.env == 'development'}
 ```
 
@@ -37,7 +37,7 @@ parameters:
 
 steps:
 - name: deploy-monitoring
-  image: alpine:latest
+  image: relaysh/core:latest
   input:
   - echo "Deploying monitoring to system"
   when: ${parameters.env != 'development'}

@@ -7,7 +7,7 @@ For example, you could use the `append` and `jsonUnmarshal` functions to create 
 ```yaml
 steps:
 - name: process-safe-ips
-  image: alpine
+  image: relaysh/core
   spec:
     ips: ${append(jsonUnmarshal(secrets.ips), '127.0.0.1', '192.168.0.1')}
 ```
