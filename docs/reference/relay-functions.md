@@ -32,7 +32,6 @@ description: !Fn.convertMarkdown [jira, !Parameter markdown]
 Currently supported specifications:
 
 * [`jira`](https://jira.atlassian.com/secure/WikiRendererHelpAction.jspa?section=all)
-* [`slack`](https://api.slack.com/reference/surfaces/formatting)
 * `html`
 
 ## jsonUnmarshal
