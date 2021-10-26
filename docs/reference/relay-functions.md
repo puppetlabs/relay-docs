@@ -50,7 +50,6 @@ The `convertMarkdown` function converts [Markdown](https://daringfireball.net/pr
 Supported languages for the `to` argument:
 
 * [`jira`](https://jira.atlassian.com/secure/WikiRendererHelpAction.jspa?section=all)
-* [`slack`](https://api.slack.com/reference/surfaces/formatting)
 * `html`
 
 Examples:
