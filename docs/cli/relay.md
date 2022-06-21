@@ -1,6 +1,6 @@
 ## relay
 
-Relay by Puppet
+Puppet Relay
 
 ### Synopsis
 

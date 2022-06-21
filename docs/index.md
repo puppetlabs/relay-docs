@@ -1,4 +1,4 @@
-# Relay by Puppet
+# Puppet Relay
 
 - [Welcome to Relay](overview.md)
 - [Getting Started guide](getting-started.md)
