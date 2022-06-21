@@ -1,4 +1,4 @@
-# Welcome to Relay by Puppet
+# Welcome to Puppet Relay
 
 Relay helps you automate your applications and infrastructure using simple workflows.
 
@@ -15,12 +15,12 @@ To start authoring your own Relay workflows, follow these steps:
 
 If you're looking for reference material on workflows and steps, we've got you covered:
 
-* [Relay workflows](reference/relay-workflows.md)
-* [Relay template expressions](reference/relay-expressions.md)
-* [Relay template functions](reference/relay-functions.md)
-* For developers, information on building new [steps](developers/step-authoring.md) and [integrations](developers/integrating-with-relay.md)
+- [Relay workflows](reference/relay-workflows.md)
+- [Relay template expressions](reference/relay-expressions.md)
+- [Relay template functions](reference/relay-functions.md)
+- For developers, information on building new [steps](developers/step-authoring.md) and [integrations](developers/integrating-with-relay.md)
 
 If you get stuck or need help, we're here for you. You can:
 
-* Log on to the [Puppet Community Slack instance](https://slack.puppet.com) and join the developers and community in #relay
-* File a Github issue in the [@puppetlabs/relay](https://github.com/puppetlabs/relay/issues/new/choose) repository.
+- Log on to the [Puppet Community Slack instance](https://slack.puppet.com) and join the developers and community in #relay
+- File a Github issue in the [@puppetlabs/relay](https://github.com/puppetlabs/relay/issues/new/choose) repository.
